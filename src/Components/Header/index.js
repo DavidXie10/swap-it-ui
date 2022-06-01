@@ -5,7 +5,6 @@ import {AiOutlineMenu, AiOutlineCloseCircle} from "react-icons/ai"
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 import UserMenu from '../UserMenu';
-import './index.css'
 
 export default function Header() {
     const [showUserMenu, setShowUserMenu] = useState(false);
@@ -23,60 +22,60 @@ export default function Header() {
                 <section className="flex lg:hidden md:hidden">
                     <AiOutlineMenu onClick={() => setIsNavOpen((prev) => !prev)} className="h-8 w-8 cursor-pointer space-y-2 text-white hover:text-[#51e5ff] "/>
 
-                    <div className={isNavOpen ? "showMenuNav bg-[#2E2F2F]" : "hideMenuNav" }>
+                    <div className={isNavOpen ? "bg-[#2E2F2F] absolute w-full h-[100vh] top-0 left-0 z-10 flex flex-col justify-evenly items-center" : "hidden"}>
                     <div
                         className="absolute top-0 right-0 px-8 py-8"
                         onClick={() => setIsNavOpen(false)}
                     >
                         <AiOutlineCloseCircle className="h-8 w-8 cursor-pointer hover:text-red-600 text-white"/>
                     </div>
-                    <div className="flex flex-col items-center justify-between min-h-[250px]">
-                        <li className='flex gap-2 items-center justify-center'>
+                    <div className="flex flex-col items-center justify-between min-h-[250px] w-full">
+                        <div className='flex gap-2 items-center justify-center w-full border-y border-t-2 border-white py-5'>
                             <h1 className='cursor-pointer text-white hover:text-[#51e5ff] hover:font-bold'>
                                 <Link to='/catalog'>CATÁLOGO</Link>
                             </h1>                    
-                        </li>
-                        <li className='flex gap-2 items-center justify-end'>
+                        </div>
+                        <div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
                             <h1 className='cursor-pointer text-white hover:text-[#51e5ff] hover:font-bold'>
                                 <Link to='/my-products'>MIS ARTÍCULOS</Link>
                             </h1>
-                        </li>
-                        <li className='flex gap-2 items-center justify-end'>
+                        </div>
+                        <div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
                             <h1 className='cursor-pointer text-white hover:text-[#51e5ff] hover:font-bold'>
                                 <Link to='/profile'>MI PERFIL</Link>
                             </h1>
-                        </li>
-                        <li className='flex gap-2 items-center justify-end'>
+                        </div>
+                        <div className='flex gap-2 items-center justify-center border-y border-b-2 w-full border-white py-5'>
                             <h1 className='cursor-pointer text-white hover:text-[#51e5ff] hover:font-bold'>
                                 <Link to='/logout'>CERRAR SESIÓN</Link>
                             </h1>
-                        </li>
+                        </div>
                     </div>
                     </div>
                 </section>
 
-                <ul className="hidden space-x-8 lg:flex md:flex w-full">
-                    <li className='flex gap-2 items-center justify-center w-1/3'>
-                        <h1 className='text-white cursor-pointer'>
+                <div className="hidden space-x-8 lg:flex md:flex w-full">
+                    <div className='flex gap-2 items-center justify-center w-1/3 '>
+                        <h1 className='text-white cursor-pointer hover:text-[#51e5ff] hover:font-bold'>
                             <Link to='/catalog'>CATÁLOGO</Link>
                         </h1>                    
-                    </li>
-                    <li className='flex gap-2 items-center justify-end w-1/3'>
-                        <h1 className='text-white cursor-pointer'>
+                    </div>
+                    <div className='flex gap-2 items-center justify-end w-1/3'>
+                        <h1 className='text-white cursor-pointer hover:text-[#51e5ff] hover:font-bold'>
                             <Link to='/my-products'>MIS ARTÍCULOS</Link>
                         </h1>
-                    </li>
-                    <li className='flex gap-2 items-center justify-end w-1/3'>
+                    </div>
+                    <div className='flex gap-2 items-center justify-end w-1/3'>
                         <p className='text-white'>Sol{/*userState.user.name*/}</p>
-                            <MdPermIdentity onClick={() => { setShowUserMenu(true); }} className='h-8 w-8 cursor-pointer text-white' />
+                            <MdPermIdentity onClick={() => { setShowUserMenu(true); }} className='h-8 w-8 cursor-pointer text-white hover:text-[#51e5ff] hover:font-bold' />
                             {showUserMenu && (
                                 <div>
                                     <div onClick={() => { setShowUserMenu(false); }} className='fixed top-0 left-0 h-full w-full cursor-pointer'></div>
                                     <UserMenu /> 
                                 </div>
                             )}
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </nav>
         </div>  
     );
