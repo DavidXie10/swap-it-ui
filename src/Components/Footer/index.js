@@ -5,12 +5,12 @@ export default function Footer({height}) {
     return (
         <div className={`w-full bg-[#2E2F2F] `}>
             <div className={`flex sm:px-6 md:px-8 lg:px-16  items-center py-16`}>
-                <div className="w-1/3 flex" >
+                <div className="w-1/3 flex md:w-2/3 sm:w-2/3" >
                     <Link to='/catalog'>
                         <Logo height='h-15'/>
                     </Link>                
                 </div>
-                <div className="w-1/3"></div>
+                <div className="w-1/3 sm:hidden"></div>
                 <div className="w-1/3"></div>
 
                 <div className="flex flex-col justify-center ">   
