@@ -1,7 +1,7 @@
 export default function Button ({
-    backgroundcolor, buttonText
+    backgroundcolor, textcolor, width, height, buttonText
 }) {
     return (
-        <button className="bg-{backgroundcolor}"> {buttonText} </button>
+        <button className={`bg-[${backgroundcolor}] text-${textcolor} ${width || 'w-8'} ${height || 'h-8'}`}> {buttonText} </button>
     )
 }
