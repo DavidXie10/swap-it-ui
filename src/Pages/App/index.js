@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Showcase from "../../Components/Showcase"
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                {/*<Route path="login" element={<Login />} />*/}
-                {/*<Route path="/" element={<Home />} />*/}
+                <Route path="/" element={<Showcase />} />
             </Routes>
-        </BrowserRouter>  
+        </BrowserRouter>
     );
 }
