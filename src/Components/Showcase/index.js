@@ -1,6 +1,6 @@
 import Button from "../Button";
 
-export default function Showcase() {
+export default function index() {
     return (
         <Button buttonText={"Login"}></Button>
     )
