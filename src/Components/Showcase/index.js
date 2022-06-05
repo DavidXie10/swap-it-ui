@@ -1,10 +1,11 @@
-import Label from "../Label";
+import DragAndDrop from "../DragAndDrop";
+//import Label from "../DragAndDrop";
 //51E5FF
 //2E2F2F
 export default function index() {
     return (
         <>
-            <Label backgroundcolor={'bg-white'} textcolor={'text-black'} width={'w-20'} height={'h-20'} text={'Catálogo'} size={'text-lg'} ></Label>
+            <DragAndDrop></DragAndDrop>
         </>
     )
 }
