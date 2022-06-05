@@ -1,3 +1,4 @@
+import CheckBox from "../CheckBoxExample";
 import DragAndDrop from "../DragAndDrop";
 //import Label from "../DragAndDrop";
 //51E5FF
@@ -5,7 +6,8 @@ import DragAndDrop from "../DragAndDrop";
 export default function index() {
     return (
         <>
-            <DragAndDrop></DragAndDrop>
+            <CheckBox></CheckBox>
         </>
     )
 }
+
