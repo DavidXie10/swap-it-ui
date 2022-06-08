@@ -1,9 +1,9 @@
-import Checkbox from "../Checkbox";
+import DragAndDrop from "../DragAndDrop";
 
 export default function index() {
     return (
         <>
-            <Checkbox id='Hello' name='Hello'></Checkbox>
+            <DragAndDrop></DragAndDrop>
         </>
     )
 }
