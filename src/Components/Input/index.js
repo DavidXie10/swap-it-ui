@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { RiEyeLine, RiEyeCloseLine } from 'react-icons/ri'
 
 export default function Input({
-    id, placeholder, type, value, passwordState, width, height, eyeTopPosition
+    id, placeholder, type, value, passwordState, width, height, eyeTopPosition, onChange
 }) {
     const [showPassword, setShowPassword] = useState(passwordState || false);
     const toggleSetPassword = () => {
@@ -17,6 +17,7 @@ export default function Input({
                 defaultValue={value}
                 placeholder={placeholder} 
                 className={`${width || "w-full"} ${height || "h-10"} px-4 mb-5 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}
+                onChange={onChange}
             />
             {type === 'password' && (
                 <div className={`cursor-pointer absolute w-12 h-12 ${eyeTopPosition || 'top-2'} -right-4`}>
