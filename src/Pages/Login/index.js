@@ -12,7 +12,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [localErrorMessage, setLocalErrorMessage] = useState('');
     
-    const isLoggedIn = false;
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
     const errorMessage = useSelector((state) => state.user.errorMessage);
 
     const dispatch = useDispatch();
