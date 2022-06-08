@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const postLogin = createAsyncThunk('users/postLogin', async(credentials) => {
-    const loginFetch = await fetch('http://localhost:3001/users/login', {
+    /*const loginFetch = await fetch('http://localhost:3001/users/login', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -10,16 +10,34 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
             email: credentials.username,
             password: credentials.password,
         }),
-    });
+    });*/
 
-    const userData = await loginFetch.json();
+    // const userData = await loginFetch.json();
+    let loginFetch = {};
+    let userData = {};
+    const testUser = {
+        username: 'David',
+        password: '1234'
+    }
+    if(testUser.username === credentials.username && testUser.password === credentials.password){
+        loginFetch = {
+            status: 200,
+        }
+        userData = {
+            username: 'David',
+            password: '1234',
+            email: 'davidxieli@gmail.com'
+        }
+    }else{
+        loginFetch.status = 400;
+    }
 
     if (loginFetch.status === 200){
         return userData;
     }else{
         return {
             error: true,
-            message: userData.error.message,
+            message: "Un grave error de prueba",
         }
     }
 })
