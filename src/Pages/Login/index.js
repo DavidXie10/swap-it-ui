@@ -17,8 +17,9 @@ export default function Login() {
 
     const dispatch = useDispatch();
 
+    // TODO: Change showcase route
     return isLoggedIn ? (
-        <Navigate to='/'/>
+        <Navigate to='/showcase'/>
     ) : (
   <div className={`pt-[20vh] ${containerClases} bg-[#2e2f2f] h-screen w-screen`}>
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[10vh] lg:mb-2 md:mb-4 sm:mb-7`}>
