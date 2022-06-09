@@ -7,15 +7,17 @@ import Logo from '../Logo';
 import UserMenu from '../UserMenu';
 import CloseButton from '../CloseButton';
 import {menuOptionClasses} from '../../utils/constants'
+import { useSelector } from 'react-redux';
 
 export default function Header() {
     const [showUserMenu, setShowUserMenu] = useState(false);
-    //const userState = useSelector(
-    //    (state) => state.user
-    //);
     const [isNavOpen, setIsNavOpen] = useState(false);
 
-    return (
+    const userState = useSelector(
+        (state) => state.user
+    );
+
+    return userState.isLoggedIn ? (
         <div className="flex items-center justify-between  h-16 w-full bg-[#2E2F2F] sm:px-6 md:px-8 lg:px-16">
             <Link to='/catalog' className='w-1/4'>
                 <Logo height='h-12'/>
@@ -68,7 +70,7 @@ export default function Header() {
                         </h1>
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
-                        <p className='text-white'>Sol{/*userState.user.name*/}</p>
+                        <p className='text-white'>{userState.user.name}</p>
                             <MdPermIdentity onClick={() => { setShowUserMenu(true); }} className={`h-8 w-8 ${menuOptionClasses}`}/>
                             {showUserMenu && (
                                 <div>
@@ -80,5 +82,7 @@ export default function Header() {
                 </div>
             </nav>
         </div>  
-    );
+        ) : (
+            <div></div>
+        );
 }
