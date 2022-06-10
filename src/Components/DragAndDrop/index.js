@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
-import { saveAs } from 'file-saver';
+import {Buffer} from 'buffer';
 
-const fileTypes = ["JPEG", "PNG", "GIF", "JPG"];
+const fileTypes = ["JPEG", "PNG", "JPG"];
 
 export default function DragAndDrop() {
     const [fileList, setFileList] = useState({
         length: 0
     });
+    
     const [fileId, setFileId] = useState(0);
+    const [image, setImage] = useState('');
 
     const handleChange = (inputFiles) => {
         let updateFileList = {
@@ -37,42 +39,55 @@ export default function DragAndDrop() {
         return filenames;
     }
 
-    // On file upload (click the upload button)
     const onFileUpload = () => {
-    
-        // Create an object of formData
         const formData = new FormData();
       
-        // Update the formData object
         for(let counter = 0; counter < fileList.length; ++counter){
-            formData.append(
-                "myFile",
-                fileList[counter],
-                fileList[counter].name
-            )
-            saveAs(fileList[counter]);
+            formData.append('file', fileList[counter], fileList[counter].name)
         }
 
-        //console.log(formData);
+        console.log(formData);
+        console.log(typeof(formData));
 
-        // Details of the uploaded file
-        //console.log(this.state.selectedFile);
-      
-        // Request made to the backend api
-        // Send formData object
-        //axios.post("api/uploadfile", formData);
-      };
+        formData.forEach(value => {
+            console.log(value);
+        });
+
+        axios.post("http://localhost:8000/upload", formData, {})
+            .then(res => { 
+                console.log(res.statusText)
+            })            
+    };
+
+    const renderImage = () => {
+        axios.get('http://localhost:8000/upload', { responseType: "json"})
+        .then((response) => {
+            console.log(response);
+            let base64ImageString = Buffer.from(response.data[0], 'binary').toString('base64');
+            setImage(base64ImageString);
+        });
+    }
 
     return (
         <>
-            <FileUploader
-                multiple={true}
-                handleChange={handleChange}
-                name="abc"
-                types={fileTypes}
-            />
-            { <p>{fileList.length > 0 ? `Uploaded file names: ${getFiles()}` : "no files uploaded yet"}</p>}
-            <button onClick={onFileUpload}> Upload! </button>
+            <div className="ml-8 mt-8">
+                <FileUploader
+                    multiple={true}
+                    handleChange={handleChange}
+                    types={fileTypes}
+                />
+                { <p>{fileList.length > 0 ? `Uploaded file names: ${getFiles()}` : "no files uploaded yet"}</p>}
+                {/*
+
+                <button onClick={onFileUpload} className={`bg-green-400 block`}  > Upload! </button><br />
+
+                <button onClick={renderImage} className={`bg-blue-100  b-`}  > Show Image </button>
+                */}
+
+                {/*fileList && fileList[0] && <img src={URL.createObjectURL(fileList[0])} alt="test" width={'70px'} height={'70px'}/>*/} 
+
+                {/*<img src={`data:image/png;base64,${image}`} alt='articulo'/>*/}
+            </div>
         </>
     );
 }
