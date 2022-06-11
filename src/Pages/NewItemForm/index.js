@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 import Label from '../../Components/Label'
 import Input from '../../Components/Input'
 import Button from '../../Components/Button'
 import DragAndDrop from '../../Components/DragAndDrop'
+import CloseButton from '../../Components/CloseButton'
 
 export default function NewArticleForm() {
     const [item, setItem] = useState({
@@ -40,6 +41,19 @@ export default function NewArticleForm() {
         setFileList(updateFileList);
     };
 
+    const removeFile = (file) => {
+        let updateFileList = {
+            ...fileList
+        };
+        for(let next = file + 1; next < updateFileList.length; ++next){
+            updateFileList[file] = updateFileList[next];
+        }
+
+        updateFileList.length -= 1;
+
+        setFileList(updateFileList);
+    }
+
     const handleChange = (key, value) => {
         console.log(value);
         console.log(typeof(value));
@@ -63,8 +77,16 @@ export default function NewArticleForm() {
 
     const showUploadedImages = () => {
         let images = [];
+
         for(let file = 0; file < fileList.length; ++file){
-            images.push(<img src={URL.createObjectURL(fileList[file])} alt="test" width={'70px'} height={'70px'}/>);
+            images.push(
+                <div className='mr-3 mt-2 w-fit relative inline-block' key={file}> 
+                    <img src={URL.createObjectURL(fileList[file])} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>
+                    <div className="absolute top-0 right-0" onClick={() => {removeFile(file)}} >
+                        <CloseButton width="w-8" height="h-8" textColor={'text-[#51e5ff]'}/> 
+                    </div>
+                </div>
+            );
         }
         return images;
     }
@@ -72,7 +94,7 @@ export default function NewArticleForm() {
     return (
         <>
             <Header />
-            <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-8'>
+            <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 {
                     
                 }
@@ -138,13 +160,11 @@ export default function NewArticleForm() {
                     {fileList.length > 0 && <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         {showUploadedImages()}
                     </div>}
-                    <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end'>
+                    <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end mt-4'>
                         <Button label='Agregar' textcolor='text-white' width='w-56' height='h-12' />
                     </div>
                 </div>  
-
             </div>
-
             <Footer />
         </>
     )
