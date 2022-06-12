@@ -6,7 +6,6 @@ const FILE_TYPES = ["JPEG", "PNG", "JPG"];
 export default function DragAndDrop({handleChange, fileList}) {
     useEffect(() => {
         let label = document.getElementsByClassName('sc-bczRLJ')[0];
-        console.log(label);
         label.setAttribute('style', 'max-width:100%; height:8rem');
     }, []);
 
@@ -16,12 +15,8 @@ export default function DragAndDrop({handleChange, fileList}) {
                 multiple={true}
                 handleChange={handleChange}
                 types={FILE_TYPES}
+                label={'Arrastre y suelte las imágenes aquí para subirlos'}
             />
-            { 
-                <p className='text-[#2e2f2f] font-bold pt-4'> 
-                    { fileList.length > 0 ? `Archivos cargados:` : 'Aún no se han subido archivos'}
-                </p> 
-            }
         </div>
     );
 }
