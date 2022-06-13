@@ -3,7 +3,7 @@ import Logo from "../Logo"
 
 export default function Footer({height}) {
     return (
-        <div className={`w-full bg-[#2E2F2F] `}>
+        <div className={`w-full bg-[#2E2F2F] ${height || ''}`}>
             <div className={`flex sm:px-6 md:px-8 lg:px-16  items-center py-16`}>
                 <div className="lg:w-1/3 flex md:w-2/3 sm:w-1/2" >
                     <Link to='/catalog'>

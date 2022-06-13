@@ -9,7 +9,7 @@ import {menuOptionClasses} from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux';	
 import { logout } from '../../Slices/user/userSlice';	
 
-export default function Header() {
+export default function Header({height}) {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -20,7 +20,7 @@ export default function Header() {
     const dispatch = useDispatch();	
 
     return (
-        <div className="flex items-center justify-between  h-16 w-full bg-[#2E2F2F] sm:px-6 md:px-8 lg:px-16">
+        <div className={`flex items-center justify-between ${height || 'h-16'} w-full bg-[#2E2F2F] sm:px-6 md:px-8 lg:px-16`}>
             <Link to='/catalog' className='w-1/4'>
                 <Logo height='h-12' width='w-34' />
             </Link>
