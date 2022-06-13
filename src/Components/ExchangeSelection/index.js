@@ -9,7 +9,7 @@ export default function Showcase({
     return (
         <ol>
             <CheckboxGroup onChange={setOnChange} defaultChecked>
-                { fileList }
+                { fileList || "" }
             </CheckboxGroup>
             {/* <button onClick={() => setShowOnChange(!showOnChange)}>
                 {!showOnChange ? "Show" : "Hide"} values
