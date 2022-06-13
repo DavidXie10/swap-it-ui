@@ -150,7 +150,6 @@ export default function NewArticleForm() {
         return validateInputs();
     }
 
-
     const success = useSelector(
         (state) => state.item.success
     );
@@ -160,7 +159,6 @@ export default function NewArticleForm() {
     return (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
-            {console.log(success)}
             {success ? (
                 <>
                     <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16'>
@@ -219,9 +217,9 @@ export default function NewArticleForm() {
                             <div className='flex w-full'>
                                 <select 
                                     className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' 
-                                    onChange={(evt) => handleChange('itemState', evt.target.value)}
+                                    onChange={(evt) => handleChange('itemState', parseInt(evt.target.value))}
                                 >
-                                    <option disabled className='w-full' label='Estado' value={-1}></option>
+                                    <option disabled selected className='w-full' label='Seleccione un estado' value={-1}></option>
                                     <option className='w-full' label='Nuevo' value={1}></option>
                                     <option className='w-full' label='Usado' value={2}></option>
                                 </select>
@@ -235,9 +233,9 @@ export default function NewArticleForm() {
                         <div className='lg:flex md:flex w-full sm:flex-wrap mb-4'>
                             <select
                                 className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' 
-                                onChange={(evt) => handleChange('category', evt.target.value)}
+                                onChange={(evt) => handleChange('category', parseInt(evt.target.value))}
                             >
-                                <option disabled className='w-full' label='Categoría' value={-1}></option>
+                                <option disabled selected className='w-full' label='Seleccione una categoría' value={-1}></option>
                                 <option className='w-full' label='Deportes' value={1}></option>
                                 <option className='w-full' label='Electrónica' value={2}></option>
                                 <option className='w-full' label='Hogar' value={3}></option>
@@ -279,11 +277,12 @@ export default function NewArticleForm() {
                         {showUploadedImages()}
                     </div>}
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end mt-4'>
-                        <Button label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
+
+                        <Button type={'button'} label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
                             if(isValidForm()){
                                 console.log('Todo bien');
                             }else{
-                                console.log('Todo mal');
+                                dispatch(toggleSuccess());
                             }
                         }} />
                     </div>
