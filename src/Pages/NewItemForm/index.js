@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 import Label from '../../Components/Label'
@@ -6,13 +6,16 @@ import Input from '../../Components/Input'
 import Button from '../../Components/Button'
 import DragAndDrop from '../../Components/DragAndDrop'
 import CloseButton from '../../Components/CloseButton'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleSuccess } from '../../Slices/item/itemSlice'
+import { Link } from 'react-router-dom'
 
 export default function NewArticleForm() {
     const [item, setItem] = useState({
         name: '',
         location: '',
         desiredSwapItems: '',
-        acquisitionDate: -1,
+        acquisitionDate: '',
         itemState: -1,
         category: -1,
         photosUrl: [],
@@ -23,15 +26,13 @@ export default function NewArticleForm() {
     });
     
     const [fileId, setFileId] = useState(0);
-
     const [fileErrorMessage, setFileErrorMessage] = useState('');
-    const [nameErrorMessage, setNameErrorMessage] = useState('Debe ingresar campo');
+    const [nameErrorMessage, setNameErrorMessage] = useState('');
     const [acquisitionDateErrorMessage, setAcquisitionDateErrorMessage] = useState('');
     const [itemStateErrorMessage, setItemStateErrorMessage] = useState('');
     const [locationErrorMessage, setLocationErrorMessage] = useState('');
     const [categoryErrorMessage, setCategoryErrorMessage] = useState('');
     const [swapItemsErrorMessage, setSwapItemsErrorMessage] = useState('');
-
 
     const handleUploadedFile = (inputFiles) => {
         if (inputFiles.length + fileList.length <= 3){
@@ -59,12 +60,12 @@ export default function NewArticleForm() {
         let updateFileList = {
             ...fileList
         };
+        
         for(let next = file + 1; next < updateFileList.length; ++next){
             updateFileList[file] = updateFileList[next];
         }
 
         updateFileList.length -= 1;
-
         setFileList(updateFileList);
     }
 
@@ -106,26 +107,80 @@ export default function NewArticleForm() {
     }
 
     const validateInputs = () => {
-        let articleName = document.getElementById('articleName').value.trim();
-        let acquisitionDate = document.getElementById('acquisitionDate').value;
-        let location = document.getElementById('location').value.trim();
-        let swapItems = document.getElementById('swapItems').value.trim();
+        return item.name.trim() === '' || item.acquisitionDate.trim() === '' || item.location.trim() === '' || item.desiredSwapItems.trim() === '' || item.itemState === -1 || item.category === -1 || fileList.length === 0;
+    }
 
-        if(articleName === ''){
-            setNameErrorMessage('Debe ingresar el nombre del artículo')
+    const isValidForm = () => {
+        if(item.name.trim() === ''){
+            setNameErrorMessage('Por favor ingrese el nombre del artículo');
         }else{
             setNameErrorMessage('');
         }
-        if(acquisitionDate === ''){
-            setAcquisitionDateErrorMessage('Debe ingresar el la fecha de adquisición')
+        if(item.acquisitionDate.trim() === ''){
+            setAcquisitionDateErrorMessage('Por favor ingrese la fecha de adquisición');
         }else{
-            setAcquisitionDateErrorMessage('')
+            setAcquisitionDateErrorMessage('');
         }
+        if(item.location.trim() === ''){
+            setLocationErrorMessage('Por favor ingrese la ubicación');
+        }else{
+            setLocationErrorMessage('');
+        }
+        if(item.desiredSwapItems.trim() === ''){
+            setSwapItemsErrorMessage('Por favor ingrese los artículos por los que quiere intercambiar');
+        }else{
+            setSwapItemsErrorMessage('');
+        }
+        if(item.itemState === -1){
+            setItemStateErrorMessage('Por favor seleccione el estado del artículo');
+        }else{
+            setItemStateErrorMessage('');
+        }
+        if(item.category === -1){
+            setCategoryErrorMessage('Por favor seleccione una categoría');
+        }else{
+            setCategoryErrorMessage('');
+        }
+        if(fileList.length === 0){
+            setFileErrorMessage('Por favor suba al menos una imagen');
+        }else{
+            setFileErrorMessage('');
+        }
+
+        return validateInputs();
     }
 
+
+    const success = useSelector(
+        (state) => state.item.success
+    );
+
+    const dispatch = useDispatch();
+
     return (
-        <>
+        <div className='flex min-h-screen flex-col justify-between'>
             <Header />
+            {console.log(success)}
+            {success ? (
+                <>
+                    <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16'>
+                        <div className="sm:px-6 md:px-8 lg:px-16 flex p-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                            <svg className="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
+                            <div>
+                                <span className="font-medium">Artículo creado exitosamente.</span> 
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div className='sm:px-6 md:px-8 lg:px-16 flex p-4'>
+                        <button className={`flex bg-[#51e5ff] text-white w-80 h-12 rounded-md font-bold text-lg`}> 
+                            <Link to='/catalog' className='flex w-full h-full flex-col justify-center'>
+                                Regresar al catálogo
+                            </Link>
+                        </button>
+                    </div>
+                </>
+        ) : (
             <form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 <div className='flex w-full'>
                     <Label text='Agregar un artículo' width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
@@ -224,11 +279,23 @@ export default function NewArticleForm() {
                         {showUploadedImages()}
                     </div>}
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end mt-4'>
-                        <Button label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={validateInputs} />
+                        <Button label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
+                            if(isValidForm()){
+                                console.log('Todo bien');
+                            }else{
+                                console.log('Todo mal');
+                            }
+                        }} />
                     </div>
                 </div>  
             </form>
+            )}
+            <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16'>
+                <Button label='Toggle Success' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
+                    dispatch(toggleSuccess());
+                }} />
+            </div>
             <Footer />
-        </>
+        </div>
     )
 }
