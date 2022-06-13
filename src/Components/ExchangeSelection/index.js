@@ -1,25 +1,25 @@
-//import Label from "../DragAndDrop";
-//51E5FF
-
 import ImageCheckbox from "../ImageCheckbox";
-import CheckBoxExample from "../CheckBoxExample";
-import { FileUploader } from "react-drag-drop-files";
 import { useState } from "react";
-
-const fileTypes = ["JPEG", "PNG", "GIF"];
+import { Checkbox, CheckboxGroup } from "@createnl/grouped-checkboxes";
 
 export default function Showcase({
     fileList
 }) {
-    const [file, setFile] = useState(null);
-    const handleChange = (file) => {
-        setFile(file);
-    };
+    const [onChange, setOnChange] = useState({});
+    const [showOnChange, setShowOnChange] = useState(false);
     return (
-        <>
-            <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
-            {file ? <ImageCheckbox file={file[0]}></ImageCheckbox> : "no file image yet"}
-        </>
+        <ol>
+            <CheckboxGroup onChange={setOnChange} defaultChecked>
+                { fileList }
+            </CheckboxGroup>
+            <button onClick={() => setShowOnChange(!showOnChange)}>
+                {!showOnChange ? "Show" : "Hide"} values
+            </button>
+            {showOnChange && (
+                <li>
+                <pre>{JSON.stringify(onChange, null, 2)}</pre>
+                </li>
+            )}
+        </ol>
     )
 }
-
