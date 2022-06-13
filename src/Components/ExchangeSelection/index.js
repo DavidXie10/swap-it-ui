@@ -1,6 +1,5 @@
-import ImageCheckbox from "../ImageCheckbox";
 import { useState } from "react";
-import { Checkbox, CheckboxGroup } from "@createnl/grouped-checkboxes";
+import { CheckboxGroup } from "@createnl/grouped-checkboxes";
 
 export default function Showcase({
     fileList
