@@ -11,14 +11,14 @@ export default function Showcase({
             <CheckboxGroup onChange={setOnChange} defaultChecked>
                 { fileList }
             </CheckboxGroup>
-            <button onClick={() => setShowOnChange(!showOnChange)}>
+            {/* <button onClick={() => setShowOnChange(!showOnChange)}>
                 {!showOnChange ? "Show" : "Hide"} values
             </button>
             {showOnChange && (
                 <li>
                 <pre>{JSON.stringify(onChange, null, 2)}</pre>
                 </li>
-            )}
+            )} */}
         </ol>
     )
 }
