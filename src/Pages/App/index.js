@@ -7,7 +7,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Login />}/> 
+                <Route path="/" element={<Showcase />}/> 
                 <Route element={<PrivateRoute />}>
                     <Route path="/showcase" element={<Showcase />}/> 
                 </Route>
