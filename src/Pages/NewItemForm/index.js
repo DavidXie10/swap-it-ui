@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 import Label from '../../Components/Label'
@@ -36,9 +36,8 @@ export default function NewItemForm() {
     const [wishlistErrorMessage, setWishlistErrorMessage] = useState('');
     const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
 
-
     const handleUploadedFile = (inputFiles) => {
-        if (inputFiles.length + fileList.length <= 3){
+        if (inputFiles.length + fileList.length <= 5){
             let updateFileList = {
                 ...fileList
             };
@@ -55,7 +54,7 @@ export default function NewItemForm() {
             setFileId(fileId + 1);
             setFileList(updateFileList);
         }else{
-            setFileErrorMessage('Solo puede subir un máximo de 3 imágenes');
+            setFileErrorMessage('Solo puede subir un máximo de 5 imágenes por artículo.');
         }
     };
 
@@ -169,6 +168,14 @@ export default function NewItemForm() {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        console.log('Hola');
+        document.getElementById('name').value = 'Cargado';
+        document.getElementById('acquisitionDate').value = '2022-02-06';
+        document.getElementById('location').value = 2;
+
+    }, []);
+
     return (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
@@ -246,10 +253,11 @@ export default function NewItemForm() {
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex w-full sm:flex-wrap mb-4'>
                             <select
+                                value={item.category}
                                 className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' 
                                 onChange={(evt) => handleChange('category', parseInt(evt.target.value))}
                             >
-                                <option disabled selected className='w-full' label='Seleccione una categoría' value={-1}></option>
+                                <option disabled className='w-full' label='Seleccione una categoría' value={-1}></option>
                                 <option className='w-full' label='Deportes' value={1}></option>
                                 <option className='w-full' label='Electrónica' value={2}></option>
                                 <option className='w-full' label='Hogar' value={3}></option>
