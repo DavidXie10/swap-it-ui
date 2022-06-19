@@ -4,9 +4,10 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}) 
     const formData = new FormData();
     
     for(let counter = 0; counter < fileList.fileIdCount; ++counter){
-        formData.append('file', fileList[counter])
+        formData.append('file', fileList[counter]);
     }
-
+    
+/*
     const uploadFetch = await fetch('http://localhost:8000/uploads', {
         method: 'POST',
         body: formData,
@@ -24,6 +25,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}) 
     });
 
     const itemData = await itemFetch.json();
+    
     if (itemFetch.status === 200) {
         return itemData;
     } else {
@@ -32,4 +34,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}) 
             message: itemData.error.message,
         }
     }
+    */
+    console.log(item);
+    return item;
 });

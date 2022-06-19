@@ -1,9 +1,9 @@
-import Header from '../Header/index'
+import ItemForm from '../../Pages/ItemForm'
 
 export default function index() {
     return (
         <>
-            <Header />
+            <ItemForm />
         </>
     )
 }

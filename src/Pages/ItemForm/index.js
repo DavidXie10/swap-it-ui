@@ -113,7 +113,7 @@ export default function ItemForm() {
             setFileList(updateFileList);
         }else{
             let updatedPhotosUrl = [...item.photosUrl];
-            setDeletedImages([deletedImages, updatedPhotosUrl[file]]);
+            setDeletedImages([...deletedImages, updatedPhotosUrl[file]]);
             updatedPhotosUrl[file] = '';
             setItem({
                 ...item,

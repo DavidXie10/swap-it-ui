@@ -4,9 +4,11 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
     const formData = new FormData();
     
     for(let counter = 0; counter < fileList.fileIdCount; ++counter){
-        formData.append('file', fileList[counter])
+        formData.append('file', fileList[counter]);
+        console.log(fileList[counter]);
     }
 
+    /*
     const uploadFetch = await fetch('http://localhost:8000/uploads', {
         method: 'POST',
         body: formData,
@@ -33,4 +35,9 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
             message: itemData.error.message,
         }
     }
+    */
+    console.log(deletedImages);
+    console.log(itemId);
+    console.log(item);
+    return item;
 });
