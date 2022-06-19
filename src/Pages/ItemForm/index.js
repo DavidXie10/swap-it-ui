@@ -10,6 +10,8 @@ import DragAndDrop from '../../Components/DragAndDrop'
 import CloseButton from '../../Components/CloseButton'
 import Success from '../../Components/Success'
 import { toggleSuccess } from '../../Slices/item/itemSlice'
+import { createItem } from '../../Slices/item/requests/createItem';
+import { editItem } from '../../Slices/item/requests/editItem';
 
 export default function ItemForm() {
     let { id } = useParams();
@@ -28,6 +30,8 @@ export default function ItemForm() {
     const [fileList, setFileList] = useState({
         fileIdCount: 0
     });
+
+    const [deletedImages, setDeletedImages] = useState([]);
     
     // const [fileId, setFileId] = useState(0);
     const [fileErrorMessage, setFileErrorMessage] = useState('');
@@ -49,7 +53,6 @@ export default function ItemForm() {
         } 
 
         if(id !== 'new'){
-            console.log('Ohhhhhh');
             // const count = fetchItem(id);
             
             setFileList({
@@ -110,6 +113,7 @@ export default function ItemForm() {
             setFileList(updateFileList);
         }else{
             let updatedPhotosUrl = [...item.photosUrl];
+            setDeletedImages([deletedImages, updatedPhotosUrl[file]]);
             updatedPhotosUrl[file] = '';
             setItem({
                 ...item,
@@ -358,8 +362,11 @@ export default function ItemForm() {
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end mt-4'>
                         <Button type={'button'} label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
                             if(isValidForm()){
-
-                                dispatch(toggleSuccess());
+                                if(id === 'new'){
+                                    dispatch(createItem({item, fileList}))
+                                }else{
+                                    dispatch(editItem({item, fileList, deletedImages, id}))
+                                }
                             }                            
                         }} />
                     </div>
