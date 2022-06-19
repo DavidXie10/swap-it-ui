@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivateRoute from "../../Components/PrivateRoute";
 import Showcase from "../../Components/Showcase"
 import Login from "../Login";
-import NewItemForm from "../NewItemForm";
+import ItemForm from "../ItemForm";
 
 
 export default function App() {
@@ -11,9 +11,9 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Login />}/> 
                 <Route element={<PrivateRoute />}>
-                    <Route path="/showcase" element={<Showcase />}/> 
+                    <Route path="/showcase" element={<Showcase />}/>
+                    <Route path="/item/:id" element={<ItemForm />} /> 
                 </Route>
-                <Route path="/newItem" element={<NewItemForm />} />
             </Routes>
         </BrowserRouter>
     );
