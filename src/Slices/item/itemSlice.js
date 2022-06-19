@@ -1,14 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { itemReducers } from "./reducers";
+import { createItem } from "./requests/createItem";
+import { editItem } from "./requests/editItem"
+
+const onProcessedItemFullfiled = (state, action) => {
+    if (action.payload.error) {
+        state.success = false;
+        state.item = null;
+        state.errorMessage = action.payload.message;
+    } else {
+        state.success = true;
+        state.item = action.payload;
+    }
+};
+
+const onProcessedItemRejected = (state) => {
+    state.success = false;
+    state.item = null;
+}
 
 const itemSlice = createSlice({
     name: 'item',
     initialState: {
-        success: true
+        item: null,
+        success: false,
+        errorMessage: '',
     },
-    reducers: {
-        toggleSuccess: (state) => {
-            state.success = !state.success;
-        }
+    reducers: itemReducers,
+    extraReducers(builder){
+        builder
+            .addCase(createItem.fulfilled, onProcessedItemFullfiled)
+            .addCase(createItem.rejected, onProcessedItemRejected)
+            .addCase(editItem.fulfilled, onProcessedItemFullfiled)
+            .addCase(editItem.rejected, onProcessedItemRejected)
     }
 })
 
