@@ -29,13 +29,15 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
             status: 200,
         }
         userData = {
-            name: 'David',
+            fullName: 'David',
             password: '1234',
-            email: 'davidxieli@gmail.com'
+            email: 'davidxieli@gmail.com',
+            location: 4,
+            phoneNumber: '88888888'
         }
     }else{
         loginFetch.status = 400;
-    }
+    } 
 
     if (loginFetch.status === 200){
         return userData;

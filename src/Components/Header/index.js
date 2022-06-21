@@ -72,7 +72,7 @@ export default function Header() {
                         </h1>
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
-                        <p className='text-white'>{userState.user.name}</p>
+                        <p className='text-white'>{userState.user.fullName}</p>
                             <MdPermIdentity onClick={() => { setShowUserMenu(true); }} className={`h-8 w-8 ${menuOptionClasses}`}/>
                             {showUserMenu && (
                                 <div>
