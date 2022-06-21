@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPostLoginFulfilled, onPostLoginRejected, postLogin } from "./requests/postLogin";
+import { onPatchUserFulfilled, onPatchUserRejected, patchUser } from "./requests/patchUser";
 
 const userSlice = createSlice({
     name: 'user',
@@ -18,6 +19,8 @@ const userSlice = createSlice({
         builder
             .addCase(postLogin.fulfilled, onPostLoginFulfilled)
             .addCase(postLogin.rejected, onPostLoginRejected)
+            .addCase(patchUser.fulfilled, onPatchUserFulfilled)
+            .addCase(patchUser.rejected, onPatchUserRejected)
     }
 })
 
