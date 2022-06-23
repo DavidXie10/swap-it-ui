@@ -1,5 +1,3 @@
-//import Label from "../DragAndDrop";
-//51E5FF
 import MyItem from '../MyItem';
 
 //image, title, state, address, acquisition, searchFor, backgroundcolor, onClickEdit, onClickDelete
