@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { useSelector } from 'react-redux';
 import { MdPermIdentity } from 'react-icons/md';
 import {AiOutlineMenu} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
@@ -7,13 +6,18 @@ import Logo from '../Logo';
 import UserMenu from '../UserMenu';
 import CloseButton from '../CloseButton';
 import {menuOptionClasses} from '../../utils/constants'
+import { useDispatch, useSelector } from 'react-redux';	
+import { logout } from '../../Slices/user/userSlice';	
 
 export default function Header() {
     const [showUserMenu, setShowUserMenu] = useState(false);
-    //const userState = useSelector(
-    //    (state) => state.user
-    //);
     const [isNavOpen, setIsNavOpen] = useState(false);
+
+    const userState = useSelector(
+        (state) => state.user
+    );
+
+    const dispatch = useDispatch();	
 
     return (
         <div className='flex items-center justify-between h-16 w-full bg-[#2E2F2F] sm:px-6 md:px-8 lg:px-16'>
@@ -48,8 +52,8 @@ export default function Header() {
                             </h1>
                         </div>
                         <div className='flex gap-2 items-center justify-center border-y border-b-2 w-full border-white py-5'>
-                            <h1 className={`${menuOptionClasses}`}>
-                                <Link to='/logout'>CERRAR SESIÓN</Link>
+                            <h1 className={`${menuOptionClasses}`} onClick={() => dispatch(logout())}>
+                                CERRAR SESIÓN
                             </h1>
                         </div>
                     </div>
@@ -68,7 +72,7 @@ export default function Header() {
                         </h1>
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
-                        <p className='text-white'>Sol{/*userState.user.name*/}</p>
+                        <p className='text-white'>{userState.user.name}</p>
                             <MdPermIdentity onClick={() => { setShowUserMenu(true); }} className={`h-8 w-8 ${menuOptionClasses}`}/>
                             {showUserMenu && (
                                 <div>
