@@ -1,6 +1,8 @@
 import Category from "../Category";
 import { 
-    IoAmericanFootball,  IoPhonePortraitOutline, 
+    IoGrid, 
+    IoAmericanFootball, 
+    IoPhonePortraitOutline, 
     IoHome, 
     IoBookSharp, 
     IoPrint,
@@ -14,6 +16,7 @@ import {
 export default function Categories() 
 {
     const categories = [
+        { id:0, name:'Todas', icon: <IoGrid id={'icon-0'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
         { id:1, name:'Deportes', icon: <IoAmericanFootball id={'icon-1'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
         { id:2, name:'Electrónica', icon: <IoPhonePortraitOutline  id={'icon-2'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
         { id:3, name:'Hogar', icon: <IoHome  id={'icon-3'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
