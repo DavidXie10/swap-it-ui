@@ -30,7 +30,7 @@ export default function Login() {
                     <Input id='user' placeholder='Ingrese su usuario' type='text' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setUsername(event.target.value)}/>
                 </div>
                 <div className={`${containerClases} w-[360px]`}>
-                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} eyeTopPosition='top-3' onChange={(event) => setPassword(event.target.value)} />
+                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setPassword(event.target.value)} />
                 </div>
             </div>
 

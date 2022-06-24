@@ -1,3 +1,3 @@
 
-export const iconCategoryClasses = 'mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl';
+export const iconCategoryClasses = 'mr-4 lg:text-3xl md:text-3xl sm:text-4xl bg-[#C4C4C4] text-black border border-black rounded-xl p-[1px]';
 export const menuOptionClasses = 'cursor-pointer text-white hover:text-[#51e5ff] hover:font-bold';

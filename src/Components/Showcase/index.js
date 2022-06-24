@@ -1,10 +1,9 @@
-import MyItem from '../MyItem';
+import Header from '../Header/index'
 
-//image, title, state, address, acquisition, searchFor, backgroundcolor, onClickEdit, onClickDelete
-export default function Showcase() {
+export default function index() {
     return (
         <>
-            <MyItem title='Bicicleta con rodines' state='Usado' address='San Jose' acquisition='11/06/22' searchFor='bicicleeta sin rodines' backgroundcolor={'bg-slate-200'}></MyItem>
+            <Header />
         </>
     )
 }
