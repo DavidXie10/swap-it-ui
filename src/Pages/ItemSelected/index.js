@@ -6,7 +6,7 @@ import Header from "../../Components/Header";
 
 //sm:px-6 md:px-8 lg:px-16
 
-//Estoy haceindo responsive para que se haga pequeño. Falta que las imagenes en la versión pequeña tomen sus 8 filas y que en la verisón grande el botón de Intercambiar este ubicado correctamente y que este centrado el back boton en la versión pequeña y la grande.
+//Estoy haceindo responsive para que se haga pequeño. Falta que las imagenes en la versión pequeña tomen sus 8 filas y que en la verisón grande el botón de Intercambiar este ubicado correctamente y que este centrado el back boton en la versión pequeña y la grande. Probando push ecci.
 export default function MyItem ({
     images, title, owner, state, address, acquisition, description, onClickExchange
 }) {
