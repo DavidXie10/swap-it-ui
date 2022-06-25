@@ -4,10 +4,7 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
-
-//sm:px-6 md:px-8 lg:px-16
-
-//Estoy haceindo responsive para que se haga pequeño. Falta que las imagenes en la versión pequeña tomen sus 8 filas y que en la verisón grande el botón de Intercambiar este ubicado correctamente y que este centrado el back boton en la versión pequeña y la grande.
+//lg:w-[31%] md:w-[48%] sm:w-full
 export default function ItemSelected ({
     imagesSource, title, owner, state, address, acquisition, description, onClickExchange
 }) {
@@ -16,11 +13,11 @@ export default function ItemSelected ({
     const listImages = imagesSource.map((image) =>
         {if (first){
             first = false;
-            return  <div className="carousel-item active relative float-left w-full">
+            return  <div className="carousel-item active relative float-left lg:w-[35%] md:w-[70%] sm:w-[61%] h-full min-h-36 max-h-64 justify-center">
                         <img src={image} alt={'Imagen artículo de catálogo'}/>
                     </div>;
         } else {
-            return  <div className="carousel-item relative float-left w-full">
+            return  <div className="carousel-item relative float-left lg:w-[35%] md:w-[70%] sm:w-[61%] h-full min-h-36 max-h-64 justify-center">
                         <img src={image} alt={'Imagen artículo de catálogo'}/>
                     </div>;
         } }
@@ -30,13 +27,13 @@ export default function ItemSelected ({
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
             <div className="sm:px-6 md:px-8 lg:px-16">
-                <div className="flex flex-row justify-between w-full mb-16">
-                    <Label text={"Artículo seleccionado"} width={'basis-3/4'} textposition={'text-left'} font={'font-bold'} size={'lg:text-4xl md:text-4xl sm:text-2xl'}></Label>
+                <div className="flex flex-row justify-between items-center w-full mb-16 p-8 sm:px-6 md:px-8 lg:px-16">
+                    <Label text='Artículo seleccionado' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                     <BackButton></BackButton>
                 </div>
                 <div className="grid lg:grid-rows-[8] md:grid-rows-[8] sm:grid-rows-[16] grid-cols-5 gap-2 mb-16">
-                    <div id="carouselExampleControls" className="carousel slide relative row-[span_8_/_span_8] lg:col-span-2 md:col-span-2 sm:col-span-5  border border-b-neutral-400" data-bs-ride="carousel">
-                        <div class="carousel-inner relative w-full overflow-hidden flex items-center justify-center text-center">
+                    <div id="carouselExampleControls" className="carousel slide relative border row-[span_8_/_span_8] lg:col-span-2 md:col-span-2 sm:col-span-5 border-b-neutral-400" data-bs-ride="carousel">
+                        <div class="carousel-inner relative overflow-hidden container">
                             { listImages }
                         </div>
                         <button
@@ -65,11 +62,10 @@ export default function ItemSelected ({
                     <Label text={`Ubicación: ${address || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
                     <Label text={`Fecha de adquisición: ${acquisition || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
                     <Label text={`Descripción: ${description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
-                    <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-5 w-[180px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Intercambiar' onClick={onClickExchange || ''}/>
+                    <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-5 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Intercambiar' onClick={onClickExchange || ''}/>
                 </div>
             </div>
             <Footer />
         </div>
     )
 }
-

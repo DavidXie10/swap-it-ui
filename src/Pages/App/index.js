@@ -8,7 +8,7 @@ import ItemSelected from "../ItemSelected";
 // const url_1 = 'https://www.gravatar.com/avatar/1d42ea6e005a4160211f7b1957ce0a09/?default=&s=64';
 // let img = document.createElement("img");
 // img.src = url_1;
-const listImages = ['https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/ALAS-Messolongi-sea-salt-crystals-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2015/04/Ethnos-COOKBOOK-April-2015-85x85.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2015/04/Ethnos-COOKBOOK-April-2015c-528x450.jpg']
+const listImages = ['https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/ALAS-Messolongi-sea-salt-crystals-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/cherries-250g-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2022/03/carob-crackers.jpg']
 
 export default function App() {
     return (
