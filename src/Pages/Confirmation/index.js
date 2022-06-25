@@ -4,12 +4,18 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
-//lg:w-[31%] md:w-[48%] sm:w-full
-export default function Confirmation ({
-}) {
+
+export default function Confirmation () {
     let itemsToGive = [
         {id:1,name:"pan"},
-        {id:2,name:"alma"}
+        {id:2,name:"alma"},
+        {id:3,name:"lkajsdfljasdf"},
+        {id:4,name:"alasdfasdfma"},
+        {id:5,name:"un iem de nombre muuuuuuuuuuuy largo"},
+        {id:6,name:"un iem de nombre muuuuuuuuuuuy largo"},
+        {id:7,name:"un iem de nombre muuuuuuuuuuuy largo"},
+        {id:8,name:"help"},
+        {id:8,name:"help2"}
     ];
     let itemToReceive = {id:2010,name:"bicicleta roja"};
     return (
@@ -20,10 +26,10 @@ export default function Confirmation ({
                     <Label text='Propuesta de Intercambio' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                     <BackButton></BackButton>
                 </div>
-                <div className={`grid grid-rows-${itemsToGive.length + 1} grid-cols-5`}>
-                    <div className={`bg-[#f5f5f5] sm:col-span-5 md:col-span-2 lg:col-span-2`}>
-                        <Label font={'font-bold'} text={'Order:'} backgroundcolor={'bg-[#f5f5f5]'} textposition={'ml-8 mt-4'} width={'w-auto'} height={'h-auto'}></Label>
-                        <ul className="ml-16 mb-4 list-disc">
+                <div className={`grid grid-rows-[${itemsToGive.length + 1}] grid-cols-5`}>
+                    <div className={`bg-[#f5f5f5] sm:col-span-5 md:col-span-2 lg:col-span-2 pb-4`}>
+                        <Label font={'font-bold'} text={'Ofrecer:'} backgroundcolor={'bg-[#f5f5f5]'} textposition={'ml-8 mt-4'} width={'w-auto'} height={'h-auto'}></Label>
+                        <ul className="ml-16 list-disc">
                             {
                                 itemsToGive.map(item => <li>{item.name}</li> )
                             }
@@ -36,18 +42,17 @@ export default function Confirmation ({
                             className="scale-50"
                         />
                     </div>
-                    <div className={`bg-[#f5f5f5] sm:col-span-5 md:col-span-2 lg:col-span-2`}>
-                        <Label font={'font-bold'} text={'Order:'} backgroundcolor={'bg-[#f5f5f5]'} textposition={'ml-8 mt-4'} width={'w-auto'} height={'h-auto'}></Label>
-                        <ul className="ml-16 mb-4 list-disc">
+                    <div className={`bg-[#f5f5f5] sm:col-span-5 md:col-span-2 lg:col-span-2 pb-4`}>
+                        <Label font={'font-bold'} text={'Por:'} backgroundcolor={'bg-[#f5f5f5]'} textposition={'ml-8 mt-4'} width={'w-auto'} height={'h-auto'}></Label>
+                        <ul className="ml-16 list-disc">
                             <li>{itemToReceive.name}</li>
                         </ul>
                     </div>
                 </div>
-                <div className="flex justify-end gap-4 mt-8">
+                <div className="flex justify-end gap-4 mt-8 mb-16">
                     <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Cancelar' onClick='' backgroundcolor='bg-[#8C8D8D]'/>
                     <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick=''/>
                 </div>
-
             </div>
             <Footer />
         </div>
