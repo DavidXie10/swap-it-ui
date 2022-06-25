@@ -4,6 +4,7 @@ import Showcase from "../../Components/Showcase"
 import Login from "../Login";
 import ItemSelected from "../ItemSelected";
 import Confirmation from "../Confirmation";
+import Maintenance from "../Maintenance";
 
 // //images, title, state, address, acquisition, description, onClickExchange
 // const url_1 = 'https://www.gravatar.com/avatar/1d42ea6e005a4160211f7b1957ce0a09/?default=&s=64';
@@ -15,7 +16,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Confirmation/>}/> 
+                <Route path="/" element={<Maintenance/>}/> 
                 <Route element={<PrivateRoute />}>
                     <Route path="/showcase" element={<Showcase />}/> 
                 </Route>

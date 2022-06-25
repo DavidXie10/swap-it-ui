@@ -5,9 +5,9 @@ export default function MyItem ({
     image, title, state, address, acquisition, searchFor, backgroundcolor, onClickEdit, onClickDelete
 }) {
     return (
-        <div className={backgroundcolor}>
-            <div className="grid grid-rows-6 grid-flow-col gap-2 ">
-                { image ? <img className="row-span-6 text-center" src={image} alt={"Foto del artículo a intercambiar"}/> : <p className="row-span-6 text-center">Foto no encontrada</p>}
+        <div className={`${backgroundcolor} mt-8 mb-8`}>
+            <div className="grid grid-rows-6 grid-flow-col gap-2 mb-4">
+                { image ? <img className="row-span-6 text-center lg:w-[35%] md:w-[70%] sm:w-[61%]" src={image} alt={"Foto del artículo a intercambiar"}/> : <p className="row-span-6 text-center">Foto no encontrada</p>}
                 <Label text={title || "Title not found"} width={'col-span-2'} height={'row-span-2'} font={'font-bold'} textposition={'text-left'} backgroundcolor={backgroundcolor} ></Label>
                 <Label text={`Estado: ${state || "State not found"}`} width={'col-span-2'} font={''} textposition={'text-left'} backgroundcolor={backgroundcolor}></Label>
                 <Label text={`Ubicación: ${address || "Address not found"}`} width={'col-span-2'} font={''} textposition={'text-left'} backgroundcolor={backgroundcolor}></Label>

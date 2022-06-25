@@ -99,6 +99,22 @@ export default function Maintenance () {
             inSearchOf: 'bicicleta sin rodines'
         }
     ];
+    let alternate = true;
+    const listMyProducts = myProducts.map((item) => 
+        {if (alternate){
+            alternate = false;
+            return  <div>
+                        <MyItem image={item.image} title={item.name} state={item.state} address={item.direction} acquisition={item.boughtDate} searchFor={item.inSearchOf} ></MyItem>
+                        <hr className="border-2"></hr>
+                    </div>;
+        } else {
+            alternate = true;
+            return  <div>
+                        <MyItem image={item.image} title={item.name} state={item.state} address={item.direction} acquisition={item.boughtDate} searchFor={item.inSearchOf} backgroundcolor={'bg-[#f5f5f5]'}></MyItem>
+                        <hr className="border-2"></hr>
+                    </div>;
+        }}
+    );
 
     return (
         <div className='flex min-h-screen flex-col justify-between'>
@@ -108,7 +124,7 @@ export default function Maintenance () {
                     <Label text='Mis Artículos' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                 </div>
                 <div>
-                    { myProducts.map(item => <MyItem image={item.image} title={item.title} state={item.state} address={item.direction} acquisition={item.boughtDate} searchFor={item.inSearchOf} ></MyItem>)}
+                    { listMyProducts }
                 </div>
             </div>
             <Footer />
