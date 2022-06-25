@@ -29,7 +29,7 @@ export default function Confirmation () {
                 <div className={`grid grid-rows-[${itemsToGive.length + 1}] grid-cols-5`}>
                     <div className={`bg-[#f5f5f5] sm:col-span-5 md:col-span-2 lg:col-span-2 pb-4`}>
                         <Label font={'font-bold'} text={'Ofrecer:'} backgroundcolor={'bg-[#f5f5f5]'} textposition={'ml-8 mt-4'} width={'w-auto'} height={'h-auto'}></Label>
-                        <ul className="ml-16 list-disc">
+                        <ul className="ml-16 mr-8 list-disc">
                             {
                                 itemsToGive.map(item => <li>{item.name}</li> )
                             }
