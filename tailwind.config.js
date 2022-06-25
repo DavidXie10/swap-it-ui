@@ -1,6 +1,7 @@
 module.exports = {
     content: [
         "./src/**/*.{js,jsx,ts,tsx}",
+        './src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'
     ],
     theme: {
         screens: {
@@ -13,5 +14,7 @@ module.exports = {
         },
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('tw-elements/dist/plugin')
+    ]
 }

@@ -7,7 +7,7 @@ export default function MyItem ({
     return (
         <div className={backgroundcolor}>
             <div className="grid grid-rows-6 grid-flow-col gap-2 ">
-                { image ? <img className="row-span-6 text-center table-cell align-middle" src={URL.createObjectURL(image)} alt={"Foto del artículo a intercambiar"}/> : <p className="row-span-6 text-center table-cell align-middle">Foto no encontrada</p>}
+                { image ? <img className="row-span-6 text-center" src={URL.createObjectURL(image)} alt={"Foto del artículo a intercambiar"}/> : <p className="row-span-6 text-center">Foto no encontrada</p>}
                 <Label text={title || "Title not found"} width={'col-span-2'} height={'row-span-2'} font={'font-bold'} textposition={'text-left'} backgroundcolor={backgroundcolor} ></Label>
                 <Label text={`Estado: ${state || "State not found"}`} width={'col-span-2'} font={''} textposition={'text-left'} backgroundcolor={backgroundcolor}></Label>
                 <Label text={`Ubicación: ${address || "Address not found"}`} width={'col-span-2'} font={''} textposition={'text-left'} backgroundcolor={backgroundcolor}></Label>
