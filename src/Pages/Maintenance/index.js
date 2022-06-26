@@ -1,10 +1,10 @@
 import MyItem from "../../Components/MyItem";
+import Button from "../../Components/Button";
 import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
-import { Component } from "react";
-
+//Hacer responsive y freeze pane con el +
 export default function Maintenance () {
 
     const myProducts = [
@@ -123,13 +123,14 @@ export default function Maintenance () {
                 <div className="flex flex-row items-center w-full mb-16">
                     <Label text='Mis Artículos' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                 </div>
-                <div>
+                <div className="lg:max-h-[42rem] md:max-h-[21rem] sm:max-h-[40rem] overflow-scroll">
                     { listMyProducts }
                 </div>
+            </div>
+            <div className="flex justify-center mt-8 mb-8">
+                <Button textcolor='text-white' backgroundcolor={'bg-[#7AF067]'} width='rounded-full' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='+' textSize={'lg:text-4xl md:text-4xl sm:text-2xl'} onClick={''}/>
             </div>
             <Footer />
         </div>
     )
 }
-// image, title, state, address, acquisition, searchFor, backgroundcolor, onClickEdit, onClickDelete
-// itemsToGive.map(item => <li>{item.name}</li> )
