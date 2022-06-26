@@ -123,7 +123,7 @@ export default function Maintenance () {
                 <div className="flex flex-row items-center w-full mb-16">
                     <Label text='Mis Artículos' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                 </div>
-                <div className="lg:max-h-[42rem] md:max-h-[36rem] sm:max-h-[30rem] overflow-scroll">
+                <div className="lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem] overflow-scroll">
                     { listMyProducts }
                 </div>
             </div>
