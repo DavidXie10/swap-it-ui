@@ -4,7 +4,6 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
-//Hacer responsive y freeze pane con el +
 export default function ChooseExchangeProduct () {
 
     const myProducts = [
