@@ -82,7 +82,7 @@ export default function ItemForm() {
     const getUrlPhotosLength = () => item.photosUrl.filter((photo) => photo !== '').length;
 
     const handleUploadedFile = (inputFiles) => {
-        if ((getUrlPhotosLength() + inputFiles.length + (Object.keys(fileList).length - 1)) <= 5){
+        if ((getUrlPhotosLength() + inputFiles.length + (Object.keys(fileList).length - 1)) <= 3){
             let updateFileList = {
                 ...fileList
             };
@@ -99,7 +99,7 @@ export default function ItemForm() {
             // setFileId(fileId + 1);
             setFileList(updateFileList);
         }else{
-            setFileErrorMessage('Solo puede subir un máximo de 5 imágenes por artículo.');
+            setFileErrorMessage('Solo puede subir un máximo de 3 imágenes por artículo.');
         }
     };
 
@@ -174,6 +174,10 @@ export default function ItemForm() {
         return images;
     }
 
+    const validate = () => {
+        return;
+    }
+
     const isValidForm = () => {
         let isValid = true;
         if(item.name.trim() === ''){
@@ -227,7 +231,6 @@ export default function ItemForm() {
 
         return isValid;
     }
-
 
     return (
         <div className='flex min-h-screen flex-col justify-between'>
@@ -356,7 +359,8 @@ export default function ItemForm() {
                             { Object.keys(fileList).length > 1 || getUrlPhotosLength() > 0 ? `Archivos cargados:` : 'Aún no se han subido archivos'}
                         </p> 
                     }
-                    {(Object.keys(fileList).length > 1 || getUrlPhotosLength() > 0) && <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap mb-2'>
+                    {(Object.keys(fileList).length > 1 || getUrlPhotosLength() > 0) && 
+                    <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap mb-2'>
                         {showUploadedImages()}
                     </div>}
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end mt-4'>

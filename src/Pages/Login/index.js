@@ -8,7 +8,7 @@ import { postLogin } from '../../Slices/user/requests/postLogin';
 
 export default function Login() {
     const containerClases = "flex w-full justify-center flex-wrap";
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [localErrorMessage, setLocalErrorMessage] = useState('');
     
@@ -27,7 +27,7 @@ export default function Login() {
             </div>
             <div className='lg:h-[15vh] md:h-[20vh] sm:h-[10vh]'> 
                 <div className={`${containerClases} w-[360px]`}>
-                    <Input id='user' placeholder='Ingrese su usuario' type='text' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setUsername(event.target.value)}/>
+                    <Input id='user' placeholder='Ingrese su correo' type='text' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setEmail(event.target.value)}/>
                 </div>
                 <div className={`${containerClases} w-[360px]`}>
                     <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} eyeTopPosition='top-3' onChange={(event) => setPassword(event.target.value)} />
@@ -41,12 +41,12 @@ export default function Login() {
 
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[15vh]`}>
                 <Button width='w-[360px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Ingresar' onClick={() => {
-                    if(username && password){
-                        if(password.length < 4) {
-                            setLocalErrorMessage('La contraseña debe contener al menos 4 dígitos.');
+                    if(email && password){
+                        if(password.length < 8) {
+                            setLocalErrorMessage('La contraseña debe contener al menos 8 caracteres.');
                         }else{
                             setLocalErrorMessage('');
-                            dispatch(postLogin({username, password}));
+                            dispatch(postLogin({email, password}));
                         }
                     }else{
                         setLocalErrorMessage('Debe completar todos los campos');

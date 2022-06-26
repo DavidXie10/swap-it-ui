@@ -9,7 +9,7 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
             'Content-type': 'application/json',
         },
         body: JSON.stringify({
-            email: credentials.username,
+            email: credentials.email,
             password: credentials.password,
         }),
     });
@@ -20,11 +20,11 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
     let loginFetch = {};
     let userData = {};
     const testUser = {
-        username: 'David',
+        email: 'davidxieli@gmail.com',
         password: '1234'
     };
 
-    if(testUser.username === credentials.username && testUser.password === credentials.password){
+    if(testUser.email === credentials.email && testUser.password === credentials.password){
         loginFetch = {
             status: 200,
         }
