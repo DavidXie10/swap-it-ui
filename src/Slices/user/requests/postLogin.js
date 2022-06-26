@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const postLogin = createAsyncThunk('users/postLogin', async(credentials) => {
-    /*
-    // TODO: waiting for backend implementation
     const loginFetch = await fetch('http://localhost:8000/users/login', {
         method: 'POST',
         headers: {
@@ -15,35 +13,13 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
     });
 
     const userData = await loginFetch.json();
-    */
-
-    let loginFetch = {};
-    let userData = {};
-    const testUser = {
-        email: 'davidxieli@gmail.com',
-        password: '1234'
-    };
-
-    if(testUser.email === credentials.email && testUser.password === credentials.password){
-        loginFetch = {
-            status: 200,
-        }
-        userData = {
-            name: 'David',
-            password: '1234',
-            email: 'davidxieli@gmail.com'
-        }
-    }else{
-        loginFetch.status = 400;
-    }
 
     if (loginFetch.status === 200){
         return userData;
     }else{
         return {
             error: true,
-            // message: userData.error.message,
-            message: "Un gran error",
+            message: userData.error.message,
         }
     }
 })
