@@ -24,7 +24,7 @@ export default function ItemForm() {
         itemState: -1,
         category: -1,
         location: -1,
-        photosUrl: [],
+        photoUrls: [],
     });
 
     const [fileList, setFileList] = useState({
@@ -32,8 +32,6 @@ export default function ItemForm() {
     });
 
     const [deletedImages, setDeletedImages] = useState([]);
-    
-    // const [fileId, setFileId] = useState(0);
     const [fileErrorMessage, setFileErrorMessage] = useState('');
     const [nameErrorMessage, setNameErrorMessage] = useState('');
     const [acquisitionDateErrorMessage, setAcquisitionDateErrorMessage] = useState('');
@@ -49,7 +47,7 @@ export default function ItemForm() {
             //const itemFetch = await fetch(`http://localhost/items/${itemId}`);
             //const itemJSON = await itemFetch.json();
             //setItem(itemJSON);
-            //return itemJSON.photosUrl.length;
+            //return itemJSON.photoUrls.length;
         } 
 
         if(id !== 'new'){
@@ -68,7 +66,7 @@ export default function ItemForm() {
                 itemState: 1,
                 category: 2,
                 location: 2,
-                photosUrl: ['https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg', 'https://images.unsplash.com/photo-1617440168937-c6497eaa8db5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80', 'https://images.unsplash.com/photo-1581333100576-b73befd79a9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'],
+                photoUrls: ['https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg', 'https://images.unsplash.com/photo-1617440168937-c6497eaa8db5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80', 'https://images.unsplash.com/photo-1581333100576-b73befd79a9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'],
             });
         }
     }, [id]);
@@ -79,7 +77,7 @@ export default function ItemForm() {
 
     const dispatch = useDispatch();
 
-    const getUrlPhotosLength = () => item.photosUrl.filter((photo) => photo !== '').length;
+    const getUrlPhotosLength = () => item.photoUrls.filter((photo) => photo !== '').length;
 
     const handleUploadedFile = (inputFiles) => {
         if ((getUrlPhotosLength() + inputFiles.length + (Object.keys(fileList).length - 1)) <= 3){
@@ -90,13 +88,11 @@ export default function ItemForm() {
             let inputFilesCounter = 0;
             
             for(let counter = updateFileList.fileIdCount; inputFilesCounter < inputFiles.length; ++inputFilesCounter, ++counter){
-                // inputFiles[inputFilesCounter].id = fileId;
                 updateFileList[counter] = inputFiles[inputFilesCounter];
             }
     
             updateFileList.fileIdCount += inputFiles.length;
             setFileErrorMessage('');
-            // setFileId(fileId + 1);
             setFileList(updateFileList);
         }else{
             setFileErrorMessage('Solo puede subir un máximo de 3 imágenes por artículo.');
@@ -112,12 +108,12 @@ export default function ItemForm() {
             delete updateFileList[file];            
             setFileList(updateFileList);
         }else{
-            let updatedPhotosUrl = [...item.photosUrl];
+            let updatedPhotosUrl = [...item.photoUrls];
             setDeletedImages([...deletedImages, updatedPhotosUrl[file]]);
             updatedPhotosUrl[file] = '';
             setItem({
                 ...item,
-                photosUrl: updatedPhotosUrl,
+                photoUrls: updatedPhotosUrl,
             });
         }        
     }
@@ -144,11 +140,11 @@ export default function ItemForm() {
     const showUploadedImages = () => {
         let images = [];
         if(id !== 'new'){
-            for(let file = 0; file < item.photosUrl.length; ++file){
-                if(item.photosUrl[file]){
+            for(let file = 0; file < item.photoUrls.length; ++file){
+                if(item.photoUrls[file]){
                     images.push(
                         <div className='mr-3 mt-2 w-fit relative inline-block' key={file}> 
-                            <img src={item.photosUrl[file]} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
+                            <img src={item.photoUrls[file]} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
                             <div className="absolute top-0 right-0" onClick={() => {removeFile(file)}} >
                                 <CloseButton width="w-8" height="h-8" textColor={'text-[#51e5ff]'}/> 
                             </div>
@@ -172,10 +168,6 @@ export default function ItemForm() {
         }
 
         return images;
-    }
-
-    const validate = () => {
-        return;
     }
 
     const isValidForm = () => {
@@ -367,9 +359,9 @@ export default function ItemForm() {
                         <Button type={'button'} label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
                             if(isValidForm()){
                                 if(id === 'new'){
-                                    dispatch(createItem({item, fileList}))
+                                    dispatch(createItem({item, fileList}));
                                 }else{
-                                    dispatch(editItem({item, fileList, deletedImages, id}))
+                                    dispatch(editItem({item, fileList, deletedImages, id}));
                                 }
                             }                            
                         }} />
