@@ -6,10 +6,12 @@ import Footer from '../../Components/Footer'
 import Label from '../../Components/Label'
 import Input from '../../Components/Input'
 import Button from '../../Components/Button'
+import Spinner from '../../Components/Spinner'
 import DragAndDrop from '../../Components/DragAndDrop'
 import CloseButton from '../../Components/CloseButton'
 import Success from '../../Components/Success'
 import { toggleSuccess } from '../../Slices/item/itemSlice'
+import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
 import { createItem } from '../../Slices/item/requests/createItem';
 import { editItem } from '../../Slices/item/requests/editItem';
 
@@ -40,42 +42,33 @@ export default function ItemForm() {
     const [categoryErrorMessage, setCategoryErrorMessage] = useState('');
     const [wishlistErrorMessage, setWishlistErrorMessage] = useState('');
     const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
-
-    useEffect(() => {
-        // TODO: change code section when backend endpoint is implemented
-        const fetchItem = async (itemId) => {
-            //const itemFetch = await fetch(`http://localhost/items/${itemId}`);
-            //const itemJSON = await itemFetch.json();
-            //setItem(itemJSON);
-            //return itemJSON.photoUrls.length;
-        } 
-
-        if(id !== 'new'){
-            // const count = fetchItem(id);
-            
-            setFileList({
-                // fileIdCount: count,
-                fileIdCount: 3,
-            });
-
-            setItem({
-                name: 'Hola',
-                wishlist: 'Hola',
-                acquisitionDate: '2022-02-06',
-                description: 'Hola',
-                itemState: 1,
-                category: 2,
-                location: 2,
-                photoUrls: ['https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg', 'https://images.unsplash.com/photo-1617440168937-c6497eaa8db5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80', 'https://images.unsplash.com/photo-1581333100576-b73befd79a9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'],
-            });
-        }
-    }, [id]);
-
+    
     const success = useSelector(
         (state) => state.item.success
     );
 
+    const loading = useSelector(
+        (state) => state.app.loading
+    );
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchItem = async (itemId) => {
+            const itemFetch = await fetch(`http://localhost:8000/items/${itemId}`);
+            const itemJSON = await itemFetch.json();
+            setItem(itemJSON);
+            setFileList({
+                fileIdCount: itemJSON.photoUrls.length,
+            });
+        } 
+
+        if(id !== 'new'){
+            dispatch(setLoading());
+            fetchItem(id);
+            dispatch(unsetLoading());
+        }
+    }, [id, dispatch]);
 
     const getUrlPhotosLength = () => item.photoUrls.filter((photo) => photo !== '').length;
 
@@ -84,14 +77,15 @@ export default function ItemForm() {
             let updateFileList = {
                 ...fileList
             };
-    
+
+            let inputFilesLength = inputFiles.length;
             let inputFilesCounter = 0;
             
-            for(let counter = updateFileList.fileIdCount; inputFilesCounter < inputFiles.length; ++inputFilesCounter, ++counter){
+            for(let counter = updateFileList.fileIdCount; inputFilesCounter < inputFilesLength; ++inputFilesCounter, ++counter){
                 updateFileList[counter] = inputFiles[inputFilesCounter];
             }
     
-            updateFileList.fileIdCount += inputFiles.length;
+            updateFileList.fileIdCount = updateFileList.fileIdCount + inputFilesLength;
             setFileErrorMessage('');
             setFileList(updateFileList);
         }else{
@@ -156,6 +150,7 @@ export default function ItemForm() {
 
         for(let file = 0; file < fileList.fileIdCount; ++file){
             if(fileList[file]){
+                console.log(fileList[file]);
                 images.push(
                     <div className='mr-3 mt-2 w-fit relative inline-block' key={file}> 
                         <img src={URL.createObjectURL(fileList[file])} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
@@ -208,31 +203,32 @@ export default function ItemForm() {
         }else{
             setCategoryErrorMessage('');
         }
-        if(Object.keys(fileList).length === 1){
-            isValid &&= false;
-            setFileErrorMessage('Por favor suba al menos una imagen');
-        }else{
-            setFileErrorMessage('');
-        }
         if(item.description.trim() === ''){
             isValid &&= false;
             setDescriptionErrorMessage('Por favor ingrese la descripción del artículo');
         }else{
             setDescriptionErrorMessage('');
         }
+        if(Object.keys(fileList).length === 1 && getUrlPhotosLength() === 0){
+            isValid &&= false;
+            setFileErrorMessage('Por favor suba al menos una imagen');
+        }else{
+            setFileErrorMessage('');
+        }
 
         return isValid;
     }
 
     return (
+        loading && id !== 'new' ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
             {success ? (
-                <Success message={'Artículo creado exitosamente'} buttonMessage={'Regresar al catálogo'}/>
-        ) : (
+                <Success message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) : 
+                (
             <form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 <div className='flex w-full'>
-                    <Label text='Agregar un artículo' width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
+                    <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
                 </div>
                 <div className='mt-8 mb-5 w-full'>
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
@@ -356,7 +352,7 @@ export default function ItemForm() {
                         {showUploadedImages()}
                     </div>}
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap justify-end mt-4'>
-                        <Button type={'button'} label='Agregar' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
+                        <Button type={'button'} label={`${id === 'new' ? 'Agregar' : 'Guardar cambios'}`} textcolor='text-white' width='w-56' height='h-12' onClick={() => {
                             if(isValidForm()){
                                 if(id === 'new'){
                                     dispatch(createItem({item, fileList}));
@@ -367,15 +363,13 @@ export default function ItemForm() {
                         }} />
                     </div>
                 </div>  
-            </form>
-            )}
-
+            </form>)}
             <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16'>
                 <Button label='Toggle Success' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
                     dispatch(toggleSuccess());
                 }} />
             </div>
             <Footer />
-        </div>
+        </div>)
     )
 }
