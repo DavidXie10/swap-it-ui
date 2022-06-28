@@ -16,23 +16,10 @@ import { createItem } from '../../Slices/item/requests/createItem';
 import { editItem } from '../../Slices/item/requests/editItem';
 
 export default function ItemForm() {
-    let { id } = useParams();
+    const { id } = useParams();
 
-    const [item, setItem] = useState({
-        name: '',
-        wishlist: '',
-        acquisitionDate: '',
-        description: '',
-        itemState: -1,
-        category: -1,
-        location: -1,
-        photoUrls: [],
-    });
-
-    const [fileList, setFileList] = useState({
-        fileIdCount: 0
-    });
-
+    const [item, setItem] = useState({ name: '', wishlist: '', acquisitionDate: '', description: '', itemState: -1, category: -1, location: -1, photoUrls: []});
+    const [fileList, setFileList] = useState({fileIdCount: 0});
     const [deletedImages, setDeletedImages] = useState([]);
     const [fileErrorMessage, setFileErrorMessage] = useState('');
     const [nameErrorMessage, setNameErrorMessage] = useState('');
@@ -43,14 +30,8 @@ export default function ItemForm() {
     const [wishlistErrorMessage, setWishlistErrorMessage] = useState('');
     const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
     
-    const success = useSelector(
-        (state) => state.item.success
-    );
-
-    const loading = useSelector(
-        (state) => state.app.loading
-    );
-
+    const success = useSelector( (state) => state.item.success );
+    const loading = useSelector( (state) => state.app.loading );
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -58,9 +39,7 @@ export default function ItemForm() {
             const itemFetch = await fetch(`http://localhost:8000/items/${itemId}`);
             const itemJSON = await itemFetch.json();
             setItem(itemJSON);
-            setFileList({
-                fileIdCount: itemJSON.photoUrls.length,
-            });
+            setFileList({ fileIdCount: itemJSON.photoUrls.length });
         } 
 
         if(id !== 'new'){
@@ -74,10 +53,7 @@ export default function ItemForm() {
 
     const handleUploadedFile = (inputFiles) => {
         if ((getUrlPhotosLength() + inputFiles.length + (Object.keys(fileList).length - 1)) <= 3){
-            let updateFileList = {
-                ...fileList
-            };
-
+            let updateFileList = { ...fileList };
             let inputFilesLength = inputFiles.length;
             let inputFilesCounter = 0;
             
@@ -95,28 +71,19 @@ export default function ItemForm() {
 
     const removeFile = (file) => {
         if(fileList[file]){
-            let updateFileList = {
-                ...fileList
-            };
-
+            let updateFileList = { ...fileList};
             delete updateFileList[file];            
             setFileList(updateFileList);
         }else{
             let updatedPhotosUrl = [...item.photoUrls];
             setDeletedImages([...deletedImages, updatedPhotosUrl[file]]);
             updatedPhotosUrl[file] = '';
-            setItem({
-                ...item,
-                photoUrls: updatedPhotosUrl,
-            });
+            setItem({ ...item, photoUrls: updatedPhotosUrl });
         }        
     }
 
     const handleChange = (key, value) => {
-        setItem({
-            ...item, 
-            [key]: value,
-        });
+        setItem({ ...item, [key]: value });
     }
 
     const getCurrentDate = () => {
@@ -131,102 +98,57 @@ export default function ItemForm() {
         return currentDate.getFullYear() + '-' + month + '-' + day; 
     }
 
-    const showUploadedImages = () => {
-        let images = [];
-        if(id !== 'new'){
-            for(let file = 0; file < item.photoUrls.length; ++file){
-                if(item.photoUrls[file]){
-                    images.push(
-                        <div className='mr-3 mt-2 w-fit relative inline-block' key={file}> 
-                            <img src={item.photoUrls[file]} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
-                            <div className="absolute top-0 right-0" onClick={() => {removeFile(file)}} >
-                                <CloseButton width="w-8" height="h-8" textColor={'text-[#51e5ff]'}/> 
-                            </div>
-                        </div>
-                    );
-                }
-            }    
-        }
+    const getImagesHtml = (length, images, fileType) => {
+        let htmlImages = [];
 
-        for(let file = 0; file < fileList.fileIdCount; ++file){
-            if(fileList[file]){
-                console.log(fileList[file]);
-                images.push(
+        for(let file = 0; file < length; ++file){
+            if(images[file]){
+                htmlImages.push(
                     <div className='mr-3 mt-2 w-fit relative inline-block' key={file}> 
-                        <img src={URL.createObjectURL(fileList[file])} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
+                        <img src={fileType ? URL.createObjectURL(images[file]) : images[file]} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
                         <div className="absolute top-0 right-0" onClick={() => {removeFile(file)}} >
                             <CloseButton width="w-8" height="h-8" textColor={'text-[#51e5ff]'}/> 
                         </div>
                     </div>
                 );
             }
-        }
+        }  
+        
+        return htmlImages;
+    }
 
+    const showUploadedImages = () => {
+        let images = [];
+        if(id !== 'new')
+            images = getImagesHtml(item.photoUrls.length, item.photoUrls, false);
+        images = images.concat(getImagesHtml(fileList.fileIdCount, fileList, true));
         return images;
     }
 
-    const isValidForm = () => {
-        let isValid = true;
-        if(item.name.trim() === ''){
-            isValid &&= false;
-            setNameErrorMessage('Por favor ingrese el nombre del artículo');
-        }else{
-            setNameErrorMessage('');
-        }
-        if(item.acquisitionDate.trim() === ''){
-            isValid &&= false;
-            setAcquisitionDateErrorMessage('Por favor ingrese la fecha de adquisición');
-        }else{
-            setAcquisitionDateErrorMessage('');
-        }
-        if(item.location === -1){
-            isValid &&= false;
-            setLocationErrorMessage('Por favor seleccione la provincia de residencia');
-        }else{
-            setLocationErrorMessage('');
-        }
-        if(item.wishlist.trim() === ''){
-            isValid &&= false;
-            setWishlistErrorMessage('Por favor ingrese los artículos por los que quiere intercambiar');
-        }else{
-            setWishlistErrorMessage('');
-        }
-        if(item.itemState === -1){
-            isValid &&= false;
-            setItemStateErrorMessage('Por favor seleccione el estado del artículo');
-        }else{
-            setItemStateErrorMessage('');
-        }
-        if(item.category === -1){
-            isValid &&= false;
-            setCategoryErrorMessage('Por favor seleccione una categoría');
-        }else{
-            setCategoryErrorMessage('');
-        }
-        if(item.description.trim() === ''){
-            isValid &&= false;
-            setDescriptionErrorMessage('Por favor ingrese la descripción del artículo');
-        }else{
-            setDescriptionErrorMessage('');
-        }
-        if(Object.keys(fileList).length === 1 && getUrlPhotosLength() === 0){
-            isValid &&= false;
-            setFileErrorMessage('Por favor suba al menos una imagen');
-        }else{
-            setFileErrorMessage('');
-        }
+    const areFieldsValid = () => {
+        return item.name.trim() !== '' && item.acquisitionDate.trim() !== '' && item.location !== -1 && item.wishlist.trim() !== '' && item.itemState !== -1 && item.category !== -1 && item.description.trim() !== '' && (Object.keys(fileList).length !== 1 || getUrlPhotosLength() !== 0);
+    };
 
-        return isValid;
+    const isValidForm = () => {
+        item.name.trim() === '' ? setNameErrorMessage('Por favor ingrese el nombre del artículo') : setNameErrorMessage('');
+        item.acquisitionDate.trim() === '' ? setAcquisitionDateErrorMessage('Por favor ingrese la fecha de adquisición') : setAcquisitionDateErrorMessage('');
+        item.location === -1 ? setLocationErrorMessage('Por favor seleccione la provincia de residencia') : setLocationErrorMessage('');
+        item.wishlist.trim() === ''? setWishlistErrorMessage('Por favor ingrese los artículos por los que quiere intercambiar') : setWishlistErrorMessage('');
+        item.itemState === -1? setItemStateErrorMessage('Por favor seleccione el estado del artículo') : setItemStateErrorMessage('');
+        item.category === -1? setCategoryErrorMessage('Por favor seleccione una categoría') : setCategoryErrorMessage('');
+        item.description.trim() === ''? setDescriptionErrorMessage('Por favor ingrese la descripción del artículo') : setDescriptionErrorMessage('');
+        Object.keys(fileList).length === 1 && getUrlPhotosLength() === 0 ? setFileErrorMessage('Por favor suba al menos una imagen') : setFileErrorMessage('');
+
+        return areFieldsValid();
     }
 
     return (
-        loading && id !== 'new' ? (<Spinner />) : (
+        loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
             {success ? (
-                <Success message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) : 
-                (
-            <form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
+                <Success message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) :     
+            (<form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 <div className='flex w-full'>
                     <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
                 </div>
@@ -253,14 +175,7 @@ export default function ItemForm() {
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex w-full sm:flex-wrap mb-4'>
                             <div className='flex w-full'>
-                                <select
-                                    id={'location'}
-                                    value={item.location}
-                                    className="w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none"
-                                    onChange={(evt) => {
-                                        handleChange("location", parseInt(evt.target.value));
-                                    }}
-                                >
+                                <select id={'location'} value={item.location} className="w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none" onChange={(evt) => handleChange("location", parseInt(evt.target.value)) } >
                                     <option disabled className="w-full" label="Seleccione la provincia donde se encuentra" value={-1} ></option>
                                     <option className="w-full" label="San José" value={1}></option>
                                     <option className="w-full" label="Alajuela" value={2}></option>
@@ -279,11 +194,7 @@ export default function ItemForm() {
                         <div className='px-4'></div>
                         <div className='lg:flex md:flex w-full sm:flex-wrap mb-4'>
                             <div className='flex w-full'>
-                                <select 
-                                    value={item.itemState}
-                                    className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' 
-                                    onChange={(evt) => handleChange('itemState', parseInt(evt.target.value))}
-                                >
+                                <select value={item.itemState} className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' onChange={(evt) => handleChange('itemState', parseInt(evt.target.value))} >
                                     <option disabled className='w-full' label='Seleccione el estado de su artículo' value={-1}></option>
                                     <option className='w-full' label='Nuevo' value={1}></option>
                                     <option className='w-full' label='Usado' value={2}></option>
@@ -296,11 +207,7 @@ export default function ItemForm() {
                     </div>
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex w-full sm:flex-wrap mb-4'>
-                            <select
-                                value={item.category}
-                                className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' 
-                                onChange={(evt) => handleChange('category', parseInt(evt.target.value))}
-                            >
+                            <select value={item.category} className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' onChange={(evt) => handleChange('category', parseInt(evt.target.value))} >
                                 <option disabled className='w-full' label='Seleccione una categoría' value={-1}></option>
                                 <option className='w-full' label='Deportes' value={1}></option>
                                 <option className='w-full' label='Electrónica' value={2}></option>
@@ -338,9 +245,7 @@ export default function ItemForm() {
                         <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                             <DragAndDrop handleChange={handleUploadedFile} fileList={fileList} />
                         </div>
-                        
                     </div>
-                    
                     {fileErrorMessage && <span className="text-red-500 sm:mt-4 font-bold">{fileErrorMessage}</span>}
                     { 
                         <p className='text-[#2e2f2f] font-bold pt-4'> 
@@ -359,7 +264,7 @@ export default function ItemForm() {
                                 }else{
                                     dispatch(editItem({item, fileList, deletedImages, id}));
                                 }
-                            }                            
+                            }                     
                         }} />
                     </div>
                 </div>  
