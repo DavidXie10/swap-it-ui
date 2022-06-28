@@ -10,5 +10,5 @@ export const itemReducers = {
     },
     clearItem: (state) => {
         state.item = null;
-    }
+    },
 }

@@ -18,6 +18,8 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
             body: JSON.stringify(urls),
         });
         await deleteFilesFetch.json();
+
+    
     }
     
     for(let counter = 0; counter < fileList.fileIdCount; ++counter){
