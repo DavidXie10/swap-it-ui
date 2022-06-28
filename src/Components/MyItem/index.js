@@ -9,7 +9,7 @@ export default function MyItem ({
             <div className={`flex justify-end ${backgroundcolor || ""}`}></div>
             <div className="grid grid-rows-6 grid-cols-5 gap-1 mt-8 mb-8">
                 <div className={`row-span-6 col-span-2 ${backgroundcolor || ""} flex justify-center`}>
-                    { image ? <img className={`lg:w-[30%] md:w-[70%] sm:w-[80%] `} src={image} alt={"Foto del artículo a intercambiar"}/> : <p className="row-span-6 text-center">Foto no encontrada</p>}
+                    { image ? <img className={`lg:w-[30%] md:w-[70%] sm:w-[80%] lg:max-h-full md:max-h-full sm:max-h-[300px] `} src={image} alt={"Foto del artículo a intercambiar"}/> : <p className="row-span-6 text-center">Foto no encontrada</p>}
                 </div>
                 <Label text={title || "Title not found"} width={'col-span-3'} height={'row-span-2'} font={'font-bold'} textposition={'text-left'} backgroundcolor={backgroundcolor || ""} size={'text-4xl'}></Label>
                 <Label text={`Estado: ${state || "State not found"}`} width={'col-span-3'} height={'row-span-1'} font={''} textposition={'text-left'} backgroundcolor={backgroundcolor || ""}></Label>
