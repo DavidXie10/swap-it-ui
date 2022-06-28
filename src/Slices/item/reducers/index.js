@@ -7,5 +7,8 @@ export const itemReducers = {
         state.item = null;
         state.success = false;
         state.errorMessage = '';
+    },
+    clearItem: (state) => {
+        state.item = null;
     }
 }
