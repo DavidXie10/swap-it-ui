@@ -9,6 +9,12 @@ const appSlice = createSlice({
     reducers: {
         toggleLoading: (state) => {
             state.loading = !state.loading;
+        },
+        setLoading: (state) => {
+            state.loading = true;
+        },
+        unsetLoading: (state) => {
+            state.loading = false;
         }
     },
     extraReducers(builder){
@@ -25,6 +31,6 @@ const appSlice = createSlice({
     }
 })
 
-export const {toggleLoading} = appSlice.actions;
+export const {toggleLoading, setLoading, unsetLoading} = appSlice.actions;
 
 export default appSlice.reducer;
