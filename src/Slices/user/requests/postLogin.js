@@ -19,7 +19,7 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
     }else{
         return {
             error: true,
-            message: userData.error.message,
+            message: userData.message,
         }
     }
 })
