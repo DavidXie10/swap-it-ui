@@ -11,6 +11,7 @@ const onProcessedItemFullfiled = (state, action) => {
     } else {
         state.success = true;
         state.item = action.payload;
+        state.errorMessage = '';
     }
 };
 
@@ -36,6 +37,6 @@ const itemSlice = createSlice({
     }
 })
 
-export const { toggleSuccess } = itemSlice.actions;
+export const { toggleSuccess, clearState } = itemSlice.actions;
 
 export default itemSlice.reducer;

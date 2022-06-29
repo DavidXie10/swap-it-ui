@@ -19,7 +19,12 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
         });
         await deleteFilesFetch.json();
 
-    
+        if (deleteFilesFetch.status !== 200) {
+            return {
+                error: true,
+                message: deleteFilesFetch.message,
+            }
+        }
     }
     
     for(let counter = 0; counter < fileList.fileIdCount; ++counter){
@@ -38,6 +43,14 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
         });
     
         const uploadedData = await uploadFetch.json();
+
+        if (uploadFetch.status !== 200) {
+            return {
+                error: true,
+                message: uploadedData.message,
+            }
+        }
+
         item.photoUrls = item.photoUrls.concat(uploadedData.uploadedFiles.map((file) => file.url));
     }
     
@@ -67,7 +80,7 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
     } else {
         return {
             error: true,
-            message: itemData.error.message,
+            message: itemData.message,
         }
     }
 });
