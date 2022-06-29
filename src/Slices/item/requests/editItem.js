@@ -5,11 +5,10 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
     const state = getState();
 
     if(deletedImages.length > 0){
-        const areMultipleFiles = deletedImages.length > 1;
         const urls = {
-            urls: areMultipleFiles ? deletedImages : deletedImages[0]
+            urls: deletedImages
         }
-        const deleteFilesFetch = await fetch(`http://localhost:8000/uploads/${areMultipleFiles ? 'multiple' : 'single'}`, {
+        const deleteFilesFetch = await fetch(`http://localhost:8000/uploads/`, {
             headers: {
                 'Authorization': `Bearer ${state.user.user.token}`,
                 'Content-type': 'application/json',
