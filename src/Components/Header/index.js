@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MdPermIdentity } from 'react-icons/md';
-import {AiOutlineMenu} from "react-icons/ai"
+import {AiOutlineMenu} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 import UserMenu from '../UserMenu';
@@ -25,17 +25,17 @@ export default function Header({height}) {
                 <Logo height='h-12' width='w-34' />
             </Link>
             <nav className='lg:w-3/4 md:w-3/4'>
-                <section className="flex lg:hidden md:hidden">
-                    <AiOutlineMenu onClick={() => setIsNavOpen((prev) => !prev)} className="h-8 w-8 cursor-pointer space-y-2 text-white hover:text-[#51e5ff] "/>
+                <section className='flex lg:hidden md:hidden'>
+                    <AiOutlineMenu onClick={() => setIsNavOpen((prev) => !prev)} className='h-8 w-8 cursor-pointer space-y-2 text-white hover:text-[#51e5ff] '/>
 
-                    <div className={isNavOpen ? "bg-[#2E2F2F] absolute w-full h-[100vh] top-0 left-0 z-10 flex flex-col justify-evenly items-center" : "hidden"}>
+                    <div className={isNavOpen ? 'bg-[#2E2F2F] absolute w-full h-[100vh] top-0 left-0 z-10 flex flex-col justify-evenly items-center' : 'hidden'}>
                     <div
-                        className="absolute top-0 right-0 px-8 py-8"
+                        className='absolute top-0 right-0 px-8 py-8'
                         onClick={() => setIsNavOpen(false)}
                     >
-                        <CloseButton width="w-8" height="h-8"/> 
+                        <CloseButton width='w-8' height='h-8'/> 
                     </div>
-                    <div className="flex flex-col items-center justify-between min-h-[250px] w-full">
+                    <div className='flex flex-col items-center justify-between min-h-[250px] w-full'>
                         <div className='flex gap-2 items-center justify-center w-full border-y border-t-2 border-white py-5'>
                             <h1 className={`${menuOptionClasses}`}>
                                 <Link to='/catalog'>CATÁLOGO</Link>
@@ -60,7 +60,7 @@ export default function Header({height}) {
                     </div>
                 </section>
 
-                <div className="hidden space-x-8 lg:flex md:flex w-full">
+                <div className='hidden space-x-8 lg:flex md:flex w-full'>
                     <div className='flex gap-2 items-center justify-center w-1/3 '>
                         <h1 className={`${menuOptionClasses}`}>
                             <Link to='/catalog'>CATÁLOGO</Link>

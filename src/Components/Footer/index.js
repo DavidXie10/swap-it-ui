@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom"
-import Logo from "../Logo"
+import { Link } from 'react-router-dom'
+import Logo from '../Logo'
 
 export default function Footer({height}) {
     return (
-        <div className={`w-full bg-[#2E2F2F] ${height || ''}`}>
+        <div className={`w-full bg-[#2E2F2F] ${height || 'h-full'}`}>
             <div className={`flex sm:px-6 md:px-8 lg:px-16  items-center py-16`}>
                 <div className="lg:w-1/3 flex md:w-2/3 sm:w-1/2" >
                     <Link to='/catalog'>

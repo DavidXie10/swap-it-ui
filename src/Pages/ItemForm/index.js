@@ -74,7 +74,7 @@ export default function ItemForm() {
             setFileErrorMessage('');
             setFileList(updateFileList);
         }else{
-            setFileErrorMessage('Solo puede subir un máximo de 3 imágenes por artículo.');
+            setFileErrorMessage('Solo puede subir un máximo de 3 imágenes por artículo');
         }
     };
 

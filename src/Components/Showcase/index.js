@@ -1,6 +1,6 @@
 import ItemForm from '../../Pages/ItemForm'
 
-export default function index() {
+export default function Showcase() {
     return (
         <>
             <ItemForm />
