@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import Header from '../../Components/Header'
-import Footer from '../../Components/Footer'
-import Label from '../../Components/Label'
-import Input from '../../Components/Input'
+import AlertMessage from '../../Components/AlertMessage'
 import Button from '../../Components/Button'
-import Spinner from '../../Components/Spinner'
-import DragAndDrop from '../../Components/DragAndDrop'
 import CloseButton from '../../Components/CloseButton'
-import Success from '../../Components/Success'
-import { toggleSuccess } from '../../Slices/item/itemSlice'
-import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
+import DragAndDrop from '../../Components/DragAndDrop'
+import Footer from '../../Components/Footer'
+import Header from '../../Components/Header'
+import Input from '../../Components/Input'
+import Label from '../../Components/Label'
+import Spinner from '../../Components/Spinner'
 import { createItem } from '../../Slices/item/requests/createItem';
 import { editItem } from '../../Slices/item/requests/editItem';
+import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
+import {clearState} from '../../Slices/item/itemSlice'
 
 export default function ItemForm() {
     const { id } = useParams();
-
     const [item, setItem] = useState({ name: '', wishlist: '', acquisitionDate: '', description: '', itemState: -1, category: -1, location: -1, photoUrls: []});
     const [fileList, setFileList] = useState({fileIdCount: 0});
     const [deletedImages, setDeletedImages] = useState([]);
@@ -29,17 +28,27 @@ export default function ItemForm() {
     const [categoryErrorMessage, setCategoryErrorMessage] = useState('');
     const [wishlistErrorMessage, setWishlistErrorMessage] = useState('');
     const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
-    
+    const [localErrorMessage, setLocalErrorMessage] = useState('');
     const success = useSelector( (state) => state.item.success );
     const loading = useSelector( (state) => state.app.loading );
+    const errorMessage = useSelector ( (state) => state.item.errorMessage);
+    const user = useSelector( (state) => state.user.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(clearState());
         const fetchItem = async (itemId) => {
             const itemFetch = await fetch(`http://localhost:8000/items/${itemId}`);
             const itemJSON = await itemFetch.json();
-            setItem(itemJSON);
-            setFileList({ fileIdCount: itemJSON.photoUrls.length });
+            if(itemFetch.status !== 200){
+                setLocalErrorMessage(itemJSON.message);
+            } else if(itemJSON.ownerUserId === user.id){
+                setItem(itemJSON);
+                setFileList({ fileIdCount: itemJSON.photoUrls.length });
+                setLocalErrorMessage('');
+            }else{
+                setLocalErrorMessage('No tiene los permisos para acceder al item solicitado');
+            }
         } 
 
         if(id !== 'new'){
@@ -47,7 +56,7 @@ export default function ItemForm() {
             fetchItem(id);
             dispatch(unsetLoading());
         }
-    }, [id, dispatch]);
+    }, [id, dispatch, user.id]);
 
     const getUrlPhotosLength = () => item.photoUrls.filter((photo) => photo !== '').length;
 
@@ -146,8 +155,9 @@ export default function ItemForm() {
         loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
+            {errorMessage ? <AlertMessage message={errorMessage} success={false} /> : <></>}
             {success ? (
-                <Success message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) :     
+                <AlertMessage success={true} message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) :  localErrorMessage ? <AlertMessage success={false} message={localErrorMessage} /> :   
             (<form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 <div className='flex w-full'>
                     <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
@@ -243,7 +253,7 @@ export default function ItemForm() {
                     </div>
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
-                            <DragAndDrop handleChange={handleUploadedFile} fileList={fileList} />
+                            <DragAndDrop handleChange={handleUploadedFile} />
                         </div>
                     </div>
                     {fileErrorMessage && <span className="text-red-500 sm:mt-4 font-bold">{fileErrorMessage}</span>}
@@ -269,11 +279,6 @@ export default function ItemForm() {
                     </div>
                 </div>  
             </form>)}
-            <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16'>
-                <Button label='Toggle Success' textcolor='text-white' width='w-56' height='h-12' onClick={() => {
-                    dispatch(toggleSuccess());
-                }} />
-            </div>
             <Footer />
         </div>)
     )
