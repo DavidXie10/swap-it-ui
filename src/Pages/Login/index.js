@@ -15,6 +15,10 @@ export default function Login() {
     const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
     const errorMessage = useSelector((state) => state.user.errorMessage);
 
+    const isValidEmail = (email) => {
+        return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    };
+      
     const dispatch = useDispatch();
 
     // TODO: Change route
@@ -27,7 +31,7 @@ export default function Login() {
             </div>
             <div className='lg:h-[15vh] md:h-[20vh] sm:h-[10vh]'> 
                 <div className={`${containerClases} w-[360px]`}>
-                    <Input id='user' placeholder='Ingrese su correo' type='text' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setEmail(event.target.value)}/>
+                    <Input id='user' placeholder='Ingrese su correo' type='email' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} customMessage={'Ingrese una dirección de correo válida'} onChange={(event) => setEmail(event.target.value)}/>
                 </div>
                 <div className={`${containerClases} w-[360px]`}>
                     <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} eyeTopPosition='top-3' onChange={(event) => setPassword(event.target.value)} />
@@ -44,7 +48,9 @@ export default function Login() {
                     if(email && password){
                         if(password.length < 8) {
                             setLocalErrorMessage('La contraseña debe contener al menos 8 caracteres.');
-                        }else{
+                        } else if(!isValidEmail(email)){
+                            setLocalErrorMessage('Ingrese una dirección de correo válida.');
+                        } else{
                             setLocalErrorMessage('');
                             dispatch(postLogin({email, password}));
                         }
