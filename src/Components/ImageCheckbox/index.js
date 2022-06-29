@@ -1,11 +1,11 @@
 import { Checkbox } from '@createnl/grouped-checkboxes';
 
 export default function ImageCheckbox ({
-    fileURL
+    fileURL, onClick
 }) {
     return (
         <label>
-            <div className='mr-3 mt-2 w-fit relative inline-block'>
+            <div className='mr-3 mt-2 w-fit relative inline-block' onClick={onClick}>
                 <div className="absolute top-0 right-0" >
                     <Checkbox value={`${fileURL}` || ""} width="w-8" height="h-8" textcolor={'text-[#51e5ff]'}/>
                 </div>

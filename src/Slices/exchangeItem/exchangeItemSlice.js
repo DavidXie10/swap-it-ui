@@ -3,30 +3,32 @@ import { createSlice } from "@reduxjs/toolkit";
 const exchangeItemSlice = createSlice({
     name: 'exchangeItem',
     initialState: {
-        itemToReceive: null,
+        itemToReceive: 0,
         itemsToGive: [],
+        count: 0
     },
     reducers: {
         addItemToReceive: (state, item) => {
-            state.itemToReceive = item;
+            state.itemToReceive = item.payload;
         },
-        addItemsToGive: (state, item) => {
-            state.itemsToGive.push(item)
+        toggleItemToGive: (state, item) => {
+            let indexItem = state.itemsToGive.findIndex(element => element === item.payload);
+            if (indexItem + 1) {
+                state.itemsToGive.splice(indexItem, 1);
+            } else {
+                state.itemsToGive.push(item.payload)
+            }
         },
         clearExchange: (state) => {
             state.itemToReceive = null;
             state.itemsToGive = [];
         },
-        removeItemToGive: (state, item) => {
-            for(let i = 0; i < state.itemsToGive.length; i++){
-                if (state.itemsToGive[i] == item){
-                    state.itemsToGive.splice(i, 1);
-                }
-            }
+        increment: (state) => {
+            state.count++;
         }
     }
 })
 
-export const { addItemToReceive, addItemsToGive, clearExchange, removeItemToGive } = exchangeItemSlice.actions
+export const { addItemToReceive, toggleItemToGive, clearExchange, increment } = exchangeItemSlice.actions
 
 export default exchangeItemSlice.reducer;

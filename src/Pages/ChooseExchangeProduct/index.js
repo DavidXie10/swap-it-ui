@@ -3,6 +3,8 @@ import Button from "../../Components/Button";
 import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleItemToGive } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
 export default function ChooseExchangeProduct () {
 
@@ -138,9 +140,15 @@ export default function ChooseExchangeProduct () {
             inSearchOf: 'bicicleta sin rodines'
         },
     ];
+    const dispatch = useDispatch();
+    const currentItemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
     const listMyProducts = myProducts.map((item) => 
         <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center">
-            <ImageCheckbox fileURL={item.image} ></ImageCheckbox>
+            <ImageCheckbox fileURL={item.image} onClick={() => {
+                                                                    dispatch(toggleItemToGive(Number(item.id))); 
+                                                                    console.log(currentItemsToGive);
+                                                                }
+                                                        } ></ImageCheckbox>
         </div>
     );
 
