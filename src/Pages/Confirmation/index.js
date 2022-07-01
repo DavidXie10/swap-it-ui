@@ -4,20 +4,27 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
+import { useSelector } from "react-redux";
 
 export default function Confirmation () {
-    let itemsToGive = [
-        {id:1,name:"pan"},
-        {id:2,name:"alma"},
-        {id:3,name:"lkajsdfljasdf"},
-        {id:4,name:"alasdfasdfma"},
-        {id:5,name:"un iem de nombre muuuuuuuuuuuy largo"},
-        {id:6,name:"un iem de nombre muuuuuuuuuuuy largo"},
-        {id:7,name:"un iem de nombre muuuuuuuuuuuy largo"},
-        {id:8,name:"help"},
-        {id:8,name:"help2"}
-    ];
-    let itemToReceive = {id:2010,name:"bicicleta roja"};
+    // let itemsToGive = [
+    //     {id:1,name:"pan"},
+    //     {id:2,name:"alma"},
+    //     {id:3,name:"lkajsdfljasdf"},
+    //     {id:4,name:"alasdfasdfma"},
+    //     {id:5,name:"un iem de nombre muuuuuuuuuuuy largo"},
+    //     {id:6,name:"un iem de nombre muuuuuuuuuuuy largo"},
+    //     {id:7,name:"un iem de nombre muuuuuuuuuuuy largo"},
+    //     {id:8,name:"help"},
+    //     {id:8,name:"help2"}
+    // ];
+    const idItemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
+    const idItemToReceive = useSelector((state) => state.exchangeItem.itemsToGive);
+
+    const itemsToGive = [];
+    const itemToReceive = {};
+    //consulta backend
+    //consutla backend
     return (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />

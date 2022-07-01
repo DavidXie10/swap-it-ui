@@ -4,7 +4,7 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleItemToGive, find, clearExchange } from '../../Slices/exchangeItem/exchangeItemSlice';
+import { toggleItemToGive, clearExchange } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
 export default function ChooseExchangeProduct () {
 
@@ -163,10 +163,7 @@ export default function ChooseExchangeProduct () {
             <div className="flex justify-center mt-8 mb-8">
                 <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => dispatch(clearExchange())}/>
             </div>
-            <span>{currentItemsToGive}</span>
             <Footer />
         </div>
     )
 }
-
-//isChecked={() => dispatch(find(Number(item.id)))}

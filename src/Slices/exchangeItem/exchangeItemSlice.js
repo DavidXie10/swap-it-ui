@@ -22,13 +22,10 @@ const exchangeItemSlice = createSlice({
         clearExchange: (state) => {
             state.itemToReceive = null;
             state.itemsToGive = [];
-        },
-        find: (state, item) => {
-            return state.itemsToGive.find(item.payload) ? true : false;
         }
     }
 })
 
-export const { addItemToReceive, toggleItemToGive, clearExchange, find } = exchangeItemSlice.actions
+export const { addItemToReceive, toggleItemToGive, clearExchange} = exchangeItemSlice.actions
 
 export default exchangeItemSlice.reducer;
