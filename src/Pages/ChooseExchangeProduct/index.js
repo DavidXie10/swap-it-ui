@@ -4,7 +4,7 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleItemToGive } from '../../Slices/exchangeItem/exchangeItemSlice';
+import { toggleItemToGive, find, clearExchange } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
 export default function ChooseExchangeProduct () {
 
@@ -142,13 +142,10 @@ export default function ChooseExchangeProduct () {
     ];
     const dispatch = useDispatch();
     const currentItemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
+
     const listMyProducts = myProducts.map((item) => 
         <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center">
-            <ImageCheckbox fileURL={item.image} onClick={() => {
-                                                                    dispatch(toggleItemToGive(Number(item.id))); 
-                                                                    console.log(currentItemsToGive);
-                                                                }
-                                                        } ></ImageCheckbox>
+            <ImageCheckbox fileURL={item.image} onClick={() => {dispatch(toggleItemToGive(Number(item.id)));}} isChecked={currentItemsToGive.find((element) => element === item.id)} ></ImageCheckbox>
         </div>
     );
 
@@ -164,9 +161,12 @@ export default function ChooseExchangeProduct () {
                 </div>
             </div>
             <div className="flex justify-center mt-8 mb-8">
-                <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={''}/>
+                <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => dispatch(clearExchange())}/>
             </div>
+            <span>{currentItemsToGive}</span>
             <Footer />
         </div>
     )
 }
+
+//isChecked={() => dispatch(find(Number(item.id)))}

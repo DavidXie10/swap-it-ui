@@ -1,7 +1,7 @@
 export default function Checkbox({
-    id, name
+    isChecked
 }) {
     return (
-        <input type='checkbox' id={`${id}`} name={`${name}`}></input>
+        <input type='checkbox' defaultChecked={isChecked}></input>
     )
 }
