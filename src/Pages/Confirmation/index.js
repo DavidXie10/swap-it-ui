@@ -4,7 +4,10 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getItem } from '../../Slices/exchangeItem/requests/getItem';
+import { addItemToReceive } from "../../Slices/exchangeItem/exchangeItemSlice";
+import { useEffect } from "react";
 
 export default function Confirmation () {
     // let itemsToGive = [
@@ -18,11 +21,21 @@ export default function Confirmation () {
     //     {id:8,name:"help"},
     //     {id:8,name:"help2"}
     // ];
+    const dispatch = useDispatch();
     const idItemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
     const idItemToReceive = useSelector((state) => state.exchangeItem.itemsToGive);
 
     const itemsToGive = [];
-    const itemToReceive = {};
+    
+
+    // useEffect(() => {
+    //     dispatch(addItemToReceive(Number(1)));
+    // }, [dispatch]);
+    
+    const itemToReceive = dispatch(getItem({id:idItemToReceive}));
+    console.log(itemToReceive);
+
+    //console.log(dispatch(getItem({id:1})));
     //consulta backend
     //consutla backend
     return (

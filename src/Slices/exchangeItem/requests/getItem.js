@@ -1,52 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getUsers = createAsyncThunk('usuarios/getUsers', async (params, { getState }) => {
-    const state = getState();
-    const usersFetch = await fetch('http://localhost:7500/users', {
-        headers: {
-            "Authorization": `Bearer ${state.user.user.token}`,
-            "Content-type": "application/json",
-        },
-    });
-    const usersData = await usersFetch.json();
-    console.log("usersDate: ", usersData);
-    if (usersFetch.status === 200) {
-        return usersData;
-    } else {
-        return {
-            error: true,
-            message: usersData.error.message,
-        }
-    }
-});
-
-export const postLogin = createAsyncThunk('users/postLogin', async(credentials) => {
-    const loginFetch = await fetch('http://localhost:8000/users/login', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-        }),
-    });
-
-    const userData = await loginFetch.json();
-
-    if (loginFetch.status === 200){
-        return userData;
-    }else{
-        return {
-            error: true,
-            message: userData.message,
-        }
-    }
-})
-
-
 export const getItem = createAsyncThunk('items/getItem', async (item) => {
-    const itemFetch = await fetch(`http://localhost:8000/items/${item.id}`);
+    const itemFetch = await fetch(`http://localhost:8000/items/${item.id}`, {
+        method: 'GET'
+    });
     const itemData = await itemFetch.json();
     console.log("itemData: ", itemData);
     if (itemFetch.status === 200) {
@@ -58,3 +15,16 @@ export const getItem = createAsyncThunk('items/getItem', async (item) => {
         }
     }
 });
+
+export const onGetItemFullfiled = (state, action) => {
+    if (action.payload.error) {
+        state.itemToReceive = null;
+        state.errorMessage = action.payload.message;
+    } else {
+        state.itemToReceive = action.payload;
+    }
+};
+
+export const onGetItemRejected = (state) => {
+    state.itemToReceive = null;
+}

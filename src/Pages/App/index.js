@@ -10,7 +10,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<ChooseExchangeProduct/>}/> 
+                <Route path="/" element={<Confirmation/>}/> 
                 <Route element={<PrivateRoute />}>
                 </Route>
                 {/*<Route path="/" element={<Home />} />*/}

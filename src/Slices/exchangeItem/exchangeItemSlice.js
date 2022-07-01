@@ -1,18 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem, onGetItemFullfiled, onGetItemRejected } from "./requests/getItem";
 
 const exchangeItemSlice = createSlice({
     name: 'exchangeItem',
     initialState: {
-        itemToReceive: 0,
+        itemToReceive: null,
         itemsToGive: [],
-        count: 0
+        count: 0,
+        errorMessage: ''
     },
     reducers: {
         addItemToReceive: (state, item) => {
             state.itemToReceive = item.payload;
         },
         toggleItemToGive: (state, item) => {
-            const indexItem = state.itemsToGive.findIndex((element) => element === item.payload);
+            const indexItem = state.itemsToGive.findIndex((element) => element.id === item.payload.id);
             if (indexItem + 1) {
                 state.itemsToGive.splice(indexItem, 1);
             } else {
@@ -23,6 +25,11 @@ const exchangeItemSlice = createSlice({
             state.itemToReceive = null;
             state.itemsToGive = [];
         }
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(getItem.fulfilled, onGetItemFullfiled)
+            .addCase(getItem.rejected, onGetItemRejected)
     }
 })
 

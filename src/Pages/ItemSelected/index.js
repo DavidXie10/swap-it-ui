@@ -3,14 +3,19 @@ import Button from "../../Components/Button";
 import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
+import Spinner from '../../Components/Spinner'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItemToReceive, clearExchange } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
+import { getItem } from "../../Slices/exchangeItem/requests/getItem";
 
 export default function ItemSelected ({
     idItem
 }) {
     const dispatch = useDispatch();
+    const loading = useSelector( (state) => state.app.loading );
+    useDispatch(getItem({id:idItem}));
+
     //const currentItemToRecive = useSelector((state) => state.exchangeItem.itemToReceive);
 
     let imagesSource=['https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/ALAS-Messolongi-sea-salt-crystals-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/cherries-250g-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2022/03/carob-crackers.jpg']
@@ -37,6 +42,7 @@ export default function ItemSelected ({
     );
 
     return (
+        loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
             <div className="sm:px-6 md:px-8 lg:px-16">
@@ -82,7 +88,7 @@ export default function ItemSelected ({
                 </div>
             </div>
             <Footer />
-        </div>
+        </div>)
     )
 }
 //<span>{count}</span>
