@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#container_file_uploader > label {
+    max-width: 100% !important;
+    height: 8rem;
+}

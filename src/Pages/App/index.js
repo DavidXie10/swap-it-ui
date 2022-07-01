@@ -5,15 +5,19 @@ import ItemSelected from "../ItemSelected";
 import Confirmation from "../Confirmation";
 import Maintenance from "../Maintenance";
 import ChooseExchangeProduct from "../ChooseExchangeProduct";
+import Showcase from "../../Components/Showcase";
+import ItemForm from "../ItemForm";
+
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Confirmation/>}/> 
-                <Route element={<PrivateRoute />}>
-                </Route>
-                {/*<Route path="/" element={<Home />} />*/}
+                <Route path="/" element={<ItemSelected />}/> 
+                {/* <Route element={<PrivateRoute />}>
+                    <Route path="/showcase" element={<Showcase />}/>
+                    <Route path="/item/:id" element={<ItemForm />} /> 
+                </Route> */}
             </Routes>
         </BrowserRouter>
     );
