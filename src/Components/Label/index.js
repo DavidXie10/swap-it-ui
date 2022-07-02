@@ -1,7 +1,7 @@
 export default function Label ({
-    backgroundcolor, textcolor, width, height, text, size, textposition, font
+    backgroundcolor, textcolor, width, height, text, size, alignText, font
 }) {
     return (
-        <p className={`${backgroundcolor || 'bg-white'} ${textcolor || 'text-black'} ${width || 'w-8'} ${height || 'h-8'} ${size || 'text-lg'} ${textposition || 'text-center'} ${font || ''}`}> {text || 'Default'} </p>
+        <p className={`${backgroundcolor || 'bg-white'} ${textcolor || 'text-black'} ${width || 'w-8'} ${height || 'h-8'} ${size || 'text-4xl'} ${alignText || 'text-left'} ${font || 'font-bold'}`}> {text || 'Default'} </p>
     )
 }

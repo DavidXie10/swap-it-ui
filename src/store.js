@@ -3,10 +3,12 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer } from "redux-persist";
 import appSlice from './Slices/app/appSlice';
 import userSlice from './Slices/user/userSlice';
+import itemSlice from './Slices/item/itemSlice';
 
 const reducers = combineReducers({
     app: appSlice,
     user: userSlice,
+    item: itemSlice
 })
 
 const rootPersistConfig = {
@@ -18,6 +20,10 @@ const persistedReducer = persistReducer(rootPersistConfig, reducers);
 
 const store = configureStore({
     reducer: persistedReducer,
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+        serializableCheck: false,
+    }),
 });
 
 export default store;

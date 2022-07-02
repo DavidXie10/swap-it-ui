@@ -15,9 +15,9 @@ export default function Input({
                 id={id || ''} 
                 type={type === "password" && showPassword ? "text" : type || "text"} 
                 defaultValue={value}
-                placeholder={placeholder || ''} 
-                className={`${width || "w-full"} ${height || "h-10"} px-4 ${marginBottom || "mb-5"} rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}
-                onChange={onChange}
+                placeholder={placeholder} 
+                className={`${width || "w-full"} ${height || "h-10"} px-4 ${marginBottom || 'mb-5'} rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}
+                onChange={onChange} 
             />
             {type === 'password' && (
                 <div className={`cursor-pointer absolute w-12 h-12 top-3 -right-4`}>

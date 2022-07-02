@@ -6,7 +6,7 @@ import Input from '../../Components/Input';
 import Label from '../../Components/Label';
 import { RiEqualizerLine } from 'react-icons/ri';
 import { useState } from 'react';
-import { Pagination } from '@mui/material';
+//import { Pagination } from '@mui/material';
 
 export default function Catalog() {
     const products = [
@@ -76,7 +76,7 @@ export default function Catalog() {
       ];
       
     const [showMobileCategories, setShowMobileCategories] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    //const [currentPage, setCurrentPage] = useState(1);
     // useSelector, redux
 
     // const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
