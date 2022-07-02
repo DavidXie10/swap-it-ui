@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getItem, onGetItemFullfiled, onGetItemRejected } from "./requests/getItem";
+import { exchangeItemReducers } from "./reducers";
 
 const exchangeItemSlice = createSlice({
     name: 'exchangeItem',
@@ -8,26 +9,7 @@ const exchangeItemSlice = createSlice({
         itemsToGive: [],
         errorMessage: ''
     },
-    reducers: {
-        addItemToReceive: (state, item) => {
-            state.itemToReceive = item.payload;
-        },
-        toggleItemToGive: (state, item) => {
-            const indexItem = state.itemsToGive.findIndex((element) => element.itemId === item.payload.itemId);
-            if (indexItem + 1) {
-                state.itemsToGive.splice(indexItem, 1);
-            } else {
-                state.itemsToGive.push(item.payload);
-            }
-        },
-        clearGiveState: (state) => {
-            state.itemsToGive = [];
-        },
-        clearState: (state) => {
-            state.itemToReceive = null;
-            state.itemsToGive = [];
-        },
-    },
+    reducers: exchangeItemReducers,
     extraReducers(builder) {
         builder
             .addCase(getItem.fulfilled, onGetItemFullfiled)
