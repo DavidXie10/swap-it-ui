@@ -1,14 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 
 export const exchange = createAsyncThunk('exchange', async (params, {getState}) => {
     const state = getState();
-    console.log("hola mundo");
     const data = {"userToId":state.exchangeItem.itemToReceive.ownerUserId,
-            "proposedItemsNames":state.exchangeItem.itemsToGive.map(item => item.name).toString(),
+            "proposedItemsNames":state.exchangeItem.itemsToGive.map(item => item.name).join(', '),
             "receiveItemName":state.exchangeItem.itemToReceive.name};
-    console.log(data);
-//${state.user.user.token}
+
     const exchangePostFetch = await fetch(`http://localhost:8000/exchanges`, {
         method: 'POST',
         headers: {
@@ -19,10 +16,7 @@ export const exchange = createAsyncThunk('exchange', async (params, {getState}) 
     });
 
     const exchangePostData = await exchangePostFetch.json();
-    console.log(exchangePostData);
-    console.log(exchangePostFetch.status);
     if (exchangePostFetch.status === 200) {
-        
         return exchangePostData;
     } else {
         return {

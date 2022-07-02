@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 
 export default function ItemSelected () {
-    let itemId = 14;
+    let itemId = 5;
     const [item, setItem] = useState({ name: '', wishlist: '', acquisitionDate: '', description: '', itemState: -1, category: -1, location: -1, photoUrls: []});
     const loading = useSelector( (state) => state.app.loading );
     const dispatch = useDispatch();
