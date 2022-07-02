@@ -18,7 +18,7 @@ const exchangeItemSlice = createSlice({
             if (indexItem + 1) {
                 state.itemsToGive.splice(indexItem, 1);
             } else {
-                state.itemsToGive.push(item.payload)
+                state.itemsToGive.push(item.payload);
             }
         },
         clearExchange: (state) => {

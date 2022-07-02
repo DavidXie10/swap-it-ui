@@ -8,26 +8,26 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addItemToReceive, clearExchange } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
 import { getItem } from "../../Slices/exchangeItem/requests/getItem";
+import { useEffect } from "react";
+import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 
-export default function ItemSelected ({
-    idItem
-}) {
-    const dispatch = useDispatch();
+export default function ItemSelected () {
+    let idItem = 1;
     const loading = useSelector( (state) => state.app.loading );
-    useDispatch(getItem({id:idItem}));
+    const dispatch = useDispatch();
+    
+    //Effect solo se ejecuta cuando carga la pantalla
+    useEffect(() => {
+        
+        //dispatch(setLoading());
+        dispatch(getItem({id:idItem}));
+        //dispatch(unsetLoading());
+    }, []);
 
-    //const currentItemToRecive = useSelector((state) => state.exchangeItem.itemToReceive);
-
-    let imagesSource=['https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/ALAS-Messolongi-sea-salt-crystals-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/cherries-250g-small.jpg', 'https://www.tresorsdegrece.gr/wp-content/uploads/2022/03/carob-crackers.jpg']
-    let title='Bicicleta con rodines';
-    let owner='Juani';
-    let state='usado';
-    let address='San José';
-    let acquisition='20/05/2021';
-    let description='La bici esta como nueva, tiene conos, aros nuevos, recién pintada de rojo, si no me va a dar su alma no me ofrezca nada';
+    const item = useSelector((state) => state.exchangeItem.itemToReceive);
 
     let first = true;
-    const listImages = imagesSource.map((image) =>
+    const listImages = item ? item.photoUrls.map((image) =>
         {if (first){
             first = false;
             return  <div className="carousel-item active relative float-left lg:w-[47%] md:w-[50%] sm:w-[61%]">
@@ -39,7 +39,7 @@ export default function ItemSelected ({
                     </div>
 
         } }
-    );
+    ) : 0;
 
     return (
         loading ? (<Spinner />) : (
@@ -78,12 +78,12 @@ export default function ItemSelected ({
                     </div>
                     
 
-                    <Label text={title || "Title not found"} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'font-bold'} textposition={'text-left'} size={'lg:text-4xl md:text-4xl sm:text-3xl'}></Label>
-                    <Label text={`Propietario: ${owner || "Owner not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
-                    <Label text={`Estado: ${state || "State not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
-                    <Label text={`Ubicación: ${address || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
-                    <Label text={`Fecha de adquisición: ${acquisition || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
-                    <Label text={`Descripción: ${description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
+                    <Label text={item.name || "Title not found"} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'font-bold'} textposition={'text-left'} size={'lg:text-4xl md:text-4xl sm:text-3xl'}></Label>
+                    <Label text={`Propietario: ${item.ownerFullName || "Owner not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
+                    <Label text={`Estado: ${item.itemState || "State not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
+                    <Label text={`Ubicación: ${item.location || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
+                    <Label text={`Fecha de adquisición: ${item.acquisitionDate || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
+                    <Label text={`Descripción: ${item.description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
                     <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-5 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Intercambiar' onClick={() => dispatch(addItemToReceive(Number(idItem)))}/>
                 </div>
             </div>
@@ -91,6 +91,3 @@ export default function ItemSelected ({
         </div>)
     )
 }
-//<span>{count}</span>
-//{dispatch(addItemToReceive(itemId));}
-//onClick={() => setShowMobileCategories(false) }
