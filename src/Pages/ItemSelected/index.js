@@ -19,6 +19,7 @@ export default function ItemSelected () {
     
     useEffect(() => {
         dispatch(setLoading());
+        //dispatch(clearState())
         dispatch(getItem({id:idItem}));
         dispatch(unsetLoading());
     }, []);

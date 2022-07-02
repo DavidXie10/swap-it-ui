@@ -4,7 +4,7 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleItemToGive, clearState } from '../../Slices/exchangeItem/exchangeItemSlice';
+import { toggleItemToGive, clearGiveState } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
 import { useEffect } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
@@ -17,16 +17,16 @@ export default function ChooseExchangeProduct () {
     const dispatch = useDispatch();
     useEffect(() => {
         //dispatch(setLoading());
-        dispatch(clearState());
+        dispatch(clearGiveState());
         dispatch(getMyItems({id:idUser}));
         //dispatch(unsetLoading());
     }, [])
-    console.log(currentItemsToGive);
-    const listMyProducts = myItems.map((item) => 
+
+    const listMyProducts = myItems ? myItems.map((item) => 
         <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center">
             <ImageCheckbox fileURL={item.photoUrls[0]} onClick={() => dispatch(toggleItemToGive(item))}></ImageCheckbox>
         </div>
-    );
+    ) : 0;
 
     return (
         <div className='flex min-h-screen flex-col justify-between'>
