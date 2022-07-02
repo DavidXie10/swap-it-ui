@@ -155,9 +155,9 @@ export default function ItemForm() {
         loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
-            {errorMessage ? <AlertMessage message={errorMessage} success={false} /> : <></>}
+            {errorMessage ? <AlertMessage message={errorMessage} success={false} buttonType='back'/> : <></>}
             {success ? (
-                <AlertMessage success={true} message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) :  localErrorMessage ? <AlertMessage success={false} message={localErrorMessage} /> :   
+                <AlertMessage success={true} message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonType='back' buttonMessage={'Regresar al catálogo'} showButton={true}/>) :  localErrorMessage ? <AlertMessage success={false} message={localErrorMessage}  buttonType='back'/> :   
             (<form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 <div className='flex w-full'>
                     <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
