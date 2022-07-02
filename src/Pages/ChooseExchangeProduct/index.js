@@ -7,7 +7,7 @@ import Spinner from "../../Components/Spinner";
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleItemToGive, clearGiveState } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
 import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
@@ -16,16 +16,22 @@ import AlertMessage from "../../Components/AlertMessage";
 export default function ChooseExchangeProduct () {
     const { idUser } = useParams();
     const loading = useSelector( (state) => state.app.loading );
+    const user = useSelector( (state) => state.user.user);
     const myItems = useSelector((state) => state.myItems.myItems);
     const success = useSelector( (state) => state.myItems.success );
     const errorMessage = useSelector ( (state) => state.myItems.errorMessage);
+    const [localErrorMessage, setLocalErrorMessage] = useState('');
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setLoading());
-        dispatch(clearGiveState());
-        dispatch(clearMyItemsState());
-        dispatch(getMyItems({id:idUser}));
-        dispatch(unsetLoading());
+        if(idUser === user.id){
+            dispatch(setLoading());
+            dispatch(clearGiveState());
+            dispatch(clearMyItemsState());
+            dispatch(getMyItems({id:idUser}));
+            dispatch(unsetLoading());
+        } else {
+            setLocalErrorMessage('No tiene los permisos para acceder a los items del usuario solicitado');
+        }
     }, [dispatch])
 
     const listMyProducts = () => myItems.map((item) => 
@@ -38,8 +44,8 @@ export default function ChooseExchangeProduct () {
         loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
-            {console.log(errorMessage)}
-            {!success ? (<AlertMessage message={errorMessage} success={false} />) : 
+            {!localErrorMessage ? (<AlertMessage success={false} message={localErrorMessage} />) : 
+            !success ? (<AlertMessage message={errorMessage} success={false} />) : 
             (<>
                 <div className="sm:px-6 md:px-8 lg:px-16">
                     <div className="flex flex-row items-center w-full mb-16">

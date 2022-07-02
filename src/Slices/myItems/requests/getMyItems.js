@@ -8,8 +8,9 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
             "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBdXRoZW50aWNhdGVkIjp0cnVlLCJpYXQiOjE2NTY3ODk4OTYsImV4cCI6MTY1NzM5NDY5Nn0.awTIHBO4nWbRcwp0vyAiftpTABaKXCGmUxvVnh58p40`,
         },
     });
+    console.log("hola mundo 1")
     let myItemsData = await myItemsFetch.json();
-    console.log(myItemsFetch);
+    console.log("hola mundo 2")
     if (myItemsFetch.status === 200) {
         myItemsData.forEach(item => {
             if(item.itemState === 1) {
@@ -45,10 +46,10 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
             }
         });
         return myItemsData;
-    } else if (myItemsFetch.status === 404 || myItemsFetch.status === 500) {
+    } else if (myItemsFetch.status === 401 || myItemsFetch.status === 500 || myItemsFetch.status === 404) {
         return {
             error: true,
-            message: myItemsData.error.message,
+            message: myItemsFetch.error.message,
         }
     }
 });
