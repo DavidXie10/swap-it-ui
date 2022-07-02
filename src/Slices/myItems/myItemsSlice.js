@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getMyItems, onGetMyItemsFullfiled, onGetMyItemsRejected } from "./requests/getMyItems";
 
-const exchangeItemSlice = createSlice({
+const myItemsSlice = createSlice({
     name: 'myItems',
     initialState: {
         myItems: []
     },
-    reducers: {},
+    reducers: {
+        clearMyItemsState: (state) => {
+            state.myItems = [];
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(getMyItems.fulfilled, onGetMyItemsFullfiled)
@@ -14,4 +18,6 @@ const exchangeItemSlice = createSlice({
     }
 })
 
-export default exchangeItemSlice.reducer;
+export const { clearMyItemsState } = myItemsSlice.actions
+
+export default myItemsSlice.reducer;

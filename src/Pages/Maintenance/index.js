@@ -4,117 +4,41 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
+import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
 //Hacer responsive y freeze pane con el +
 export default function Maintenance () {
 
-    const myProducts = [
-        {
-            id: 1,
-            name: "Café rarísimo",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/ALAS-Messolongi-sea-salt-crystals-small.jpg",
-            direction: 'San José',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 2,
-            name: "Cerezas",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/cherries-250g-small.jpg",
-            direction: 'Heredia',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 3,
-            name: "Crab Crackers",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2022/03/carob-crackers.jpg",
-            direction: 'San José',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 4,
-            name: "Cerezas agrías",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/sour-cherries-250g-small.jpg",
-            direction: 'San José',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 5,
-            name: "Mantequilla de sésamo",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/sesame-butter-wholegrain-200g-small.jpg",
-            direction: 'Heredia',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 6,
-            name: "Cerezas",
-            image:
-            "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/cherries-250g-small.jpg",
-            direction: 'Heredia',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 7,
-            name: "Mantequilla de sésamo",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/sesame-butter-wholegrain-200g-small.jpg",
-            direction: 'Heredia',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 8,
-            name: "Anise Croutons",
-            image:
-            "https://www.tresorsdegrece.gr/wp-content/uploads/2021/10/intro-anise-croutons.jpg",
-            direction: 'San José',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        },
-        {
-            id: 9,
-            name: "Café rarísimo",
-            image:
-                "https://www.tresorsdegrece.gr/wp-content/uploads/2018/10/ALAS-Messolongi-sea-salt-crystals-small.jpg",
-            direction: 'San José',
-            state: 'usado',
-            boughtDate: '20/05/2021',
-            inSearchOf: 'bicicleta sin rodines'
-        }
-    ];
+    const idUser = 2;
+    const loading = useSelector( (state) => state.app.loading );
+    const myItems = useSelector((state) => state.myItems.myItems);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        //dispatch(setLoading());
+        dispatch(clearMyItemsState());
+        dispatch(getMyItems({id:idUser}));
+        //dispatch(unsetLoading());
+    }, [])
+
+
     let alternate = true;
-    const listMyProducts = myProducts.map((item) => 
+    const listMyProducts = myItems ? myItems.map((item) => 
         {if (alternate){
             alternate = false;
             return  <div>
-                        <MyItem image={item.image} title={item.name} state={item.state} address={item.direction} acquisition={item.boughtDate} searchFor={item.inSearchOf} ></MyItem>
+                        <MyItem image={item.photoUrls[0]} title={item.name} state={item.itemState} address={item.location} acquisition={item.acquisitionDate} searchFor={item.wishlist} ></MyItem>
                         <hr className="border-2"></hr>
                     </div>;
         } else {
             alternate = true;
             return  <div>
-                        <MyItem image={item.image} title={item.name} state={item.state} address={item.direction} acquisition={item.boughtDate} searchFor={item.inSearchOf} backgroundcolor={'bg-[#f5f5f5]'}></MyItem>
+                        <MyItem image={item.photoUrls[0]} title={item.name} state={item.itemState} address={item.location} acquisition={item.acquisitionDate} searchFor={item.wishlist} backgroundcolor={'bg-[#f5f5f5]'}></MyItem>
                         <hr className="border-2"></hr>
                     </div>;
         }}
-    );
+    ) : 0;
 
     return (
         <div className='flex min-h-screen flex-col justify-between'>

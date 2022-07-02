@@ -9,19 +9,19 @@ import 'tw-elements';
 import { useEffect } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
+import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
 export default function ChooseExchangeProduct () {
     const idUser = 2;
     const loading = useSelector( (state) => state.app.loading );
-    const currentItemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
     const myItems = useSelector((state) => state.myItems.myItems);
     const dispatch = useDispatch();
     useEffect(() => {
         //dispatch(setLoading());
         dispatch(clearGiveState());
+        dispatch(clearMyItemsState());
         dispatch(getMyItems({id:idUser}));
         //dispatch(unsetLoading());
     }, [])
-
     const listMyProducts = myItems ? myItems.map((item) => 
         <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center">
             <ImageCheckbox fileURL={item.photoUrls[0]} onClick={() => dispatch(toggleItemToGive(item))}></ImageCheckbox>

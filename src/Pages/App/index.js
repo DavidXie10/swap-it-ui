@@ -13,7 +13,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<ChooseExchangeProduct />}/> 
+                <Route path="/" element={<Maintenance />}/> 
                 {/* <Route element={<PrivateRoute />}>
                     <Route path="/showcase" element={<Showcase />}/>
                     <Route path="/item/:id" element={<ItemForm />} /> 
