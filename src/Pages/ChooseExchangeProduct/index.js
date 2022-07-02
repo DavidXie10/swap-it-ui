@@ -13,7 +13,7 @@ import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
 import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
 import { useParams } from "react-router-dom";
 export default function ChooseExchangeProduct () {
-    const idUser = 2;
+    const { idUser } = useParams();
     const loading = useSelector( (state) => state.app.loading );
     const myItems = useSelector((state) => state.myItems.myItems);
     const dispatch = useDispatch();

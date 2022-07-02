@@ -10,9 +10,12 @@ import { useEffect } from "react";
 import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
 import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
+import { useParams } from "react-router-dom";
+import { deleteItem } from "../../Slices/myItems/requests/deleteItem";
 
 export default function Maintenance () {
-    const idUser = 1;
+    //const { idUser } = useParams();
+    const idUser = 2;
     const loading = useSelector( (state) => state.app.loading );
     const myItems = useSelector((state) => state.myItems.myItems);
     const dispatch = useDispatch();
@@ -29,7 +32,7 @@ export default function Maintenance () {
         {if (alternate){
             alternate = false;
             return  <div>
-                        <MyItem image={item.photoUrls[0]} title={item.name} state={item.itemState} address={item.location} acquisition={item.acquisitionDate} searchFor={item.wishlist} ></MyItem>
+                        <MyItem image={item.photoUrls[0]} title={item.name} state={item.itemState} address={item.location} acquisition={item.acquisitionDate} searchFor={item.wishlist} onClickDelete={() => dispatch(deleteItem({param:item.itemId}))}></MyItem>
                         <hr className="border-2"></hr>
                     </div>;
         } else {

@@ -9,7 +9,7 @@ export const exchange = createAsyncThunk('exchange', async (params, {getState}) 
     const exchangePostFetch = await fetch(`http://localhost:8000/exchanges`, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBdXRoZW50aWNhdGVkIjp0cnVlLCJpYXQiOjE2NTY3Mzk2MTAsImV4cCI6MTY1NzM0NDQxMH0.48E-A-bZAeOvhcBHSX66JV2WBN3Yagecd9R0KkykcK4`,
+            'Authorization': `Bearer ${state.user.user.token}`,
             'Content-type': 'application/json',
         },
         body: JSON.stringify(data),

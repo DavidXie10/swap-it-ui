@@ -5,7 +5,7 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
     const myItemsFetch = await fetch(`http://localhost:8000/users/${user.id}/items`, {
         method: 'GET',
         headers: {
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBdXRoZW50aWNhdGVkIjp0cnVlLCJpYXQiOjE2NTY3Mzk2MTAsImV4cCI6MTY1NzM0NDQxMH0.48E-A-bZAeOvhcBHSX66JV2WBN3Yagecd9R0KkykcK4",
+            "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBdXRoZW50aWNhdGVkIjp0cnVlLCJpYXQiOjE2NTY3ODk4OTYsImV4cCI6MTY1NzM5NDY5Nn0.awTIHBO4nWbRcwp0vyAiftpTABaKXCGmUxvVnh58p40`,
         },
     });
     let myItemsData = await myItemsFetch.json();

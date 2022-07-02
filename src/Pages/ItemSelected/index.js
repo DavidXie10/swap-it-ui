@@ -9,9 +9,10 @@ import { addItemToReceive, clearState } from '../../Slices/exchangeItem/exchange
 import 'tw-elements';
 import { useEffect, useState } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
+import { useParams } from "react-router-dom";
 
 export default function ItemSelected () {
-    let itemId = 5;
+    const { itemId } = useParams();
     const [item, setItem] = useState({ name: '', wishlist: '', acquisitionDate: '', description: '', itemState: -1, category: -1, location: -1, photoUrls: []});
     const loading = useSelector( (state) => state.app.loading );
     const dispatch = useDispatch();
