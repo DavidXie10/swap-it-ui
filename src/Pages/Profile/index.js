@@ -91,7 +91,7 @@ export default function Profile() {
                 </div>
                 <div className='w-full lg:flex md:flex lg:my-5 md:my-5 sm:mt-5'>
                     <div className='w-full lg:mr-20 md:mr-20 sm:mb-5'>
-                        <Label text='Nombre completo' width='w-full' textalign='text-left'/>
+                        <Label text='Nombre completo' width='w-full'/>
                         <Input id='fullName' placeholder='Ingrese su nombre' value={user.fullName} marginBottom='mb-0' onChange={(evt) => {handleChange('fullName', evt.target.value)}}/>
                         {fullNameErrorMessage && <p className="text-red-500 font-bold mt-2">{fullNameErrorMessage}</p>}
                     </div>
@@ -118,12 +118,12 @@ export default function Profile() {
                 </div>
                 <div className='w-full lg:flex md:flex'>
                     <div className='w-full lg:mr-20 md:mr-20 sm:mb-5'>
-                        <Label text='Correo' width='w-full' textalign='text-left'/>
+                        <Label text='Correo' width='w-full'/>
                         <Input id='email' type='email' placeholder='Ingrese su correo electrónico' value={user.email} marginBottom='mb-0' onChange={(evt) => {handleChange('email', evt.target.value)}}/>
                         {emailErrorMessage && <p className="text-red-500 font-bold mt-2">{emailErrorMessage}</p>}
                     </div>
                     <div className='w-full sm:mb-5'>
-                        <Label text='Teléfono' width='w-full' textalign='text-left'/>
+                        <Label text='Teléfono' width='w-full' />
                         <Input placeholder='Ingrese su número de teléfono' value={user.phoneNumber} marginBottom='mb-0' onChange={(evt) => {handleChange('phoneNumber', evt.target.value)}}/>
                         {phoneNumberErrorMessage && <p className="text-red-500 font-bold mt-2">{phoneNumberErrorMessage}</p>}
                     </div>

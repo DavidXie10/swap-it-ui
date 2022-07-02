@@ -3,6 +3,8 @@ import PrivateRoute from "../../Components/PrivateRoute";
 import Showcase from "../../Components/Showcase"
 import Profile from "../../Pages/Profile"
 import Login from "../Login";
+import ItemForm from "../ItemForm";
+
 
 export default function App() {
     return (
@@ -10,10 +12,10 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Login />}/> 
                 <Route element={<PrivateRoute />}>
-                    <Route path="/showcase" element={<Showcase />}/> 
+                    <Route path="/showcase" element={<Showcase />}/>
+                    <Route path="/item/:id" element={<ItemForm />} /> 
                     <Route path="/profile" element={<Profile />}/> 
                 </Route>
-                {/*<Route path="/" element={<Home />} />*/}
             </Routes>
         </BrowserRouter>
     );
