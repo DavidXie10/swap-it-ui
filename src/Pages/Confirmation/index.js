@@ -4,11 +4,13 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import 'tw-elements';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { exchange } from "../../Slices/exchangeItem/requests/exchange";
 
 export default function Confirmation () {
     const itemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
     const itemToReceive = useSelector((state) => state.exchangeItem.itemToReceive);
+    const dispatch = useDispatch();
 
     return (
         <div className='flex min-h-screen flex-col justify-between'>
@@ -43,7 +45,7 @@ export default function Confirmation () {
                 </div>
                 <div className="flex justify-end gap-4 mt-8 mb-16">
                     <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Cancelar' onClick='' backgroundcolor='bg-[#8C8D8D]'/>
-                    <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick=''/>
+                    <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick={() => dispatch(exchange())}/>
                 </div>
             </div>
             <Footer />
