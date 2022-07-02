@@ -7,7 +7,6 @@ import Spinner from '../../Components/Spinner'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItemToReceive, clearState } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
-import { getItem } from "../../Slices/exchangeItem/requests/getItem";
 import { useEffect, useState } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 

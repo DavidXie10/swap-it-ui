@@ -15,7 +15,8 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<ItemSelected />}/>
                 <Route path="/e" element={<ChooseExchangeProduct />}/>
-                <Route path="/c" element={<Confirmation />}/> 
+                <Route path="/c" element={<Confirmation />}/>
+                <Route path="/m" element={<Maintenance />}/> 
                 {/* <Route element={<PrivateRoute />}>
                     <Route path="/showcase" element={<Showcase />}/>
                     <Route path="/item/:id" element={<ItemForm />} /> 
