@@ -32,7 +32,7 @@ export default function ChooseExchangeProduct () {
         } else {
             setLocalErrorMessage('No tiene los permisos para acceder a los items del usuario solicitado');
         }
-    }, [dispatch])
+    }, [dispatch,idUser,user.id])
 
     const listMyProducts = () => myItems.map((item) => 
         <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center">

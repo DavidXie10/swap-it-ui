@@ -67,7 +67,7 @@ export default function ItemSelected () {
         dispatch(setLoading());
         fetchItem(itemId);
         dispatch(unsetLoading());
-    }, []);
+    }, [dispatch,itemId]);
     let first = true;
     const listItems = () => item.photoUrls.map((image) =>
         {if (first){

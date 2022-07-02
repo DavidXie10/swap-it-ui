@@ -32,7 +32,7 @@ export default function Maintenance () {
         } else {
             setLocalErrorMessage('No tiene los permisos para acceder a los items del usuario solicitado');
         }
-    }, [dispatch])
+    }, [dispatch,idUser])
 
 
     let alternate = true;
