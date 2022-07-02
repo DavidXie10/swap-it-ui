@@ -1,7 +1,7 @@
 export default function Checkbox({
-    isChecked
+    isChecked, onClick
 }) {
     return (
-        <input type='checkbox' defaultChecked={isChecked}></input>
+        <input type='checkbox' defaultChecked={isChecked} onClick={onClick}></input>
     )
 }

@@ -9,7 +9,6 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
         },
     });
     let myItemsData = await myItemsFetch.json();
-    console.log(myItemsData);
     if (myItemsFetch.status === 200) {
         myItemsData.forEach(item => {
             if(item.itemState === 1) {
@@ -44,7 +43,6 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
                     break;
             }
         });
-        console.log(myItemsData);
         return myItemsData;
     } else if (myItemsFetch.status === 404 || myItemsFetch.status === 500) {
         return {

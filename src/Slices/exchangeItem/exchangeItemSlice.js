@@ -13,12 +13,16 @@ const exchangeItemSlice = createSlice({
             state.itemToReceive = item.payload;
         },
         toggleItemToGive: (state, item) => {
-            const indexItem = state.itemsToGive.findIndex((element) => element.id === item.payload.id);
+            const indexItem = state.itemsToGive.findIndex((element) => element.itemId === item.payload.itemId);
             if (indexItem + 1) {
                 state.itemsToGive.splice(indexItem, 1);
             } else {
                 state.itemsToGive.push(item.payload);
             }
+        },
+        clearState: (state) => {
+            state.itemToReceive = null;
+            state.itemsToGive = [];
         }
     },
     extraReducers(builder) {
@@ -28,6 +32,6 @@ const exchangeItemSlice = createSlice({
     }
 })
 
-export const { addItemToReceive, toggleItemToGive, clearExchange} = exchangeItemSlice.actions
+export const { addItemToReceive, toggleItemToGive, clearState} = exchangeItemSlice.actions
 
 export default exchangeItemSlice.reducer;

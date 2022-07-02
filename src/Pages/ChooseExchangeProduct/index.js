@@ -4,7 +4,7 @@ import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleItemToGive, clearExchange } from '../../Slices/exchangeItem/exchangeItemSlice';
+import { toggleItemToGive, clearState } from '../../Slices/exchangeItem/exchangeItemSlice';
 import 'tw-elements';
 import { useEffect } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
@@ -15,18 +15,18 @@ export default function ChooseExchangeProduct () {
     const currentItemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
     const myItems = useSelector((state) => state.myItems.myItems);
     const dispatch = useDispatch();
-    console.log(myItems);
     useEffect(() => {
         //dispatch(setLoading());
+        dispatch(clearState());
         dispatch(getMyItems({id:idUser}));
         //dispatch(unsetLoading());
     }, [])
-
-    const listMyProducts = myItems ? myItems.map((item) => 
+    console.log(currentItemsToGive);
+    const listMyProducts = myItems.map((item) => 
         <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center">
-            <ImageCheckbox fileURL={item.image} onClick={() => {dispatch(toggleItemToGive(item));}} isChecked={currentItemsToGive.find((element) => element.id === item.id)} ></ImageCheckbox>
+            <ImageCheckbox fileURL={item.photoUrls[0]} onClick={() => dispatch(toggleItemToGive(item))}></ImageCheckbox>
         </div>
-    ) : 0; //??? Preguntar que hacer aca
+    );
 
     return (
         <div className='flex min-h-screen flex-col justify-between'>
