@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPostLoginFulfilled, onPostLoginRejected, postLogin } from "./requests/postLogin";
-import { onPatchUserFulfilled, onPatchUserRejected, patchUser } from "./requests/patchUser";
+import { onUpdateUserFulfilled, onUpdateUserRejected, updateUser } from "./requests/updateUser";
 
 const userSlice = createSlice({
     name: 'user',
@@ -8,20 +8,22 @@ const userSlice = createSlice({
         user: null,
         isLoggedIn: false,
         errorMessage: "",
+        isUpdated: false
     },
     reducers: {
         logout: (state) => {
             state.user = null;
             state.isLoggedIn = false;
             state.errorMessage = '';
+            state.isUpdated = false;
         }
     },
     extraReducers (builder){
         builder
             .addCase(postLogin.fulfilled, onPostLoginFulfilled)
             .addCase(postLogin.rejected, onPostLoginRejected)
-            .addCase(patchUser.fulfilled, onPatchUserFulfilled)
-            .addCase(patchUser.rejected, onPatchUserRejected)
+            .addCase(updateUser.fulfilled, onUpdateUserFulfilled)
+            .addCase(updateUser.rejected, onUpdateUserRejected)
     }
 })
 
