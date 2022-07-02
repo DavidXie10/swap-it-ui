@@ -12,20 +12,17 @@ import { useEffect } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 
 export default function ItemSelected () {
-    let idItem = 1;
+    let idItem = 5;
     const loading = useSelector( (state) => state.app.loading );
+    const item = useSelector((state) => state.exchangeItem.itemToReceive);
     const dispatch = useDispatch();
     
-    //Effect solo se ejecuta cuando carga la pantalla
     useEffect(() => {
-        
-        //dispatch(setLoading());
+        dispatch(setLoading());
         dispatch(getItem({id:idItem}));
-        //dispatch(unsetLoading());
+        dispatch(unsetLoading());
     }, []);
-
-    const item = useSelector((state) => state.exchangeItem.itemToReceive);
-
+   
     let first = true;
     const listImages = item ? item.photoUrls.map((image) =>
         {if (first){
@@ -48,7 +45,7 @@ export default function ItemSelected () {
             <div className="sm:px-6 md:px-8 lg:px-16">
                 <div className="flex flex-row justify-between items-center w-full mb-16 p-8 sm:px-6 md:px-8 lg:px-16">
                     <Label text='Artículo seleccionado' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
-                    <BackButton onClick={() => dispatch(clearExchange())}></BackButton>
+                    <BackButton onClick=''></BackButton>
                 </div>
                 <div className="grid lg:grid-rows-[8] md:grid-rows-[8] sm:grid-rows-[16] grid-cols-7 gap-2 mb-16">
                     <div className="border row-[span_8_/_span_8] lg:col-span-3 md:col-span-3 sm:col-span-7 border-b-neutral-400 w-full">
@@ -84,7 +81,7 @@ export default function ItemSelected () {
                     <Label text={`Ubicación: ${item.location || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
                     <Label text={`Fecha de adquisición: ${item.acquisitionDate || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
                     <Label text={`Descripción: ${item.description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={''} textposition={'text-left'} size={'text-md'}></Label>
-                    <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-5 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Intercambiar' onClick={() => dispatch(addItemToReceive(Number(idItem)))}/>
+                    <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-5 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Intercambiar' onClick=''/>
                 </div>
             </div>
             <Footer />

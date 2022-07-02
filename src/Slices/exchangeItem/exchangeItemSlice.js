@@ -6,7 +6,6 @@ const exchangeItemSlice = createSlice({
     initialState: {
         itemToReceive: null,
         itemsToGive: [],
-        count: 0,
         errorMessage: ''
     },
     reducers: {
@@ -20,10 +19,6 @@ const exchangeItemSlice = createSlice({
             } else {
                 state.itemsToGive.push(item.payload);
             }
-        },
-        clearExchange: (state) => {
-            state.itemToReceive = null;
-            state.itemsToGive = [];
         }
     },
     extraReducers(builder) {
