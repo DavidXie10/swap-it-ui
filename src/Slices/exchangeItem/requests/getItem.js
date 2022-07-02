@@ -37,7 +37,6 @@ export const getItem = createAsyncThunk('items/getItem', async (item) => {
                 itemData.location = "No es de Costa Rica";
                 break;
         }
-        console.log(itemData);
         return itemData;
     } else if (itemFetch.status === 404 || itemFetch.status === 500) {
         return {
