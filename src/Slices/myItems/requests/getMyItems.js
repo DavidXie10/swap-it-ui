@@ -5,7 +5,7 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
     const myItemsFetch = await fetch(`http://localhost:8000/users/${user.id}/items`, {
         method: 'GET',
         headers: {
-            "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBdXRoZW50aWNhdGVkIjp0cnVlLCJpYXQiOjE2NTY3ODk4OTYsImV4cCI6MTY1NzM5NDY5Nn0.awTIHBO4nWbRcwp0vyAiftpTABaKXCGmUxvVnh58p40`,
+            "Authorization": `Bearer ${state.user.user.token}`,
         },
     });
     console.log("hola mundo 1")
