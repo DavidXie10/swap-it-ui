@@ -4,11 +4,15 @@ import { getMyItems, onGetMyItemsFullfiled, onGetMyItemsRejected } from "./reque
 const myItemsSlice = createSlice({
     name: 'myItems',
     initialState: {
-        myItems: []
+        myItems: [],
+        success: false,
+        errorMessage: '',
     },
     reducers: {
         clearMyItemsState: (state) => {
             state.myItems = [];
+            state.success = false;
+            state.errorMessage = '';
         },
     },
     extraReducers(builder) {
