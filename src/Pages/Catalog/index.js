@@ -17,22 +17,35 @@ import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 export default function Catalog() {
     const [items, setItems] = useState(null);
+    const [itemsToDisplay, setItemsToDisplay] = useState(null);
+    const [searchedItems, setSearchedItems] = useState(null);
     const [localErrorMessage, setLocalErrorMessage] = useState('');
+    const [showMobileCategories, setShowMobileCategories] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
+    const [searchedWord, setSearchedWord] = useState(''); 
+        
+    const itemsPerPage = 9;
     const loading = useSelector( (state) => state.app.loading );
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         dispatch(clearState());
         const fetchItems = async () => {
             dispatch(setLoading());
-            const itemFetch = await fetch(`http://localhost:8000/items/`);
-            const itemJSON = await itemFetch.json();
-            if(itemFetch.status !== 200){
-                setLocalErrorMessage(itemJSON.message);
+            const itemsFetch = await fetch(`http://localhost:8000/items/`);
+            const itemsJSON = await itemsFetch.json();
+            if(itemsFetch.status !== 200){
+                setLocalErrorMessage(itemsJSON.message);
             } else {
-                setItems(itemJSON);
-                setPageCount(Math.ceil(itemJSON.length / itemsPerPage));
+                setItems(itemsJSON);
+                setCurrentPage(0);
+                setPageCount(Math.ceil(itemsJSON.length / itemsPerPage));
+                setItemsToDisplay(itemsJSON
+                    .slice(0, itemsPerPage)
+                    .map((item) => item)
+                );
                 setLocalErrorMessage('');
             }
             dispatch(unsetLoading());
@@ -50,9 +63,14 @@ export default function Catalog() {
                 setLocalErrorMessage(itemsJSON.message);
             } else {
                 setItems(itemsJSON);
-                //setPageCount(Math.ceil(itemsJSON.length / itemsPerPage)); 
-                setSearchedItems(null);
+                setCurrentPage(0);
+                setPageCount(Math.ceil(itemsJSON.length / itemsPerPage));
+                setItemsToDisplay(itemsJSON
+                    .slice(0, itemsPerPage)
+                    .map((item) => item)
+                );
                 setSearchedWord('');
+                setSearchedItems(null);
                 setLocalErrorMessage('');
             }
             dispatch(unsetLoading());
@@ -61,25 +79,6 @@ export default function Catalog() {
 
     }, [dispatch, selectedCategory]);
 
-    const itemsPerPage = 9;
-    const [currentPage, setCurrentPage] = useState(2);
-    const [pageCount, setPageCount] = useState(0);
-    // const numberOfItemsVistited = currentPage * itemsPerPage;
-    // const displayItems = items
-    //     .slice(
-    //         numberOfItemsVistited, 
-    //         numberOfItemsVistited + itemsPerPage
-    //     )
-    //     .map((item) => item);
-        
-    // console.log(displayItems);
-    const totalPages = 5/*Math.ceil(items.length / itemsPerPage)*/;
-    const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
-    };
-
-    const [searchedWord, setSearchedWord] = useState(''); 
-    const [searchedItems, setSearchedItems] = useState(null); 
 
     const handleClick = () => {
         if(searchedWord){
@@ -88,14 +87,45 @@ export default function Catalog() {
                 if(item.name.toLowerCase().includes(searchedWord.toLowerCase()))
                     itemsBySearch.push(item);
             })
+            
+            setCurrentPage(0);
+            setPageCount(Math.ceil(itemsBySearch.length / itemsPerPage));
+            setItemsToDisplay(itemsBySearch
+                .slice(0, itemsPerPage)
+                .map((item) => item)
+            );
             setSearchedItems(itemsBySearch);
-            setPageCount(Math.ceil(itemsBySearch.length / itemsPerPage)); 
         } else {
+            setCurrentPage(0);
+            setPageCount(Math.ceil(items.length / itemsPerPage));
+            setItemsToDisplay(items
+                .slice(0, itemsPerPage)
+                .map((item) => item)
+            );
             setSearchedItems(null);
         }
     }
 
-    const [showMobileCategories, setShowMobileCategories] = useState(false);
+    useEffect(() => {
+        dispatch(setLoading());
+        if(searchedItems)
+            setItemsToDisplay(searchedItems
+                .slice(currentPage * itemsPerPage, (currentPage * itemsPerPage) + itemsPerPage)
+                .map((item) => item)
+            );
+        else if(items)
+            setItemsToDisplay(items
+                .slice(currentPage * itemsPerPage, (currentPage * itemsPerPage) + itemsPerPage)
+                .map((item) => item)
+            );
+        
+        dispatch(unsetLoading());
+    }, [dispatch, items, searchedItems, currentPage]);
+
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+        console.log(selected);
+    };
 
     return (
         loading ? (<Spinner />) : (
@@ -132,9 +162,9 @@ export default function Catalog() {
                         </div>
                         <div className='w-full flex flex-wrap gap-y-8 gap-x-6 py-4 justify-between'>
                             {
-                                searchedItems?
+                                itemsToDisplay?
                                 (
-                                  searchedItems.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={item.location} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
+                                    itemsToDisplay.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={item.location} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
                                 )
                                 : items ? 
                                 (
@@ -152,7 +182,8 @@ export default function Catalog() {
                             <ReactPaginate
                             previousLabel={<IoChevronBack/>}
                             nextLabel={<IoChevronForward/>}
-                            pageCount={totalPages}
+                            pageCount={pageCount}
+                            initialPage={currentPage}
                             onPageChange={handlePageChange}
                             containerClassName={"flex w-full h-10 px-4 justify-between m-auto bg-[#FAFAFA] items-center"}
                             pageLinkClassName={"p-2 font-bold cursor-pointer rounded-full "}
