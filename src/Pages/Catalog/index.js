@@ -1,3 +1,10 @@
+
+import { setLoading, unsetLoading } from '../../Slices/app/appSlice';
+import { RiEqualizerLine } from 'react-icons/ri';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import ReactPaginate from "react-paginate";
+import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 import AlertMessage from '../../Components/AlertMessage';
 import ArticleCard from '../../Components/ArticleCard';
 import Categories from '../../Components/Categories';
@@ -6,137 +13,57 @@ import Footer from '../../Components/Footer';
 import Input from '../../Components/Input';
 import Label from '../../Components/Label';
 import Spinner from '../../Components/Spinner';
-import {clearState} from '../../Slices/item/itemSlice';
-import { setLoading, unsetLoading } from '../../Slices/app/appSlice';
-import { RiEqualizerLine } from 'react-icons/ri';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import ReactPaginate from "react-paginate";
-import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
-
+import { clearState, updateCurrentPage, updateSelectedCategory } from '../../Slices/item/itemSlice';
 
 export default function Catalog() {
     const [items, setItems] = useState(null);
-    const [itemsToDisplay, setItemsToDisplay] = useState(null);
-    const [searchedItems, setSearchedItems] = useState(null);
     const [localErrorMessage, setLocalErrorMessage] = useState('');
     const [showMobileCategories, setShowMobileCategories] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
     const [searchedWord, setSearchedWord] = useState(''); 
         
-    const itemsPerPage = 9;
     const loading = useSelector( (state) => state.app.loading );
+    const currentPage = useSelector( (state) => state.item.currentPage );
+    const selectedCategory = useSelector( (state) => state.item.selectedCategory );
     const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(clearState());
-        const fetchItems = async () => {
-            dispatch(setLoading());
-            const itemsFetch = await fetch(`http://localhost:8000/items/`);
-            const itemsJSON = await itemsFetch.json();
-            if(itemsFetch.status !== 200){
-                setLocalErrorMessage(itemsJSON.message);
-            } else {
-                setItems(itemsJSON);
-                setCurrentPage(0);
-                setPageCount(Math.ceil(itemsJSON.length / itemsPerPage));
-                setItemsToDisplay(itemsJSON
-                    .slice(0, itemsPerPage)
-                    .map((item) => item)
-                );
-                setLocalErrorMessage('');
-            }
-            dispatch(unsetLoading());
-        } 
-        fetchItems();
-    }, [dispatch]);
 
     useEffect(() => {
         dispatch(clearState());
         const fetchItems = async () => {
             dispatch(setLoading());
-            const itemsFetch = await fetch(`http://localhost:8000/items/${selectedCategory}/items`);
+            const itemsFetch = await fetch(`http://localhost:8000/items/${selectedCategory}/items?page=${currentPage}${searchedWord?'&keyword='+searchedWord:''}`);
             const itemsJSON = await itemsFetch.json();
+
             if(itemsFetch.status !== 200){
                 setLocalErrorMessage(itemsJSON.message);
             } else {
-                setItems(itemsJSON);
-                setCurrentPage(0);
-                setPageCount(Math.ceil(itemsJSON.length / itemsPerPage));
-                setItemsToDisplay(itemsJSON
-                    .slice(0, itemsPerPage)
-                    .map((item) => item)
-                );
-                setSearchedWord('');
-                setSearchedItems(null);
+                setItems(itemsJSON.items);
+                setPageCount(itemsJSON.pagesCount);
                 setLocalErrorMessage('');
             }
             dispatch(unsetLoading());
         } 
         fetchItems();
 
-    }, [dispatch, selectedCategory]);
-
-
-    const handleClick = () => {
-        if(searchedWord){
-            let itemsBySearch = [];
-            items.map((item) => {
-                if(item.name.toLowerCase().includes(searchedWord.toLowerCase()))
-                    itemsBySearch.push(item);
-            })
-            
-            setCurrentPage(0);
-            setPageCount(Math.ceil(itemsBySearch.length / itemsPerPage));
-            setItemsToDisplay(itemsBySearch
-                .slice(0, itemsPerPage)
-                .map((item) => item)
-            );
-            setSearchedItems(itemsBySearch);
-        } else {
-            setCurrentPage(0);
-            setPageCount(Math.ceil(items.length / itemsPerPage));
-            setItemsToDisplay(items
-                .slice(0, itemsPerPage)
-                .map((item) => item)
-            );
-            setSearchedItems(null);
-        }
-    }
-
-    useEffect(() => {
-        dispatch(setLoading());
-        if(searchedItems)
-            setItemsToDisplay(searchedItems
-                .slice(currentPage * itemsPerPage, (currentPage * itemsPerPage) + itemsPerPage)
-                .map((item) => item)
-            );
-        else if(items)
-            setItemsToDisplay(items
-                .slice(currentPage * itemsPerPage, (currentPage * itemsPerPage) + itemsPerPage)
-                .map((item) => item)
-            );
-        
-        dispatch(unsetLoading());
-    }, [dispatch, items, searchedItems, currentPage]);
+    }, [dispatch, selectedCategory, currentPage, searchedWord]);
 
     const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
-        console.log(selected);
+        dispatch(updateCurrentPage({nextPage: selected}));
     };
 
     return (
         loading ? (<Spinner />) : (
-        <div className='flex min-h-screen flex-col justify-between'>
+        <div className='flex min-h-screen flex-col justify-between items-'>
             <Header/>
             {localErrorMessage ? <AlertMessage message={localErrorMessage} success={false} /> : <></>}
             <div className={`lg:hidden md:hidden z-20 ${showMobileCategories?'sm:block':'sm:hidden'}`}>
                 <div onClick={() => setShowMobileCategories(false) } className='fixed top-0 left-0 h-full w-full cursor-pointer' ></div>
                 <div className='fixed top-16 h-full w-2/3 bg-slate-800'>
                     <Categories defaultCategory={selectedCategory} onClick= {(idCategory) => {
-                        setSelectedCategory(idCategory);
+                        dispatch(updateSelectedCategory({nextCategory: idCategory}));
+                        dispatch(updateCurrentPage({nextPage: 0}));
+                        setSearchedWord('');
+                        setShowMobileCategories(false)
                     }}/>
                 </div>
             </div>
@@ -146,7 +73,9 @@ export default function Catalog() {
                 <div className='flex mt-5 text'>
                     <div className='mr-10 lg:block md:block sm:hidden'>
                         <Categories defaultCategory={selectedCategory} onClick= {(idCategory) => {
-                            setSelectedCategory(idCategory);
+                            dispatch(updateSelectedCategory({nextCategory: idCategory}));
+                            dispatch(updateCurrentPage({nextPage: 0}));
+                            setSearchedWord('');
                         }}/>
                     </div>
                     
@@ -156,19 +85,37 @@ export default function Catalog() {
                             <Input 
                             type='search' 
                             marginBottom='mb-0' 
+                            value={searchedWord}
                             placeholder='Buscar...' 
-                            onChange={(evnt) => {setSearchedWord(evnt.target.value); console.log("search: "+searchedWord);}}
-                            onClick={handleClick}/>
+                            onKeyUp={(evnt) => {
+                                if(evnt.key === "Enter")
+                                    setSearchedWord(evnt.target.value);
+                            }}/>
                         </div>
-                        <div className='w-full flex flex-wrap gap-y-8 gap-x-6 py-4 justify-between'>
+                        
                             {
-                                itemsToDisplay?
+                                items && items.length? 
                                 (
-                                    itemsToDisplay.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={item.location} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
-                                )
-                                : items ? 
-                                (
-                                    items.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={item.location} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
+                                <>
+                                    <div className='w-full flex flex-wrap gap-y-8 gap-x-6 py-4 justify-between'>
+                                        {
+                                        items.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={item.location} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
+                                        }
+                                    </div>
+                                    <div>
+                                        <ReactPaginate
+                                            previousLabel={<IoChevronBack/>}
+                                            nextLabel={<IoChevronForward/>}
+                                            pageCount={pageCount}
+                                            initialPage={currentPage}
+                                            onPageChange={handlePageChange}
+                                            containerClassName={"flex w-3/5 h-10 px-4 justify-between m-auto bg-[#F1F1F1] items-center rounded-sm"}
+                                            pageLinkClassName={"p-2 font-bold cursor-pointer rounded-full "}
+                                            disabledClassName={"text-gray-400"}
+                                            activeClassName={"text-[#51E5FF] bg-white border rounded-md p-[3px]"}
+                                        />
+                                    </div>
+                                </>
                                 )
                                 :
                                 (
@@ -177,20 +124,6 @@ export default function Catalog() {
                                     </div>
                                 )
                             }
-                        </div>
-                        <div>
-                            <ReactPaginate
-                            previousLabel={<IoChevronBack/>}
-                            nextLabel={<IoChevronForward/>}
-                            pageCount={pageCount}
-                            initialPage={currentPage}
-                            onPageChange={handlePageChange}
-                            containerClassName={"flex w-full h-10 px-4 justify-between m-auto bg-[#FAFAFA] items-center"}
-                            pageLinkClassName={"p-2 font-bold cursor-pointer rounded-full "}
-                            disabledClassName={"text-gray-400"}
-                            activeClassName={"text-[#51E5FF] bg-white border rounded-md p-[3px]"}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>
