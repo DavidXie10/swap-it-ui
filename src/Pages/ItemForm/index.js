@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AlertMessage from '../../Components/AlertMessage'
 import Button from '../../Components/Button'
 import CloseButton from '../../Components/CloseButton'
@@ -14,6 +14,7 @@ import { createItem } from '../../Slices/item/requests/createItem';
 import { editItem } from '../../Slices/item/requests/editItem';
 import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
 import { clearState } from '../../Slices/item/itemSlice'
+import BackButton from '../../Components/BackButton'
 
 export default function ItemForm() {
     const { id } = useParams();
@@ -34,8 +35,10 @@ export default function ItemForm() {
     const errorMessage = useSelector ( (state) => state.item.errorMessage);
     const user = useSelector( (state) => state.user.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(clearState());
         const fetchItem = async (itemId) => {
             const itemFetch = await fetch(`http://localhost:8000/items/${itemId}`);
@@ -161,6 +164,10 @@ export default function ItemForm() {
             (<form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
                 <div className='flex w-full'>
                     <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
+                </div>
+                <div className="flex flex-row items-center w-full mb-16 pt-6">
+                    <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`}  width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
+                    <BackButton width='justify-self-end w-10' onClick={() => navigate('/myItems') } ></BackButton>
                 </div>
                 <div className='mt-8 mb-5 w-full'>
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>

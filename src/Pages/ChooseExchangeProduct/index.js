@@ -13,6 +13,7 @@ import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
 import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
 import AlertMessage from "../../Components/AlertMessage";
+import BackButton from '../../Components/BackButton';
 
 export default function ChooseExchangeProduct () {
     const loading = useSelector( (state) => state.app.loading );
@@ -23,6 +24,7 @@ export default function ChooseExchangeProduct () {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const idUser = user.id;
+    const itemToReceive = useSelector ( (state) => state.exchangeItem.itemToReceive);
 
     useEffect(() => {
         dispatch(setLoading());
@@ -47,15 +49,17 @@ export default function ChooseExchangeProduct () {
                 <div className="sm:px-6 md:px-8 lg:px-16">
                     <div className="flex flex-row items-center w-full mb-16 pt-6">
                         <Label text='Mis Artículos a Intercambiar' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
+                        <BackButton onClick={() => navigate(`/catalog/item/${itemToReceive.itemId}`) }></BackButton>
                     </div>
+
                     <div className="grid grid-flow-row grid-cols-3 overflow-scroll gap-5 lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem]">
                         { myItems && listMyProducts() }
                     </div>
-                </div>
-                <div className="flex justify-center mt-12 mb-12">
-                    <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
-                        navigate('/confirmation')
-                    }}/>
+                    <div className="flex justify-center mt-12 mb-12">
+                        <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
+                            navigate('/confirmation')
+                        }}/>
+                    </div>
                 </div>
             </>)}
             <Footer />
