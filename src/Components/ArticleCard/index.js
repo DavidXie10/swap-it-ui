@@ -10,8 +10,8 @@ export default function ArticleCard({id, imageSource, cardWidth, cardHeight, nam
                 </Link>
             </div>
             <div className='p-4 items-center w-full h-1/4 border-t border-neutral-400'>
-                <p className="font-bold text-sm">Nombre: <span className="font-normal ">{name}.</span></p>
-                <p className="font-bold text-sm">Ubicación: <span className="font-normal">{direction}.</span></p>
+                <p className="font-bold text-sm">Nombre: <span className="font-normal ">{name}</span></p>
+                <p className="font-bold text-sm">Ubicación: <span className="font-normal">{direction}</span></p>
             </div>
         </div>
     )

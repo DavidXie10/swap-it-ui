@@ -5,13 +5,15 @@ import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import Input from '../../Components/Input';
 import Label from '../../Components/Label';
-import Spinner from '../../Components/Spinner'
+import Spinner from '../../Components/Spinner';
+import {clearState} from '../../Slices/item/itemSlice';
+import { setLoading, unsetLoading } from '../../Slices/app/appSlice';
 import { RiEqualizerLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import {clearState} from '../../Slices/item/itemSlice';
-import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
-//import { Pagination } from '@mui/material';
+import ReactPaginate from "react-paginate";
+import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
+
 
 export default function Catalog() {
     const [items, setItems] = useState(null);
@@ -30,6 +32,7 @@ export default function Catalog() {
                 setLocalErrorMessage(itemJSON.message);
             } else {
                 setItems(itemJSON);
+                setPageCount(Math.ceil(itemJSON.length / itemsPerPage));
                 setLocalErrorMessage('');
             }
             dispatch(unsetLoading());
@@ -47,6 +50,7 @@ export default function Catalog() {
                 setLocalErrorMessage(itemsJSON.message);
             } else {
                 setItems(itemsJSON);
+                //setPageCount(Math.ceil(itemsJSON.length / itemsPerPage)); 
                 setSearchedItems(null);
                 setSearchedWord('');
                 setLocalErrorMessage('');
@@ -54,7 +58,25 @@ export default function Catalog() {
             dispatch(unsetLoading());
         } 
         fetchItems();
+
     }, [dispatch, selectedCategory]);
+
+    const itemsPerPage = 9;
+    const [currentPage, setCurrentPage] = useState(2);
+    const [pageCount, setPageCount] = useState(0);
+    // const numberOfItemsVistited = currentPage * itemsPerPage;
+    // const displayItems = items
+    //     .slice(
+    //         numberOfItemsVistited, 
+    //         numberOfItemsVistited + itemsPerPage
+    //     )
+    //     .map((item) => item);
+        
+    // console.log(displayItems);
+    const totalPages = 5/*Math.ceil(items.length / itemsPerPage)*/;
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     const [searchedWord, setSearchedWord] = useState(''); 
     const [searchedItems, setSearchedItems] = useState(null); 
@@ -67,18 +89,14 @@ export default function Catalog() {
                     itemsBySearch.push(item);
             })
             setSearchedItems(itemsBySearch);
+            setPageCount(Math.ceil(itemsBySearch.length / itemsPerPage)); 
         } else {
             setSearchedItems(null);
         }
     }
 
     const [showMobileCategories, setShowMobileCategories] = useState(false);
-    //const [currentPage, setCurrentPage] = useState(1);
-    // useSelector, redux
 
-    // const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
-    //     setCurrentPage(value);
-    //   };
     return (
         loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
@@ -124,14 +142,24 @@ export default function Catalog() {
                                 )
                                 :
                                 (
-                                    <div className='my-4'>
+                                    <div className='my-4 '>
                                         <Label text='En este momento no hay productos para mostrar.' width='w-full' height='h-full' textposition='text-left' size='lg:text-2xl md:text-2xl sm:text-lg' font='font-bold'/>          
                                     </div>
                                 )
                             }
                         </div>
-                        {/* <Pagination count={10} page={currentPage} onChange={(value) => { setCurrentPage(value.);
-                        console.log(currentPage);}}/> */}
+                        <div>
+                            <ReactPaginate
+                            previousLabel={<IoChevronBack/>}
+                            nextLabel={<IoChevronForward/>}
+                            pageCount={totalPages}
+                            onPageChange={handlePageChange}
+                            containerClassName={"flex w-full h-10 px-4 justify-between m-auto bg-[#FAFAFA] items-center"}
+                            pageLinkClassName={"p-2 font-bold cursor-pointer rounded-full "}
+                            disabledClassName={"text-gray-400"}
+                            activeClassName={"text-[#51E5FF] bg-white border rounded-md p-[3px]"}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
