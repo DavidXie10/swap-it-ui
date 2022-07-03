@@ -43,7 +43,7 @@ export default function Header({height}) {
                         </div>
                         <div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
                             <h1 className={`${menuOptionClasses}`}>
-                                <Link to='/my-products'>MIS ARTÍCULOS</Link>
+                                <Link to='/myItems'>MIS ARTÍCULOS</Link>
                             </h1>
                         </div>
                         <div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
@@ -68,7 +68,7 @@ export default function Header({height}) {
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
                         <h1 className={`${menuOptionClasses}`}>
-                            <Link to='/my-products'>MIS ARTÍCULOS</Link>
+                            <Link to='/myItems'>MIS ARTÍCULOS</Link>
                         </h1>
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
