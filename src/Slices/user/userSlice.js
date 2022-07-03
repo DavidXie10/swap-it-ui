@@ -11,6 +11,10 @@ const userSlice = createSlice({
         isUpdated: false
     },
     reducers: {
+        clearState: (state) => {
+            state.isUpdated = false;
+            state.errorMessage = '';
+        },
         logout: (state) => {
             state.user = null;
             state.isLoggedIn = false;
@@ -27,6 +31,6 @@ const userSlice = createSlice({
     }
 })
 
-export const { logout } = userSlice.actions;
+export const { logout, clearState } = userSlice.actions;
 
 export default userSlice.reducer;

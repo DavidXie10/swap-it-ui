@@ -13,14 +13,7 @@ export default function AlertMessage({message, bottonMessage, success, linkToBut
                         <span className="font-medium">{message || 'Mensaje'}</span> 
                     </div>
                 </div>
-                {buttonType === 'close'? (
-                    <div className={`cursor-pointer  ${success ?'text-green-700 dark:text-green-800' : 'text-red-700 dark:text-red-800'}`}>
-                        <RiCloseCircleLine className='text-xl' onClick={onClick} />
-                    </div>
-                    ):<></>
-                }
             </div>
-            
         </div>
 
         {buttonType === 'back'? (

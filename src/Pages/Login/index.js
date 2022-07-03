@@ -1,7 +1,7 @@
 import Logo from '../../Components/Logo'
 import Input from '../../Components/Input'
 import Button from '../../Components/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { postLogin } from '../../Slices/user/requests/postLogin';

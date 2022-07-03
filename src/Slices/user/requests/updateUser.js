@@ -31,7 +31,12 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
     if (userFetch.status === 200) {
         console.log('200');
         console.log(userData);
-        return userData;
+        return {
+            ...userData,
+            token: state.user.user.token,
+            id: state.user.user.id,
+            password: state.user.user.password
+        };
     } else {
         console.log('ERROR');
         return {

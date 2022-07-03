@@ -13,7 +13,7 @@ import Spinner from '../../Components/Spinner'
 import { createItem } from '../../Slices/item/requests/createItem';
 import { editItem } from '../../Slices/item/requests/editItem';
 import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
-import {clearState} from '../../Slices/item/itemSlice'
+import { clearState } from '../../Slices/item/itemSlice'
 
 export default function ItemForm() {
     const { id } = useParams();
