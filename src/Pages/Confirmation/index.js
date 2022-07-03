@@ -1,11 +1,11 @@
+import 'tw-elements';
+import { useDispatch, useSelector } from "react-redux";
+import { exchange } from "../../Slices/exchangeItem/requests/exchange";
 import BackButton from "../../Components/BackButton";
 import Button from "../../Components/Button";
 import Label from "../../Components/Label";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
-import 'tw-elements';
-import { useDispatch, useSelector } from "react-redux";
-import { exchange } from "../../Slices/exchangeItem/requests/exchange";
 
 export default function Confirmation () {
     const itemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);

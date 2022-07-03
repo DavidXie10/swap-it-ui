@@ -5,13 +5,13 @@ const myItemsSlice = createSlice({
     name: 'myItems',
     initialState: {
         myItems: [],
-        success: false,
+        success: true,
         errorMessage: '',
     },
     reducers: {
         clearMyItemsState: (state) => {
             state.myItems = [];
-            state.success = false;
+            state.success = true;
             state.errorMessage = '';
         },
     },

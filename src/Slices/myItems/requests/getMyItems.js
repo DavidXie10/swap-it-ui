@@ -8,9 +8,7 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
             "Authorization": `Bearer ${state.user.user.token}`,
         },
     });
-    console.log("hola mundo 1")
     let myItemsData = await myItemsFetch.json();
-    console.log("hola mundo 2")
     if (myItemsFetch.status === 200) {
         myItemsData.forEach(item => {
             if(item.itemState === 1) {
@@ -49,7 +47,7 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
     } else if (myItemsFetch.status === 401 || myItemsFetch.status === 500 || myItemsFetch.status === 404) {
         return {
             error: true,
-            message: myItemsFetch.error.message,
+            message: myItemsFetch.message,
         }
     }
 });
