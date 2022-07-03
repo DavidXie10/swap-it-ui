@@ -14,6 +14,10 @@ const myItemsSlice = createSlice({
             state.success = true;
             state.errorMessage = '';
         },
+        deleteSelectedItem: (state, item) => {
+            const indexItem = state.myItems.findIndex((element) => element.itemId === item.payload.itemId);
+            state.myItems.splice(indexItem, 1);
+        },
     },
     extraReducers(builder) {
         builder
@@ -22,6 +26,6 @@ const myItemsSlice = createSlice({
     }
 })
 
-export const { clearMyItemsState } = myItemsSlice.actions
+export const { clearMyItemsState, deleteSelectedItem } = myItemsSlice.actions
 
 export default myItemsSlice.reducer;
