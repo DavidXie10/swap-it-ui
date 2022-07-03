@@ -8,6 +8,7 @@ import CloseButton from '../CloseButton';
 import {menuOptionClasses} from '../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux';	
 import { logout } from '../../Slices/user/userSlice';	
+import Mixpanel from '../../services/mixpanel';
 
 export default function Header({height}) {
     const [showUserMenu, setShowUserMenu] = useState(false);
@@ -73,7 +74,9 @@ export default function Header({height}) {
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
                         <p className='text-white'>{userState.user.name}</p>
-                            <MdPermIdentity onClick={() => { setShowUserMenu(true); }} className={`h-8 w-8 ${menuOptionClasses}`}/>
+                            <MdPermIdentity onClick={() => { 
+                                Mixpanel.track(Mixpanel.TYPES.OPEN_USER_MENU);
+                                setShowUserMenu(true); }} className={`h-8 w-8 ${menuOptionClasses}`}/>
                             {showUserMenu && (
                                 <div>
                                     <div onClick={() => { setShowUserMenu(false); }} className='fixed top-0 left-0 h-full w-full cursor-pointer'></div>
