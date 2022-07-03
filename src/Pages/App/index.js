@@ -21,7 +21,7 @@ export default function App() {
                     <Route path="/profile" element={<Profile />}/> 
                     <Route path="/chooseExchangeProduct" element={<ChooseExchangeProduct />}/>
                     <Route path="/confirmation" element={<Confirmation />}/>
-                    <Route path="/maintenance" element={<Maintenance />}/> 
+                    <Route path="/myItems" element={<Maintenance />}/> 
                     <Route path="/catalog/item/:id" element={<ItemSelected />}/> 
                 </Route>
             </Routes>
