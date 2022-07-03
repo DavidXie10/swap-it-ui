@@ -5,7 +5,7 @@ export default function ArticleCard({id, imageSource, cardWidth, cardHeight, nam
     return (
         <div className={`${cardWidth || 'w-60'} ${cardHeight || 'h-[24rem]'} border border-neutral-400`}>
             <div className='h-3/4 w-full'>
-                <Link className="w-full h-full" to={`/items/${id}`}>
+                <Link className="w-full h-full flex justify-center items-center" to={`/items/${id}`}>
                     <img className='w-fit max-w-full h-fit max-h-full p-2' src={imageSource} alt={description || 'Artículo de catálogo'} />
                 </Link>
             </div>
