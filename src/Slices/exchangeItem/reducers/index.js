@@ -12,9 +12,11 @@ export const exchangeItemReducers = {
     },
     clearGiveState: (state) => {
         state.itemsToGive = [];
+        state.errorMessage = '';
     },
     clearState: (state) => {
         state.itemToReceive = null;
         state.itemsToGive = [];
+        state.errorMessage = '';
     },
 }
