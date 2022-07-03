@@ -36,7 +36,7 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
         console.log('ERROR');
         return {
             error: true,
-            message: userData.error.message,
+            message: userData.message,
         }
     }
     

@@ -24,7 +24,7 @@ export default function Profile() {
     });
 
     const [photo, setPhoto] = useState(null);
-    const anonymous_profile_photo = 'https://ci0137.s3.amazonaws.com/swap-it/uploads/anonymous_profile_photo.png';
+    const anonymousProfilePhoto = 'https://ci0137.s3.amazonaws.com/swap-it/uploads/anonymous_profile_photo.png';
     const handleChange = (key, value) => {
         setUser({
             ...user,
@@ -72,12 +72,11 @@ export default function Profile() {
                 {errorMessage ? <AlertMessage success={false} message={errorMessage} buttonType='close' onClick={() => setErrorMessage('')}/> : <></>}
                 {success ?  <AlertMessage success={true} message='Perfil actualizado exitosamente' buttonType='close' onClick={() => setSuccess(false)}/>:<></>}  
                 <div className='p-8 w-full sm:px-6 md:px-8 lg:px-16'>
-                    <div className='flex mb-6'>
+                    <div className='flex mb-6 items-center'>
                         <div className='flex grow mr-10 lg:max-h-[14rem] lg:max-w-[14rem] md:max-h-[14rem] md:max-w-[14rem] sm:max-h-[12rem] sm:max-w-[12rem]'>
-                            <img id='photoUrl' className='border rounded-full h-full w-full' src={photo?URL.createObjectURL(photo):user.photoUrl?user.photoUrl:anonymous_profile_photo} alt='Foto de perfil'/>
+                            <img id='photoUrl' className='border rounded-full h-full w-full' src={photo?URL.createObjectURL(photo):user.photoUrl?user.photoUrl:anonymousProfilePhoto} alt='Foto de perfil'/>
                         </div>
                         <div className='w-full'>
-                            <div className='h-2/5'></div>
                             <label htmlFor="photo" className='w-fit h-8 text-left font-bold underline cursor-pointer'> 
                                 Actualizar foto
                             </label>
