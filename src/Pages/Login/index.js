@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { postLogin } from '../../Slices/user/requests/postLogin';
+import Mixpanel from '../../services/mixpanel';
 
 export default function Login() {
     const containerClases = "flex w-full justify-center flex-wrap";
@@ -47,6 +48,7 @@ export default function Login() {
 
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[15vh]`}>
                 <Button width='w-[360px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Ingresar' onClick={() => {
+                    Mixpanel.track(Mixpanel.TYPES.LOGIN_ATTEMPT)
                     if(email && password){
                         if(password.length < 8) {
                             setLocalErrorMessage('La contraseña debe contener mínimo 8 caracteres');

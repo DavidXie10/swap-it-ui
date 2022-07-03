@@ -19,14 +19,13 @@ const Mixpanel = {
     },
     TYPES: { //Acciones a las que quiero dar seguimiento
         OPEN_USER_MENU: "OPEN_USER_MENU",
-        GOT_TO_CATALOG: "OPEN_USER_MENU",
+        GO_TO_CATALOG: "GO_TO_CATALOG",
+        GO_TO_PROFILE: "GO_TO_PROFILE",
+        CLOSE_SESSION: "CLOSE_SESSION",
         VIEW_PRODUCT: "VIEW_PRODUCT",
+        LOGIN_ATTEMPT: "LOGIN_ATTEMPT",
         SUCCESSFULLY_LOGIN: "SUCCESFULLY_LOGIN"
     }
 };
 
 export default Mixpanel;
-
-mixpanel.track("TOGGLE_MENU", {
-    currentTheme: 'light'
-});
