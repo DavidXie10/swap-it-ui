@@ -14,9 +14,9 @@ import {
 } from 'react-icons/io5';
 import { useState } from "react";
 
-export default function Categories() 
+export default function Categories({defaultCategory, onClick}) 
 {
-    const [selectedCategory, setSelectedCategory] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
 
     const iconColor = (id) => selectedCategory === id?'bg-[#51E5FF]':'bg-[#C4C4C4]';
 
@@ -45,9 +45,7 @@ export default function Categories()
                 id={category.id} 
                 className={`flex py-0.5 px-2 hover:bg-[#7E868F] border-black rounded-lg cursor-pointer ${selectedCategory === category.id?'bg-[#7E868F]':'bg-[#2E2F2F]'}`}
                 onClick={() => {
-                    //console.log(selectedCategory);
-                    setSelectedCategory(category.id);
-                    //TODO: REQUEST
+                    onClick(category.id);
                 }}
                 >   
                     {category.icon} 

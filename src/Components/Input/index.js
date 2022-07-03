@@ -18,6 +18,7 @@ export default function Input({
                 placeholder={placeholder} 
                 className={`${width || "w-full"} ${height || "h-10"} px-4 ${marginBottom || 'mb-5'} rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}
                 onChange={onChange} 
+                onSubmit={onClick}
             />
             {type === 'password' && (
                 <div className={`cursor-pointer absolute w-12 h-12 top-3 -right-4`}>
