@@ -43,7 +43,7 @@ export default function ChooseExchangeProduct () {
         loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
-            {!success ? (<AlertMessage message={errorMessage} success={false} />) : 
+            {!success ? (<AlertMessage message={errorMessage} success={false} />) :
             (<>
                 {localErrorMessage ? <AlertMessage message={localErrorMessage} success={false} buttonType=''/> : <></>}
                 <div className="sm:px-6 md:px-8 lg:px-16">
@@ -52,20 +52,25 @@ export default function ChooseExchangeProduct () {
                         <BackButton onClick={() => navigate(`/item/${itemToReceive.itemId}`) }></BackButton>
                     </div>
 
-                    <div className="grid grid-flow-row grid-cols-3 overflow-scroll gap-5 lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem]">
-                        { myItems && listMyProducts() }
-                    </div>
-                    <div className="flex justify-center mt-12 mb-12">
-                        <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
-                            if(itemsToGive.length > 0){
-                                setLocalErrorMessage('');
-                                navigate(`/item/${itemToReceive.itemId}/chooseExchangeProduct/confirmation`)
-                            }else{
-                                setLocalErrorMessage('Debe seleccionar al menos un item');
-                                window.scrollTo(0,0);
-                            }
-                        }}/>
-                    </div>
+                    { myItems.length > 0 ? 
+                    (<>
+                        <div className="grid grid-flow-row grid-cols-3 overflow-scroll gap-5 lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem]">
+                            { listMyProducts() }
+                        </div>
+                        <div className="flex justify-center mt-12 mb-12">
+                            <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
+                                if(itemsToGive.length > 0){
+                                    setLocalErrorMessage('');
+                                    navigate(`/item/${itemToReceive.itemId}/chooseExchangeProduct/confirmation`)
+                                }else{
+                                    setLocalErrorMessage('Debe seleccionar al menos un item');
+                                    window.scrollTo(0,0);
+                                }
+                            }}/>
+                        </div>
+                    </>) : (
+                        <AlertMessage message={"No puede intercambiar debido a que le faltan items en cuenta"} success={false} />
+                    )}
                 </div>
             </>)}
             <Footer />

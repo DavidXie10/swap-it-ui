@@ -9,35 +9,23 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user, {get
             "Authorization": `Bearer ${state.user.user.token}`,
         },
     });
-    if (myItemsFetch.status !== 404){
-        let myItemsData = await myItemsFetch.json();
-        if (myItemsFetch.status === 200) {
-            if(myItemsData && myItemsData.length){
-                myItemsData.forEach(item => {
-                    if(item.itemState === 1) {
-                        item.itemState = "Nuevo";
-                    } else {
-                        item.itemState = "Usado";
-                    }
-                    item.location = getLocationById(item.location);
-                });
-                return myItemsData;
-            } else {
-                return {
-                    error: true,
-                    message: 'No posee items con los cuales intercambiar'
+    let myItemsData = await myItemsFetch.json();
+    if (myItemsFetch.status === 200) {
+        if(myItemsData !== []) { 
+            myItemsData.forEach(item => {
+                if(item.itemState === 1) {
+                    item.itemState = "Nuevo";
+                } else {
+                    item.itemState = "Usado";
                 }
-            }
-        } else {
-            return {
-                error: true,
-                message: myItemsData.message,
-            }
+                item.location = getLocationById(item.location);
+            }) ;
         }
+        return myItemsData;
     } else {
         return {
             error: true,
-            message: 'Error ' + myItemsFetch.status + ': Resource ' + myItemsFetch.statusText
+            message: myItemsData.message,
         }
     }
 });

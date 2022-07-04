@@ -89,8 +89,10 @@ export default function Catalog() {
                             value={searchedWord}
                             placeholder='Buscar...' 
                             onKeyUp={(evnt) => {
-                                if(evnt.key === "Enter")
+                                if(evnt.key === "Enter"){
+                                    dispatch(updateCurrentPage({nextPage: 0}));
                                     setSearchedWord(evnt.target.value);
+                                }
                             }}/>
                         </div>
                         
