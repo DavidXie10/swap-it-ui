@@ -14,9 +14,10 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
         });
 
         const uploadData = await uploadFetch.json();
-        user.photoUrl = uploadData.url;
-    }
 
+        user.photoUrl = uploadData.uploadedFiles[0].url;
+    }
+    
     const userFetch = await fetch(`http://localhost:8000/users/${state.user.user.id}`, {
         method: 'PATCH',
         headers: {

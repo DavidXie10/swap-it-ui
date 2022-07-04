@@ -1,10 +1,11 @@
 import Logo from '../../Components/Logo'
 import Input from '../../Components/Input'
 import Button from '../../Components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { postLogin } from '../../Slices/user/requests/postLogin';
+import { clearState } from '../../Slices/user/userSlice';
 
 export default function Login() {
     const containerClases = "flex w-full justify-center flex-wrap";
@@ -21,6 +22,29 @@ export default function Login() {
       
     const dispatch = useDispatch();
 
+    const login = () => {
+        if(email && password){
+            if(!isValidEmail(email)) {
+                dispatch(clearState());
+                setLocalErrorMessage('Ingrese una dirección de correo válida');
+            } else if(password.length < 8){
+                dispatch(clearState());
+                setLocalErrorMessage('La contraseña debe contener mínimo 8 caracteres');
+            } else{
+                setLocalErrorMessage('');
+                dispatch(postLogin({email, password}));
+            }
+        }else{
+            setLocalErrorMessage('Debe completar todos los campos');
+            dispatch(clearState());
+        }
+
+    }
+
+    useEffect(()=>{
+        dispatch(clearState());
+    },[dispatch])
+
     return isLoggedIn ? (
         <Navigate to='/'/>
     ) : (
@@ -33,7 +57,11 @@ export default function Login() {
                     <Input id='user' placeholder='Ingrese su correo' type='email' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} customMessage={'Ingrese una dirección de correo válida'} onChange={(event) => setEmail(event.target.value)}/>
                 </div>
                 <div className={`${containerClases} w-[360px]`}>
-                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setPassword(event.target.value)} />
+                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setPassword(event.target.value)} onKeyUp={(evnt) => {
+                                if(evnt.key === "Enter"){
+                                    login();
+                                }}
+                            } />
                 </div>
             </div>
 
@@ -45,20 +73,7 @@ export default function Login() {
             </div>
 
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[15vh]`}>
-                <Button width='w-[360px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Ingresar' onClick={() => {
-                    if(email && password){
-                        if(password.length < 8) {
-                            setLocalErrorMessage('La contraseña debe contener mínimo 8 caracteres');
-                        } else if(!isValidEmail(email)){
-                            setLocalErrorMessage('Ingrese una dirección de correo válida');
-                        } else{
-                            setLocalErrorMessage('');
-                            dispatch(postLogin({email, password}));
-                        }
-                    }else{
-                        setLocalErrorMessage('Debe completar todos los campos');
-                    }
-                }}/>
+                <Button width='w-[360px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} textcolor='text-white' label='Ingresar' onClick={login}/>
             </div>
         </div>    
     )
