@@ -27,15 +27,19 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
 export const onPostLoginFulfilled = (state, action) => {
     if (action.payload.error){
         state.isLoggedIn = false;
+        state.isUpdated = false;
         state.user = null;
         state.errorMessage = action.payload.message;
     }else{
         state.isLoggedIn = true;
+        state.isUpdated = false;
         state.user = action.payload;
+        state.errorMessage = '';
     }
 }
 
 export const onPostLoginRejected = (state) => {
     state.isLoggedIn = false;
+    state.isUpdated = false;
     state.user = null;
 }

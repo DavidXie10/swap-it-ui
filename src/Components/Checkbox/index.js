@@ -1,7 +1,7 @@
 export default function Checkbox({
-    id, name
+    onClick
 }) {
     return (
-        <input type='checkbox' id={`${id}`} name={`${name}`}></input>
+        <input type='checkbox' onClick={onClick}></input>
     )
 }

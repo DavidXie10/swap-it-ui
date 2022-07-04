@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postLogin } from "../user/requests/postLogin";
+import { updateUser } from "../user/requests/updateUser"; 
 import { createItem } from "../item/requests/createItem";
 import { editItem } from "../item/requests/editItem"; 
 
@@ -46,6 +47,15 @@ const appSlice = createSlice({
                 state.loading = false;
             })
             .addCase(editItem.rejected, (state) => {
+                state.loading = false;
+            })
+            .addCase(updateUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateUser.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(updateUser.rejected, (state) => {
                 state.loading = false;
             })
     }

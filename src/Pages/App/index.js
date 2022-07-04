@@ -1,7 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivateRoute from "../../Components/PrivateRoute";
 import Showcase from "../../Components/Showcase"
+import Profile from "../../Pages/Profile"
 import Login from "../Login";
+import ItemSelected from "../ItemSelected";
+import Confirmation from "../Confirmation";
+import Maintenance from "../Maintenance";
+import ChooseExchangeProduct from "../ChooseExchangeProduct";
 import ItemForm from "../ItemForm";
 import Catalog from '../Catalog';
 
@@ -10,11 +15,15 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Login />}/> 
-                <Route element={<PrivateRoute />}>
+                <Route path="/" element={<ItemSelected />}/>
+                <Route path="/e" element={<ChooseExchangeProduct />}/>
+                <Route path="/c" element={<Confirmation />}/>
+                <Route path="/m" element={<Maintenance />}/> 
+                {/* <Route element={<PrivateRoute />}>
                     <Route path="/showcase" element={<Showcase />}/>
                     <Route path="/item/:id" element={<ItemForm />} /> 
-                </Route>
+                    <Route path="/profile" element={<Profile />}/> 
+                </Route>*/}
                 <Route path='/catalog' element={<Catalog />} />
             </Routes>
         </BrowserRouter>
