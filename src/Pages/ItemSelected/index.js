@@ -123,7 +123,7 @@ export default function ItemSelected () {
                         <Label text={`Descripción: ${item.description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
                         
                         {
-                            user.id !== item.ownerUserId ? (<Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0'} label='Intercambiar' onClick={() => {
+                            user && (user.id !== item.ownerUserId) ? (<Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0'} label='Intercambiar' onClick={() => {
                                 dispatch(addItemToReceive(item));
                                 navigate(`/item/${id}/chooseExchangeProduct`)                            
                             }
