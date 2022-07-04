@@ -9,7 +9,6 @@ import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import Spinner from "../../Components/Spinner";
 import { toggleItemToGive, clearGiveState } from '../../Slices/exchangeItem/exchangeItemSlice';
-import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
 import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
 import AlertMessage from "../../Components/AlertMessage";
@@ -29,11 +28,9 @@ export default function ChooseExchangeProduct () {
     const [localErrorMessage, setLocalErrorMessage] = useState('');
 
     useEffect(() => {
-        dispatch(setLoading());
         dispatch(clearGiveState());
         dispatch(clearMyItemsState());
         dispatch(getMyItems({id: idUser}));
-        dispatch(unsetLoading());
     }, [dispatch, idUser, user.id])
 
     const listMyProducts = () => myItems.map((item) => 

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { clearMyItemsState, deleteSelectedItem } from "../../Slices/myItems/myItemsSlice";
 import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
-import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 import { deleteItem } from "../../Slices/myItems/requests/deleteItem";
 import AlertMessage from "../../Components/AlertMessage";
 import MyItem from "../../Components/MyItem";
@@ -25,10 +24,8 @@ export default function Maintenance () {
     const idUser = user.id;
  
     useEffect(() => {
-        dispatch(setLoading());
         dispatch(clearMyItemsState());
         dispatch(getMyItems({id:idUser}));
-        dispatch(unsetLoading());
     }, [dispatch, idUser]);
 
     let alternate = true;
