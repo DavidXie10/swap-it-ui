@@ -57,7 +57,7 @@ export default function Maintenance () {
 
     return (
         loading ? (<Spinner />) : (
-            <div className='flex min-h-screen flex-col justify-between'>
+            <div className='flex min-h-screen max-h-screen flex-col justify-between'>
                 <Header />
                 {!success ? (<AlertMessage message={errorMessage} success={false} />) :
                 (<>

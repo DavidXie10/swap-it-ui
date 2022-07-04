@@ -96,43 +96,55 @@ export default function ItemSelected () {
                         <Label text='Artículo seleccionado' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                         <BackButton onClick={() => navigate('/catalog') }></BackButton>
                     </div>
-                    <div className="grid lg:grid-rows-[8] md:grid-rows-[8] sm:grid-rows-[16] grid-cols-7 gap-4 mb-16">
-                        <div className="border row-[span_8_/_span_8] lg:col-span-3 md:col-span-3 sm:col-span-7 border-b-neutral-400 w-full">
+                    <div className="grid lg:grid-rows-[7] md:grid-rows-[8] sm:grid-rows-[16] grid-cols-7 lg:gap-y-4 sm:gap-y-2 md:gap-y-2 gap-x-8 mb-16">
+                        <div className="border row-[span_7_/_span_7] lg:col-span-3 md:col-span-3 sm:col-span-7 border-b-neutral-400 w-full">
                             <div id="carouselExampleControls" className="carousel slide relative flex w-full h-full" data-bs-ride="carousel">
-                                <button
-                                    className="carousel-control-prev flex items-center justify-center text-center border-2 bg-black"
-                                    type="button"
-                                    data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="prev"
-                                >
-                                    <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Previous</span>
-                                </button>
-                                <div className="carousel-inner relative overflow-shown container">
+                                {console.log(item.photoUrls.length)}
+                                {
+                                    (item.photoUrls.length > 1) ? (
+                                        <button
+                                            className="carousel-control-prev flex items-center justify-center text-center border-2 bg-black"
+                                            type="button"
+                                            data-bs-target="#carouselExampleControls"
+                                            data-bs-slide="prev"
+                                        >
+                                            <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Previous</span>
+                                        </button>) : (
+                                            <></>
+                                        )
+                                }
+                                <div className="carousel-inner relative overflow-clip container">
                                     { 
                                         listItems()
                                     }
                                 </div>
-                                <button
-                                    className="carousel-control-next flex items-center justify-center text-center border-2 bg-black"
-                                    type="button"
-                                    data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="next"
-                                >
-                                    <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Next</span>
-                                </button>
+                                {
+                                    (item.photoUrls.length > 1) ? (
+                                        <button
+                                            className="carousel-control-next flex items-center justify-center text-center border-2 bg-black"
+                                            type="button"
+                                            data-bs-target="#carouselExampleControls"
+                                            data-bs-slide="next"
+                                        >
+                                            <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Next</span>
+                                        </button>) : (
+                                            <></>
+                                        )
+                                }
+                                
                             </div>
                         </div>
                         
 
-                        <Label text={item.name || "Title not found"} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'font-bold'} textposition={'text-left'} size={'lg:text-4xl md:text-4xl sm:text-3xl'}></Label>
-                        <Label text={`Propietario: ${item.ownerFullName || "Owner not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
-                        <Label text={`Estado: ${item.itemState || "State not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
-                        <Label text={`Ubicación: ${item.location || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
-                        <Label text={`Fecha de adquisición: ${item.acquisitionDate || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
-                        <Label text={`Descripción: ${item.description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-5'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
-                        <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-5 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Intercambiar' onClick={() => {
+                        <Label text={item.name || "Title not found"} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'font-bold'} textposition={'text-left'} size={'lg:text-4xl md:text-4xl sm:text-3xl'}></Label>
+                        <Label text={`Propietario: ${item.ownerFullName || "Owner not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
+                        <Label text={`Estado: ${item.itemState || "State not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
+                        <Label text={`Ubicación: ${item.location || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
+                        <Label text={`Fecha de adquisición: ${item.acquisitionDate || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
+                        <Label text={`Descripción: ${item.description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
+                        <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0'} label='Intercambiar' onClick={() => {
                                 dispatch(addItemToReceive(item));
                                 navigate('/chooseExchangeProduct')
                             }
