@@ -19,4 +19,7 @@ export const exchangeItemReducers = {
         state.itemsToGive = [];
         state.errorMessage = '';
     },
+    setSucess: (state, action) => {
+        state.success = action.payload.success;
+    }
 }
