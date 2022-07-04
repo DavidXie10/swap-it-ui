@@ -23,7 +23,7 @@ export default function Login() {
 
     // TODO: Change route
     return isLoggedIn ? (
-        <Navigate to='/item/new'/>
+        <Navigate to='/catalog'/>
     ) : (
   <div className={`pt-[20vh] ${containerClases} bg-[#2e2f2f] h-screen w-screen`}>
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[10vh] lg:mb-2 md:mb-4 sm:mb-7`}>
@@ -34,7 +34,7 @@ export default function Login() {
                     <Input id='user' placeholder='Ingrese su correo' type='email' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} customMessage={'Ingrese una dirección de correo válida'} onChange={(event) => setEmail(event.target.value)}/>
                 </div>
                 <div className={`${containerClases} w-[360px]`}>
-                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} eyeTopPosition='top-3' onChange={(event) => setPassword(event.target.value)} />
+                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setPassword(event.target.value)} />
                 </div>
             </div>
 

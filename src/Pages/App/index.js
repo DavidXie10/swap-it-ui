@@ -8,15 +8,14 @@ import Maintenance from "../Maintenance";
 import ChooseExchangeProduct from "../ChooseExchangeProduct";
 import ItemForm from "../ItemForm";
 import RequiredPreviousRoute from "../../Components/RequiredPreviousRoute";
+import Catalog from '../Catalog';
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Login />}/>
-                {/*
                 <Route path="/" element={<Catalog />}/>
-                <Route path="/login" element={<Login />}/>*/}
+                <Route path="/login" element={<Login />}/>
                 <Route element={<PrivateRoute />}>
                     <Route path="/item/:id" element={<ItemForm />} /> 
                     <Route path="/profile" element={<Profile />}/> 

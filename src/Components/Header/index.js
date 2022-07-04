@@ -20,7 +20,7 @@ export default function Header({height}) {
     const dispatch = useDispatch();	
 
     return (
-        <div className={`flex items-center justify-between ${height || 'h-16'} w-full bg-[#2E2F2F] sm:px-6 md:px-8 lg:px-16`}>
+        <div className={`flex items-center justify-between ${height || 'h-16'} w-full bg-[#2E2F2F] sm:px-6 md:px-8 lg:px-16 sticky top-0 z-20`}>
             <Link to='/catalog' className='w-1/4'>
                 <Logo height='h-12' width='w-34' />
             </Link>

@@ -1,6 +1,6 @@
 import Profile from '../../Pages/Profile'
 
-export default function Showcase() {
+export default function index() {
     return (
         <>
             <Profile />

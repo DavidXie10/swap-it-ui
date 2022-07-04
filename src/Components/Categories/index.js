@@ -1,6 +1,8 @@
-import Category from "../Category";
+import {iconCategoryClasses} from '../../utils/constants'
 import { 
-    IoAmericanFootball,  IoPhonePortraitOutline, 
+    IoGrid, 
+    IoAmericanFootball, 
+    IoPhonePortraitOutline, 
     IoHome, 
     IoBookSharp, 
     IoPrint,
@@ -10,29 +12,47 @@ import {
     IoCar, 
     IoEllipsisHorizontalSharp 
 } from 'react-icons/io5';
+import { useState } from "react";
 
-export default function Categories() 
+export default function Categories({defaultCategory, onClick}) 
 {
+    const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
+
+    const iconColor = (id) => selectedCategory === id?'bg-[#51E5FF]':'bg-[#C4C4C4]';
+
     const categories = [
-        { id:1, name:'Deportes', icon: <IoAmericanFootball id={'icon-1'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:2, name:'Electrónica', icon: <IoPhonePortraitOutline  id={'icon-2'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:3, name:'Hogar', icon: <IoHome  id={'icon-3'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:4, name:'Libros', icon: <IoBookSharp  id={'icon-4'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:5, name:'Oficina', icon: <IoPrint  id={'icon-5'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:6, name:'Películas', icon: <IoFilmSharp  id={'icon-6'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:7, name:'Ropa', icon: <IoShirt  id={'icon-7'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:8, name:'Videojuegos', icon: <IoGameController  id={'icon-8'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:9, name:'Vehículos', icon: <IoCar  id={'icon-9'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> },
-        { id:10, name:'Otros', icon: <IoEllipsisHorizontalSharp  id={'icon-10'} className='mr-4 text-lg bg-[#C4C4C4] text-black border border-black rounded-xl'/> }
+        { id:0, name:'Todas', icon: <IoGrid className={`${iconCategoryClasses} ${iconColor(0)}`}/> },
+        { id:1, name:'Deportes', icon: <IoAmericanFootball className={`${iconCategoryClasses} ${iconColor(1)}`}/> },
+        { id:2, name:'Electrónica', icon: <IoPhonePortraitOutline className={`${iconCategoryClasses} ${iconColor(2)}`}/> },
+        { id:3, name:'Hogar', icon: <IoHome className={`${iconCategoryClasses} ${iconColor(3)}`}/> },
+        { id:4, name:'Libros', icon: <IoBookSharp className={`${iconCategoryClasses} ${iconColor(4)}`}/> },
+        { id:5, name:'Oficina', icon: <IoPrint className={`${iconCategoryClasses} ${iconColor(5)}`}/> },
+        { id:6, name:'Películas', icon: <IoFilmSharp  className={`${iconCategoryClasses} ${iconColor(6)}`}/> },
+        { id:7, name:'Ropa', icon: <IoShirt className={`${iconCategoryClasses} ${iconColor(7)}`}/> },
+        { id:8, name:'Videojuegos', icon: <IoGameController className={`${iconCategoryClasses} ${iconColor(8)}`}/> },
+        { id:9, name:'Vehículos', icon: <IoCar className={`${iconCategoryClasses} ${iconColor(9)}`}/> },
+        { id:10, name:'Otros', icon: <IoEllipsisHorizontalSharp className={`${iconCategoryClasses} ${iconColor(10)}`}/> }
     ]
-    return (
-        <div className={'bg-[#2E2F2F] lg:w-1/4 md:w-1/4 h-full py-2 px-5'}>
+    
+    return ( 
+        <div className={'bg-[#2E2F2F] w-full h-full min-h-fit py-4 px-10 lg:text-xl md:text-lg sm:text-2xl'}>
             <p className='text-white font-semibold py-2'>
                 Categorías
             </p>
-            
             {categories.map(category => 
-                <Category key={category.id} id={category.id} name={category.name} icon={category.icon}/>
+                <div 
+                key={category.id}
+                id={category.id} 
+                className={`flex py-0.5 px-2 hover:bg-[#7E868F] border-black rounded-lg cursor-pointer ${selectedCategory === category.id?'bg-[#7E868F]':'bg-[#2E2F2F]'}`}
+                onClick={() => {
+                    onClick(category.id);
+                }}
+                >   
+                    {category.icon} 
+                    <p className='text-white'> 
+                        {category.name}
+                    </p>
+                </div>
             )}
         </div>
     
