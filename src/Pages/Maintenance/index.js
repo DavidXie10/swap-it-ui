@@ -61,6 +61,7 @@ export default function Maintenance () {
                 <Header />
                 {!success ? (<AlertMessage message={errorMessage} success={false} />) :
                 (<>
+                    {(myItems && myItems.length) ? <></> : <AlertMessage message={'Aqui puede agregar items'} success={true} /> }
                     <div className="sm:px-6 md:px-8 lg:px-16">
                         <div className="flex flex-row items-center w-full mb-16 pt-6">
                             <Label text='Mis Artículos' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
