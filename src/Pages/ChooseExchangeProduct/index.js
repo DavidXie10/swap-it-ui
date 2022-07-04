@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import 'tw-elements';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ImageCheckbox from "../../Components/ImageCheckbox";
 import Button from "../../Components/Button";
@@ -25,6 +25,8 @@ export default function ChooseExchangeProduct () {
     const dispatch = useDispatch();
     const idUser = user.id;
     const itemToReceive = useSelector ( (state) => state.exchangeItem.itemToReceive);
+    const itemsToGive = useSelector ( (state) => state.exchangeItem.itemsToGive);
+    const [localErrorMessage, setLocalErrorMessage] = useState('');
 
     useEffect(() => {
         dispatch(setLoading());
@@ -46,6 +48,7 @@ export default function ChooseExchangeProduct () {
             <Header />
             {!success ? (<AlertMessage message={errorMessage} success={false} />) : 
             (<>
+                {localErrorMessage ? <AlertMessage message={localErrorMessage} success={false} buttonType=''/> : <></>}
                 <div className="sm:px-6 md:px-8 lg:px-16">
                     <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
                         <Label text='Mis Artículos a Intercambiar' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
@@ -57,7 +60,13 @@ export default function ChooseExchangeProduct () {
                     </div>
                     <div className="flex justify-center mt-12 mb-12">
                         <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
-                            navigate('/confirmation')
+                            if(itemsToGive.length > 0){
+                                setLocalErrorMessage('');
+                                navigate('/confirmation');
+                            }else{
+                                setLocalErrorMessage('Debe seleccionar al menos un item');
+                                window.scrollTo(0,0);
+                            }
                         }}/>
                     </div>
                 </div>

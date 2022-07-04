@@ -19,7 +19,7 @@ export default function Confirmation () {
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
             <div className='sm:px-6 md:px-8 lg:px-16'>
-                <div className="flex flex-row items-center w-full mb-16 pt-6">
+                <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
                     <Label text='Propuesta de Intercambio' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                     <BackButton onClick={() => navigate('/chooseExchangeProduct') }></BackButton>
                 </div>
