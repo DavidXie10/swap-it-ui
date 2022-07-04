@@ -7,6 +7,7 @@ import 'tw-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { exchange } from '../../Slices/exchangeItem/requests/exchange';
 import { useNavigate } from 'react-router-dom';
+import { clearState } from '../../Slices/exchangeItem/exchangeItemSlice';
 
 export default function Confirmation () {
     const itemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
@@ -46,7 +47,10 @@ export default function Confirmation () {
                     </div>
                 </div>
                 <div className='flex justify-end gap-4 mt-8 mb-16'>
-                    <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Cancelar' onClick='' backgroundcolor='bg-[#8C8D8D]'/>
+                    <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Cancelar' onClick={() => {
+                        dispatch(clearState());
+                        navigate('/catalog');
+                    }} backgroundcolor='bg-[#8C8D8D]'/>
                     <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick={() => dispatch(exchange())}/>
                 </div>
             </div>
