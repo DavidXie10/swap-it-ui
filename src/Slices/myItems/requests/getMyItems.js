@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getState}) => {
+export const getMyItems = createAsyncThunk('items/getMyItems', async (user, {getState}) => {
     const state = getState();
     const myItemsFetch = await fetch(`http://localhost:8000/users/${user.id}/items`, {
         method: 'GET',
@@ -44,16 +44,16 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user,{getS
             }
         });
         return myItemsData;
-    } else if (myItemsFetch.status === 401 || myItemsFetch.status === 500 || myItemsFetch.status === 404) {
+    } else {
+        console.log(myItemsData.message)
         return {
             error: true,
-            message: myItemsFetch.message,
+            message: myItemsData.message,
         }
     }
 });
 
 export const onGetMyItemsFullfiled = (state, action) => {
-    
     if (action.payload.error) {
         state.myItems = null;
         state.errorMessage = action.payload.message;
@@ -61,6 +61,7 @@ export const onGetMyItemsFullfiled = (state, action) => {
     } else {
         state.myItems = action.payload;
         state.success = true;
+        state.errorMessage = '';
     }
 };
 

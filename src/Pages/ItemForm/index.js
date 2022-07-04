@@ -36,7 +36,7 @@ export default function ItemForm() {
     const user = useSelector( (state) => state.user.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         window.scrollTo(0, 0);
         dispatch(clearState());
@@ -162,10 +162,7 @@ export default function ItemForm() {
             {success ? (
                 <AlertMessage success={true} message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonType='back' buttonMessage={'Regresar al catálogo'} showButton={true}/>) :  localErrorMessage ? <AlertMessage success={false} message={localErrorMessage}  buttonType='back'/> :   
             (<form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
-                <div className='flex w-full'>
-                    <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
-                </div>
-                <div className="flex flex-row items-center w-full mb-16 pt-6">
+                <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
                     <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`}  width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                     <BackButton width='justify-self-end w-10' onClick={() => navigate('/myItems') } ></BackButton>
                 </div>

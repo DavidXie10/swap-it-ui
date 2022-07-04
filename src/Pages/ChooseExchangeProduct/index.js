@@ -47,7 +47,7 @@ export default function ChooseExchangeProduct () {
             {!success ? (<AlertMessage message={errorMessage} success={false} />) : 
             (<>
                 <div className="sm:px-6 md:px-8 lg:px-16">
-                    <div className="flex flex-row items-center w-full mb-16 pt-6">
+                    <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
                         <Label text='Mis Artículos a Intercambiar' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                         <BackButton onClick={() => navigate(`/catalog/item/${itemToReceive.itemId}`) }></BackButton>
                     </div>
