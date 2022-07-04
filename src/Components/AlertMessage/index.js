@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { RiCloseCircleLine } from 'react-icons/ri';
 
 export default function AlertMessage({message, bottonMessage, success, linkToButton, buttonType, onClick}) {
     return (
