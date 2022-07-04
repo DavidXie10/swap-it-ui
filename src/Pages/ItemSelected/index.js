@@ -99,29 +99,41 @@ export default function ItemSelected () {
                     <div className="grid lg:grid-rows-[7] md:grid-rows-[8] sm:grid-rows-[16] grid-cols-7 lg:gap-y-2 sm:gap-y-0 md:gap-y-0 gap-x-4 mb-16">
                         <div className="border row-[span_7_/_span_7] lg:col-span-3 md:col-span-3 sm:col-span-7 border-b-neutral-400 w-full">
                             <div id="carouselExampleControls" className="carousel slide relative flex w-full h-full" data-bs-ride="carousel">
-                                <button
-                                    className="carousel-control-prev flex items-center justify-center text-center border-2 bg-black"
-                                    type="button"
-                                    data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="prev"
-                                >
-                                    <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Previous</span>
-                                </button>
+                                {console.log(item.photoUrls.length)}
+                                {
+                                    (item.photoUrls.length > 1) ? (
+                                        <button
+                                            className="carousel-control-prev flex items-center justify-center text-center border-2 bg-black"
+                                            type="button"
+                                            data-bs-target="#carouselExampleControls"
+                                            data-bs-slide="prev"
+                                        >
+                                            <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Previous</span>
+                                        </button>) : (
+                                            <></>
+                                        )
+                                }
                                 <div className="carousel-inner relative overflow-shown container">
                                     { 
                                         listItems()
                                     }
                                 </div>
-                                <button
-                                    className="carousel-control-next flex items-center justify-center text-center border-2 bg-black"
-                                    type="button"
-                                    data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="next"
-                                >
-                                    <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Next</span>
-                                </button>
+                                {
+                                    (item.photoUrls.length > 1) ? (
+                                        <button
+                                            className="carousel-control-next flex items-center justify-center text-center border-2 bg-black"
+                                            type="button"
+                                            data-bs-target="#carouselExampleControls"
+                                            data-bs-slide="next"
+                                        >
+                                            <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                                            <span className="visually-hidden">Next</span>
+                                        </button>) : (
+                                            <></>
+                                        )
+                                }
+                                
                             </div>
                         </div>
                         
