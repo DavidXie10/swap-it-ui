@@ -7,17 +7,32 @@ import 'tw-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { exchange } from '../../Slices/exchangeItem/requests/exchange';
 import { useNavigate } from 'react-router-dom';
-import { clearState } from '../../Slices/exchangeItem/exchangeItemSlice';
+import { clearState, setSucess } from '../../Slices/exchangeItem/exchangeItemSlice';
+import AlertMessage from '../../Components/AlertMessage';
+import { useEffect } from 'react';
+import Spinner from '../../Components/Spinner';
 
 export default function Confirmation () {
     const itemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
     const itemToReceive = useSelector((state) => state.exchangeItem.itemToReceive);
+    const success = useSelector( (state) => state.exchangeItem.success );
+    const loading = useSelector( (state) => state.app.loading );
+    const errorMessage = useSelector ( (state) => state.exchangeItem.errorMessage);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        dispatch(setSucess({success: false}));
+    }, [dispatch]);
+
     return (
+        loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
+            {errorMessage ? <AlertMessage message={errorMessage} success={false} buttonType='back'/> : <></>}
+            {success ? (
+                <AlertMessage success={true} message={`¡Su propuesta de intercambio ha sido enviada exitosamente!`} buttonType='back' buttonMessage={'Regresar al catálogo'} />) : (
             <div className='sm:px-6 md:px-8 lg:px-16'>
                 <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
                     <Label text='Propuesta de Intercambio' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
@@ -28,7 +43,7 @@ export default function Confirmation () {
                         <Label font={'font-bold'} text={'Ofrecer:'} backgroundcolor={'bg-[#f5f5f5]'} textposition={'ml-8 mt-4'} width={'w-auto'} height={'h-auto'} size='text-lg'></Label>
                         <ul className='ml-16 mr-8 list-disc'>
                             {
-                                itemsToGive.map(item => <li>{item.name}</li> )
+                                itemsToGive.map(item => <li key={item.itemId}>{item.name}</li> )
                             }
                         </ul>
                     </div>
@@ -53,8 +68,8 @@ export default function Confirmation () {
                     }} backgroundcolor='bg-[#8C8D8D]'/>
                     <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick={() => dispatch(exchange())}/>
                 </div>
-            </div>
+            </div>)}
             <Footer />
-        </div>
+        </div>)
     )
 }
