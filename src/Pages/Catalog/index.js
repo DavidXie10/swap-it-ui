@@ -84,15 +84,16 @@ export default function Catalog() {
                         <div className='flex items-center w-full'>
                             <RiEqualizerLine className='text-3xl top-[10px] mr-2 lg:hidden md:hidden cursor-pointer' onClick={() => setShowMobileCategories(true) }/>
                             <Input 
-                                type='search' 
-                                marginBottom='mb-0' 
-                                value={searchedWord}
-                                placeholder='Buscar...' 
-                                onKeyUp={(evnt) => {
-                                    if(evnt.key === 'Enter')
-                                        setSearchedWord(evnt.target.value);
-                                }}
-                            />
+                            type='search' 
+                            marginBottom='mb-0' 
+                            value={searchedWord}
+                            placeholder='Buscar...' 
+                            onKeyUp={(evnt) => {
+                                if(evnt.key === 'Enter'){
+                                    dispatch(updateCurrentPage({nextPage: 0}));
+                                    setSearchedWord(evnt.target.value);
+                                }
+                            }}/>
                         </div>
                             {
                                 items && items.length ? 

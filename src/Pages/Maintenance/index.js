@@ -65,9 +65,11 @@ export default function Maintenance () {
                         <div className='flex flex-row items-center w-full mb-16 pt-6'>
                             <Label text='Mis Artículos' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                         </div>
-                        <div className='lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem] overflow-scroll'>
-                            { myItems && listMyProducts() }
-                        </div>
+                            {(myItems && myItems.length) ? 
+                            <div className='lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem] overflow-y-scroll'>
+                                { myItems && listMyProducts() }
+                            </div> :
+                            <Label text='Aquí puede agregar items.' width='w-full' height='h-full' textposition='text-left' size='lg:text-2xl md:text-2xl sm:text-lg' font='font-bold'/> }
                     </div>
                     <div className='flex justify-center mt-12 mb-12'>
                         <Button textcolor='text-white' backgroundcolor={'bg-[#7AF067]'} width='rounded-full lg:w-[180px] md:w-[180px] sm:w-[75px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='+' textSize={'lg:text-4xl md:text-4xl sm:text-2xl'}  onClick={() => {

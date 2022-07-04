@@ -11,7 +11,7 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user, {get
     });
     let myItemsData = await myItemsFetch.json();
     if (myItemsFetch.status === 200) {
-        if(myItemsData && myItemsData.length){
+        if(myItemsData !== []) { 
             myItemsData.forEach(item => {
                 if(item.itemState === 1) {
                     item.itemState = 'Nuevo';
@@ -19,14 +19,9 @@ export const getMyItems = createAsyncThunk('items/getMyItems', async (user, {get
                     item.itemState = 'Usado';
                 }
                 item.location = getLocationById(item.location);
-            });
-            return myItemsData;
-        } else {
-            return {
-                error: true,
-                message: 'No posee items con los cuales intercambiar'
-            }
+            }) ;
         }
+        return myItemsData;
     } else {
         return {
             error: true,
