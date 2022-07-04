@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { itemReducers } from "./reducers";
-import { createItem } from "./requests/createItem";
-import { editItem } from "./requests/editItem"
+import { createSlice } from '@reduxjs/toolkit';
+import { itemReducers } from './reducers';
+import { createItem } from './requests/createItem';
+import { editItem } from './requests/editItem';
 
 const onProcessedItemFullfiled = (state, action) => {
     if (action.payload.error) {

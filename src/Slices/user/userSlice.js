@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { onPostLoginFulfilled, onPostLoginRejected, postLogin } from "./requests/postLogin";
-import { onUpdateUserFulfilled, onUpdateUserRejected, updateUser } from "./requests/updateUser";
+import { createSlice } from '@reduxjs/toolkit';
+import { onPostLoginFulfilled, onPostLoginRejected, postLogin } from './requests/postLogin';
+import { onUpdateUserFulfilled, onUpdateUserRejected, updateUser } from './requests/updateUser';
 
 const userSlice = createSlice({
     name: 'user',
     initialState: {
         user: null,
         isLoggedIn: false,
-        errorMessage: "",
+        errorMessage: '',
         isUpdated: false
     },
     reducers: {

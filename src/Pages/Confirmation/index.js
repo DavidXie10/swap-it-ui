@@ -1,16 +1,16 @@
+import 'tw-elements';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { exchange } from '../../Slices/exchangeItem/requests/exchange';
+import { clearState, setSucess } from '../../Slices/exchangeItem/exchangeItemSlice';
+import AlertMessage from '../../Components/AlertMessage';
+import Spinner from '../../Components/Spinner';
 import BackButton from '../../Components/BackButton';
 import Button from '../../Components/Button';
 import Label from '../../Components/Label';
 import Footer from '../../Components/Footer';
 import Header from '../../Components/Header';
-import 'tw-elements';
-import { useDispatch, useSelector } from 'react-redux';
-import { exchange } from '../../Slices/exchangeItem/requests/exchange';
-import { useNavigate } from 'react-router-dom';
-import { clearState, setSucess } from '../../Slices/exchangeItem/exchangeItemSlice';
-import AlertMessage from '../../Components/AlertMessage';
-import { useEffect } from 'react';
-import Spinner from '../../Components/Spinner';
 
 export default function Confirmation () {
     const itemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
@@ -34,7 +34,7 @@ export default function Confirmation () {
             {success ? (
                 <AlertMessage success={true} message={`¡Su propuesta de intercambio ha sido enviada exitosamente!`} buttonType='back' buttonMessage={'Regresar al catálogo'} />) : (
             <div className='sm:px-6 md:px-8 lg:px-16'>
-                <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
+                <div className='flex flex-row items-center w-full mb-16 pt-6 justify-between'>
                     <Label text='Propuesta de Intercambio' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                     <BackButton onClick={() => navigate(`/item/${itemToReceive.itemId}/chooseExchangeProduct`) }></BackButton>
                 </div>

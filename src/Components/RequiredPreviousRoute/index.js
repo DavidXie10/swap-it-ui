@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export default function RequiredPreviousRoute({ children, redirectPath = "/", checkPrevious = ''}) {
+export default function RequiredPreviousRoute({ children, redirectPath = '/', checkPrevious = ''}) {
     const itemToReceive = useSelector ((state) => state.exchangeItem.itemToReceive);
     const itemsToGive = useSelector ((state) => state.exchangeItem.itemsToGive);
 

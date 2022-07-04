@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const exchange = createAsyncThunk('exchange', async (params, {getState}) => {
     const state = getState();
     const data = {
-        "userToId":state.exchangeItem.itemToReceive.ownerUserId,
-        "proposedItemsNames":state.exchangeItem.itemsToGive.map(item => item.name).join(', '),
-        "receiveItemName":state.exchangeItem.itemToReceive.name
+        'userToId':state.exchangeItem.itemToReceive.ownerUserId,
+        'proposedItemsNames':state.exchangeItem.itemsToGive.map(item => item.name).join(', '),
+        'receiveItemName':state.exchangeItem.itemToReceive.name
     };
 
     const exchangePostFetch = await fetch(`http://localhost:8000/exchanges`, {
@@ -17,7 +17,7 @@ export const exchange = createAsyncThunk('exchange', async (params, {getState}) 
         body: JSON.stringify(data),
     });
 
-    const exchangePostData = 'Exito';
+    const exchangePostData = 'Éxito';
     if (exchangePostFetch.status === 204) {
         return exchangePostData;
     } else {
@@ -27,3 +27,20 @@ export const exchange = createAsyncThunk('exchange', async (params, {getState}) 
         }
     }
 });
+
+export const onExchangeItemFullfiled = (state, action) => {
+    if (action.payload.error) {
+        state.success = false;
+        state.errorMessage = action.payload.message;
+    } else {
+        state.success = true;
+        state.errorMessage = '';
+    }
+};
+
+export const onExchangeItemRejected = (state) => {
+    state.itemToReceive = null;
+    state.itemsToGive = [];
+    state.errorMessage = '';
+    state.success = false;
+}

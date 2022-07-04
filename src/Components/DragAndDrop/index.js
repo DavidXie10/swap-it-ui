@@ -1,6 +1,6 @@
-import { FileUploader } from "react-drag-drop-files";
+import { FileUploader } from 'react-drag-drop-files';
 
-const FILE_TYPES = ["JPEG", "PNG", "JPG"];
+const FILE_TYPES = ['JPEG', 'PNG', 'JPG'];
 
 export default function DragAndDrop({handleChange}) {
     return (

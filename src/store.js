@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage'
-import { persistReducer } from "redux-persist";
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 import appSlice from './Slices/app/appSlice';
 import userSlice from './Slices/user/userSlice';
 import exchangeItemSlice from './Slices/exchangeItem/exchangeItemSlice';

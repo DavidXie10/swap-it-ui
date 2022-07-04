@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getMyItems, onGetMyItemsFullfiled, onGetMyItemsRejected } from "./requests/getMyItems";
+import { createSlice } from '@reduxjs/toolkit';
+import { getMyItems, onGetMyItemsFullfiled, onGetMyItemsRejected } from './requests/getMyItems';
 
 const myItemsSlice = createSlice({
     name: 'myItems',

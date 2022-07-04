@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 import { logout } from '../../Slices/user/userSlice';	
 
 export default function PrivateRoute({ children, redirectPath = '/login'}) {
@@ -23,6 +23,5 @@ export default function PrivateRoute({ children, redirectPath = '/login'}) {
         return <Navigate to={redirectPath} replace />;
     }
 
-    
     return children || <Outlet />;
 }

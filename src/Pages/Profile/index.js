@@ -82,17 +82,17 @@ export default function Profile() {
                             <img id='photoUrl' className='border rounded-full h-full w-full' src={photo?URL.createObjectURL(photo):user.photoUrl?user.photoUrl:anonymousProfilePhoto} alt='Foto de perfil'/>
                         </div>
                         <div className='w-full'>
-                            <label htmlFor="photo" className='w-fit h-8 text-left font-bold underline cursor-pointer'> 
+                            <label htmlFor='photo' className='w-fit h-8 text-left font-bold underline cursor-pointer'> 
                                 Actualizar foto
                             </label>
                             <input
-                                id="photo"
-                                name="photo"
+                                id='photo'
+                                name='photo'
                                 hidden
                                 multiple={false}
-                                type="file"
+                                type='file'
                                 onChange={(evt) => {
-                                setPhoto(evt.target.files[0]);
+                                    setPhoto(evt.target.files[0]);
                                 }} 
                             />
                         </div>
@@ -101,7 +101,7 @@ export default function Profile() {
                         <div className='w-full lg:mr-20 md:mr-20 sm:mb-5'>
                             <Label text='Nombre completo' width='w-full' size='text-lg'/>
                             <Input id='fullName' placeholder='Ingrese su nombre' value={user.fullName} marginBottom='mb-0' onChange={(evt) => {handleChange('fullName', evt.target.value)}}/>
-                            {fullNameErrorMessage && <p className="text-red-500 font-bold mt-2">{fullNameErrorMessage}</p>}
+                            {fullNameErrorMessage && <p className='text-red-500 font-bold mt-2'>{fullNameErrorMessage}</p>}
                         </div>
                         <div className='w-full sm:mb-5'>
                             <Label text='Provincia' width='w-full' textalign='text-left' size='text-lg'/>
@@ -113,7 +113,7 @@ export default function Profile() {
                                     handleChange('location', evt.target.value);
                                 }}
                             >
-                                <option disabled  label="Seleccione su provincia de residencia" value={-1} />
+                                <option disabled  label='Seleccione su provincia de residencia' value={-1} />
                                 <option label='San José' value={1} />
                                 <option label='Alajuela' value={2} />
                                 <option label='Cartago' value={3} />
@@ -129,13 +129,13 @@ export default function Profile() {
                             <Label text='Correo' width='w-full' size='text-lg'/>
                             {/* TODO: CHECK VALID EMAIL*/}
                             <Input id='email' type='email' placeholder='Ingrese su correo electrónico' value={user.email} marginBottom='mb-0' onChange={(evt) => {handleChange('email', evt.target.value)}}/>
-                            {emailErrorMessage && <p className="text-red-500 font-bold mt-2">{emailErrorMessage}</p>}
+                            {emailErrorMessage && <p className='text-red-500 font-bold mt-2'>{emailErrorMessage}</p>}
                         </div>
                         <div className='w-full sm:mb-5'>
                             <Label text='Teléfono' width='w-full' size='text-lg'/>
                             {/* TODO: CHECK VALID PHONE NUMBER*/}
                             <Input placeholder='Ingrese su número de teléfono' value={user.phoneNumber} marginBottom='mb-0' onChange={(evt) => {handleChange('phoneNumber', evt.target.value)}}/>
-                            {phoneNumberErrorMessage && <p className="text-red-500 font-bold mt-2">{phoneNumberErrorMessage}</p>}
+                            {phoneNumberErrorMessage && <p className='text-red-500 font-bold mt-2'>{phoneNumberErrorMessage}</p>}
                         </div>
                     </div>
                     
@@ -146,7 +146,6 @@ export default function Profile() {
                             }
                         }}/>
                     </div>
-                    
                 </div>
                 <Footer/>
             </div>  

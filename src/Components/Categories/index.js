@@ -1,4 +1,3 @@
-import {iconCategoryClasses} from '../../utils/constants'
 import { 
     IoGrid, 
     IoAmericanFootball, 
@@ -12,12 +11,11 @@ import {
     IoCar, 
     IoEllipsisHorizontalSharp 
 } from 'react-icons/io5';
-import { useState } from "react";
+import { useState } from 'react';
+import {iconCategoryClasses} from '../../utils/constants'
 
-export default function Categories({defaultCategory, onClick}) 
-{
+export default function Categories({defaultCategory, onClick}) {
     const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
-
     const iconColor = (id) => selectedCategory === id?'bg-[#51E5FF]':'bg-[#C4C4C4]';
 
     const categories = [
@@ -55,6 +53,5 @@ export default function Categories({defaultCategory, onClick})
                 </div>
             )}
         </div>
-    
     )
 }

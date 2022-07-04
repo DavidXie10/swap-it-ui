@@ -1,18 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux'
 import 'tw-elements';
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ImageCheckbox from "../../Components/ImageCheckbox";
-import Button from "../../Components/Button";
-import Label from "../../Components/Label";
-import Footer from "../../Components/Footer";
-import Header from "../../Components/Header";
-import Spinner from "../../Components/Spinner";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toggleItemToGive, clearGiveState } from '../../Slices/exchangeItem/exchangeItemSlice';
-import { getMyItems } from "../../Slices/myItems/requests/getMyItems";
-import { clearMyItemsState } from "../../Slices/myItems/myItemsSlice";
-import AlertMessage from "../../Components/AlertMessage";
+import { getMyItems } from '../../Slices/myItems/requests/getMyItems';
+import { clearMyItemsState } from '../../Slices/myItems/myItemsSlice';
+import AlertMessage from '../../Components/AlertMessage';
 import BackButton from '../../Components/BackButton';
+import ImageCheckbox from '../../Components/ImageCheckbox';
+import Button from '../../Components/Button';
+import Label from '../../Components/Label';
+import Footer from '../../Components/Footer';
+import Header from '../../Components/Header';
+import Spinner from '../../Components/Spinner';
 
 export default function ChooseExchangeProduct () {
     const loading = useSelector( (state) => state.app.loading );
@@ -34,7 +34,7 @@ export default function ChooseExchangeProduct () {
     }, [dispatch, idUser, user.id])
 
     const listMyProducts = () => myItems.map((item) => 
-        <div className="lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center" key={item.itemId}>
+        <div className='lg:col-span-1 md:col-span-1 sm:col-span-3 flex justify-center items-center' key={item.itemId}>
             <ImageCheckbox fileURL={item.photoUrls[0]} onClick={() => dispatch(toggleItemToGive(item))}></ImageCheckbox>
         </div>
     );
@@ -46,16 +46,16 @@ export default function ChooseExchangeProduct () {
             {!success ? (<AlertMessage message={errorMessage} success={false} />) : 
             (<>
                 {localErrorMessage ? <AlertMessage message={localErrorMessage} success={false} buttonType=''/> : <></>}
-                <div className="sm:px-6 md:px-8 lg:px-16">
-                    <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
+                <div className='sm:px-6 md:px-8 lg:px-16'>
+                    <div className='flex flex-row items-center w-full mb-16 pt-6 justify-between'>
                         <Label text='Mis Artículos a Intercambiar' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
                         <BackButton onClick={() => navigate(`/item/${itemToReceive.itemId}`) }></BackButton>
                     </div>
 
-                    <div className="grid grid-flow-row grid-cols-3 overflow-scroll gap-5 lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem]">
+                    <div className='grid grid-flow-row grid-cols-3 overflow-scroll gap-5 lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem]'>
                         { myItems && listMyProducts() }
                     </div>
-                    <div className="flex justify-center mt-12 mb-12">
+                    <div className='flex justify-center mt-12 mb-12'>
                         <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
                             if(itemsToGive.length > 0){
                                 setLocalErrorMessage('');
