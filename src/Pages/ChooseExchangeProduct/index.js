@@ -69,7 +69,7 @@ export default function ChooseExchangeProduct () {
                             }}/>
                         </div>
                     </>) : (
-                        <AlertMessage message={"No puede intercambiar debido a que le faltan items en cuenta"} success={false} />
+                        <AlertMessage message={"No puede intercambiar debido a que le faltan items en su cuenta."} success={false} />
                     )}
                 </div>
             </>)}
