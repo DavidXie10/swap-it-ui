@@ -16,16 +16,16 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Catalog />}/>
                 <Route path="/login" element={<Login />}/>
+                <Route path="/item/:id" element={<ItemSelected />}/> 
                 <Route element={<PrivateRoute />}>
-                    <Route path="/item/:id" element={<ItemForm />} /> 
+                    <Route path="/form/item/:id" element={<ItemForm />} /> 
                     <Route path="/profile" element={<Profile />}/> 
                     <Route path="/myItems" element={<Maintenance />}/> 
-                    <Route path="/catalog/item/:id" element={<ItemSelected />}/> 
                     <Route element={<RequiredPreviousRoute />}>
-                        <Route path="/chooseExchangeProduct" element={<ChooseExchangeProduct />}/>
+                        <Route path="/item/:id/chooseExchangeProduct" element={<ChooseExchangeProduct />}/>
                     </Route>
                     <Route element={<RequiredPreviousRoute checkPrevious={'chooseExchangeProduct'} />}>
-                        <Route path="/confirmation" element={<Confirmation />}/>
+                        <Route path="/item/:id/chooseExchangeProduct/confirmation" element={<Confirmation />}/>
                     </Route>
                 </Route>
             </Routes>

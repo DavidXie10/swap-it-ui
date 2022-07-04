@@ -49,7 +49,7 @@ export default function ChooseExchangeProduct () {
                 <div className="sm:px-6 md:px-8 lg:px-16">
                     <div className="flex flex-row items-center w-full mb-16 pt-6 justify-between">
                         <Label text='Mis Artículos a Intercambiar' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
-                        <BackButton onClick={() => navigate(`/catalog/item/${itemToReceive.itemId}`) }></BackButton>
+                        <BackButton onClick={() => navigate(`/item/${itemToReceive.itemId}`) }></BackButton>
                     </div>
 
                     <div className="grid grid-flow-row grid-cols-3 overflow-scroll gap-5 lg:max-h-[42rem] md:max-h-[38rem] sm:max-h-[30rem]">
@@ -59,7 +59,7 @@ export default function ChooseExchangeProduct () {
                         <Button textcolor='text-white' width='lg:w-[24rem] md:w-[24rem] sm:w-[20rem]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Proponer Intercambio' onClick={() => {
                             if(itemsToGive.length > 0){
                                 setLocalErrorMessage('');
-                                navigate('/confirmation');
+                                navigate(`/item/${itemToReceive.itemId}/chooseExchangeProduct/confirmation`)
                             }else{
                                 setLocalErrorMessage('Debe seleccionar al menos un item');
                                 window.scrollTo(0,0);

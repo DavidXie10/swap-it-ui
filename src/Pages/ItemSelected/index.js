@@ -11,13 +11,16 @@ import { useEffect, useState } from "react";
 import { setLoading, unsetLoading } from "../../Slices/app/appSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../../Components/AlertMessage";
+import { getLocationById } from "../../utils/constants";
 
 export default function ItemSelected () {
     const { id } = useParams();
-    const [item, setItem] = useState({ name: '', wishlist: '', acquisitionDate: '', description: '', itemState: -1, category: -1, location: -1, photoUrls: []});
+    const [item, setItem] = useState({ name: '', wishlist: '', acquisitionDate: '', description: '', itemState: -1, category: -1, location: -1, ownerUserId: '',photoUrls: []});
     const loading = useSelector( (state) => state.app.loading );
     const [localSuccess, setLocalSuccess] = useState(true);
     const [localErrorMessage, setLocalErrorMessage] = useState('');
+    const user = useSelector( (state) => state.user.user);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -36,32 +39,7 @@ export default function ItemSelected () {
                 } else {
                     itemJSON.itemState = "Usado";
                 }
-                switch(itemJSON.location){
-                    case 1:
-                        itemJSON.location = "San José";
-                        break;
-                    case 2:
-                        itemJSON.location = "Alajuela";
-                        break;
-                    case 3:
-                        itemJSON.location = "Cartago";
-                        break;
-                    case 4:
-                        itemJSON.location = "Heredia";
-                        break;
-                    case 5:
-                        itemJSON.location = "Guanacaste";
-                        break;
-                    case 6:
-                        itemJSON.location = "Puntarenas";
-                        break;
-                    case 7:
-                        itemJSON.location = "Limón";
-                        break;
-                    default:
-                        itemJSON.location = "No es de Costa Rica";
-                        break;
-                }
+                itemJSON.location = getLocationById(itemJSON.location);
                 setItem(itemJSON);
             }
         } 
@@ -94,12 +72,11 @@ export default function ItemSelected () {
                 <div className="sm:px-6 md:px-8 lg:px-16">
                     <div className="flex flex-row justify-between items-center w-full mb-16 pt-6">
                         <Label text='Artículo seleccionado' width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
-                        <BackButton onClick={() => navigate('/catalog') }></BackButton>
+                        <BackButton onClick={() => navigate('/') }></BackButton>
                     </div>
                     <div className="grid lg:grid-rows-[7] md:grid-rows-[8] sm:grid-rows-[16] grid-cols-7 lg:gap-y-4 sm:gap-y-2 md:gap-y-2 gap-x-8 mb-16">
                         <div className="border row-[span_7_/_span_7] lg:col-span-3 md:col-span-3 sm:col-span-7 border-b-neutral-400 w-full">
                             <div id="carouselExampleControls" className="carousel slide relative flex w-full h-full" data-bs-ride="carousel">
-                                {console.log(item.photoUrls.length)}
                                 {
                                     (item.photoUrls.length > 1) ? (
                                         <button
@@ -144,11 +121,14 @@ export default function ItemSelected () {
                         <Label text={`Ubicación: ${item.location || "Address not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
                         <Label text={`Fecha de adquisición: ${item.acquisitionDate || "Acquisition not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
                         <Label text={`Descripción: ${item.description || "Desciption not found"}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
-                        <Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0'} label='Intercambiar' onClick={() => {
+                        
+                        {
+                            user.id !== item.ownerUserId ? (<Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0'} label='Intercambiar' onClick={() => {
                                 dispatch(addItemToReceive(item));
-                                navigate('/chooseExchangeProduct')
+                                navigate(`/item/${id}/chooseExchangeProduct`)                            
                             }
-                        }/>
+                            }/>) : (<></>)
+                        }
                     </div>
                 </div>
             )}

@@ -29,8 +29,6 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
     const userData = await userFetch.json();
 
     if (userFetch.status === 200) {
-        console.log('200');
-        console.log(userData);
         return {
             ...userData,
             token: state.user.user.token,
@@ -38,7 +36,6 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
             password: state.user.user.password
         };
     } else {
-        console.log('ERROR');
         return {
             error: true,
             message: userData.message,
@@ -49,22 +46,18 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
 
 export const onUpdateUserFulfilled = (state, action) => {
     if (action.payload.error){
-        console.log('onPatchUserFulfilled: error');
         state.errorMessage = action.payload.message;
         state.isLoggedIn = true;
         state.isUpdated = false;
     }else{
-        console.log('onPatchUserFulfilled: success');
         state.errorMessage = '';
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isUpdated = true;
-        console.log(state.user);
     }
 }
 
 export const onUpdateUserRejected = (state) => {
-   console.log('onPatchUserRejected');
-   state.isLoggedIn = true;
-   state.isUpdated = false;
+    state.isLoggedIn = true;
+    state.isUpdated = false;
 }

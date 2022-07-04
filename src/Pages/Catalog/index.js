@@ -14,6 +14,7 @@ import Input from '../../Components/Input';
 import Label from '../../Components/Label';
 import Spinner from '../../Components/Spinner';
 import { clearState, updateCurrentPage, updateSelectedCategory } from '../../Slices/item/itemSlice';
+import { getLocationById } from "../../utils/constants";
 
 export default function Catalog() {
     const [items, setItems] = useState(null);
@@ -58,7 +59,7 @@ export default function Catalog() {
             {localErrorMessage ? <AlertMessage message={localErrorMessage} success={false} /> : <></>}
             <div className={`lg:hidden md:hidden z-20 ${showMobileCategories?'sm:block':'sm:hidden'}`}>
                 <div onClick={() => setShowMobileCategories(false) } className='fixed top-0 left-0 h-full w-full cursor-pointer' ></div>
-                <div className='fixed top-16 h-full w-2/3 bg-slate-800'>
+                <div className='fixed top-0 pt-12 h-full w-2/3 bg-[#2E2F2F]'>
                     <Categories defaultCategory={selectedCategory} onClick= {(idCategory) => {
                         dispatch(updateSelectedCategory({nextCategory: idCategory}));
                         dispatch(updateCurrentPage({nextPage: 0}));
@@ -99,7 +100,7 @@ export default function Catalog() {
                                 <>
                                     <div className='w-full flex flex-wrap gap-y-8 gap-x-6 py-4 justify-between'>
                                         {
-                                        items.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={item.location} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
+                                        items.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={getLocationById(item.location)} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
                                         }
                                     </div>
                                     <div>

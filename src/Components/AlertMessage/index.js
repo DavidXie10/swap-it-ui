@@ -18,7 +18,7 @@ export default function AlertMessage({message, bottonMessage, success, linkToBut
         {buttonType === 'back'? (
             <div className='sm:px-6 md:px-8 lg:px-16 flex p-4 justify-end'>
                 <button className={`flex bg-[#51e5ff] text-white w-80 h-12 rounded-md font-bold text-lg`}> 
-                    <Link to={`${linkToButton || '/catalog'}`} className='flex w-full h-full flex-col justify-center'>
+                    <Link to={`${linkToButton || '/'}`} className='flex w-full h-full flex-col justify-center'>
                         {bottonMessage || 'Regresar al catálogo'} 
                     </Link>
                 </button>

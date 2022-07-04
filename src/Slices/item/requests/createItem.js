@@ -19,7 +19,6 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
     const uploadedData = await uploadFetch.json();
 
     item.photoUrls = uploadedData.uploadedFiles.map((file) => file.url);
-    console.log(item.photoUrls);
 
     const itemFetch = await fetch('http://localhost:8000/items', {
         method: 'POST',

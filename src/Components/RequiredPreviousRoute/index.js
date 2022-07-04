@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-export default function RequiredPreviousRoute({ children, redirectPath = "/catalog", checkPrevious = ''}) {
+export default function RequiredPreviousRoute({ children, redirectPath = "/", checkPrevious = ''}) {
     const itemToReceive = useSelector ((state) => state.exchangeItem.itemToReceive);
     const itemsToGive = useSelector ((state) => state.exchangeItem.itemsToGive);
 
@@ -11,7 +11,7 @@ export default function RequiredPreviousRoute({ children, redirectPath = "/catal
 
     if(checkPrevious === 'chooseExchangeProduct'){
         if(itemsToGive.length === 0){
-            redirectPath = '/chooseExchangeProduct';
+            redirectPath = `/item/${itemToReceive.itemId}/chooseExchangeProduct`;
             return <Navigate to={redirectPath} replace />;
         }
     }

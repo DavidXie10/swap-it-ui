@@ -32,9 +32,9 @@ export default function Maintenance () {
     const listMyProducts = () => myItems.map((item) => 
         {if (alternate){
             alternate = false;
-            return  <div>
+            return  <div key={item.itemId}>
                         <MyItem image={item.photoUrls[0]} title={item.name} state={item.itemState} address={item.location} acquisition={item.acquisitionDate} onClickEdit={() => {
-                            navigate(`/item/${item.itemId}`)
+                            navigate(`/form/item/${item.itemId}`)
                         }} searchFor={item.wishlist} onClickDelete={() => {
                             dispatch(deleteItem({param:item.itemId}));
                             dispatch(deleteSelectedItem(item));
@@ -43,9 +43,9 @@ export default function Maintenance () {
                     </div>;
         } else {
             alternate = true;
-            return  <div>
+            return  <div key={item.itemId}>
                         <MyItem image={item.photoUrls[0]} title={item.name} state={item.itemState} address={item.location} onClickEdit={() => {
-                            navigate(`/item/${item.itemId}`)
+                            navigate(`/form/item/${item.itemId}`)
                         }} acquisition={item.acquisitionDate} searchFor={item.wishlist} backgroundcolor={'bg-[#f5f5f5]'} onClickDelete={() => {
                             dispatch(deleteItem({param:item.itemId}));
                             dispatch(deleteSelectedItem(item));
@@ -57,7 +57,7 @@ export default function Maintenance () {
 
     return (
         loading ? (<Spinner />) : (
-            <div className='flex min-h-screen max-h-screen flex-col justify-between'>
+            <div className='flex min-h-screen flex-col justify-between'>
                 <Header />
                 {!success ? (<AlertMessage message={errorMessage} success={false} />) :
                 (<>
@@ -71,7 +71,7 @@ export default function Maintenance () {
                     </div>
                     <div className="flex justify-center mt-12 mb-12">
                         <Button textcolor='text-white' backgroundcolor={'bg-[#7AF067]'} width='rounded-full lg:w-[180px] md:w-[180px] sm:w-[75px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='+' textSize={'lg:text-4xl md:text-4xl sm:text-2xl'}  onClick={() => {
-                            navigate('/item/new')
+                            navigate('/form/item/new')
                         }}/>
                     </div>
                 </>)}

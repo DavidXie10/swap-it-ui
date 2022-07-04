@@ -6,7 +6,7 @@ export default function Footer({height}) {
         <div className={`w-full bg-[#2E2F2F] ${height || 'h-full'}`}>
             <div className={`flex sm:px-6 md:px-8 lg:px-16  items-center py-16`}>
                 <div className="lg:w-1/3 flex md:w-2/3 sm:w-1/2" >
-                    <Link to='/catalog'>
+                    <Link to='/'>
                         <Logo height='lg:h-28 md:h-28 sm:h-[4.3rem]' width='lg:w-80 md:w-80 sm:w-44'/>
                     </Link>                
                 </div>
