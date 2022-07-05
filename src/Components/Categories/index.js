@@ -11,11 +11,11 @@ import {
     IoCar, 
     IoEllipsisHorizontalSharp 
 } from 'react-icons/io5';
-import { useState } from 'react';
+
 import {iconCategoryClasses} from '../../utils/constants'
 
 export default function Categories({defaultCategory, onClick}) {
-    const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
+    const selectedCategory = defaultCategory;
     const iconColor = (id) => selectedCategory === id?'bg-[#51E5FF]':'bg-[#C4C4C4]';
 
     const categories = [
