@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createItem = createAsyncThunk('item/new', async ({item, fileList}, { getState }) => {
     const state = getState();
@@ -10,7 +10,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
     
     const uploadFetch = await fetch('http://localhost:8000/uploads', {
         headers: {
-            "Authorization": `Bearer ${state.user.user.token}`,
+            'Authorization': `Bearer ${state.user.user.token}`,
         },
         method: 'POST',
         body: formData,
@@ -23,8 +23,8 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
     const itemFetch = await fetch('http://localhost:8000/items', {
         method: 'POST',
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${state.user.user.token}`,
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${state.user.user.token}`,
         },
         body: JSON.stringify(item),
     });
@@ -36,7 +36,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
     } else {
         return {
             error: true,
-            message: itemData.error.message,
+            message: itemData.message,
         }
     }
 });

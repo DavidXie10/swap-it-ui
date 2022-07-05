@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const postLogin = createAsyncThunk('users/postLogin', async(credentials) => {
     const loginFetch = await fetch('http://localhost:8000/users/login', {

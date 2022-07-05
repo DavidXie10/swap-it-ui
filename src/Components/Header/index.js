@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { MdPermIdentity } from 'react-icons/md';
-import {AiOutlineMenu} from 'react-icons/ai'
-import { Link, useNavigate } from 'react-router-dom';
+import { AiOutlineMenu } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';	
+import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 import UserMenu from '../UserMenu';
 import CloseButton from '../CloseButton';
-import {menuOptionClasses} from '../../utils/constants'
-import { useDispatch, useSelector } from 'react-redux';	
+import {menuOptionClasses} from '../../utils/constants';
 import { logout } from '../../Slices/user/userSlice';	
 
 export default function Header({height}) {

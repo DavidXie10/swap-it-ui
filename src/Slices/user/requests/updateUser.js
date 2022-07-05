@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const updateUser = createAsyncThunk('users/updateUser', async({user, photo}, { getState }) => {
     const state = getState();
@@ -7,7 +7,7 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
         formData.append('file', photo);
         const uploadFetch = await fetch('http://localhost:8000/uploads', {
             headers: {
-                "Authorization": `Bearer ${state.user.user.token}`,
+                'Authorization': `Bearer ${state.user.user.token}`,
             },    
             method: 'POST',
             body: formData,
@@ -21,8 +21,8 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
     const userFetch = await fetch(`http://localhost:8000/users/${state.user.user.id}`, {
         method: 'PATCH',
         headers: {
-            "Authorization": `Bearer ${state.user.user.token}`,
-            "Content-type": "application/json",
+            'Authorization': `Bearer ${state.user.user.token}`,
+            'Content-type': 'application/json',
         },
         body: JSON.stringify(user),
     });

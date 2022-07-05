@@ -1,23 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { exchangeItemReducers } from "./reducers";
-import { exchange } from "./requests/exchange";
-
-const onExchangeItemFullfiled = (state, action) => {
-    if (action.payload.error) {
-        state.success = false;
-        state.errorMessage = action.payload.message;
-    } else {
-        state.success = true;
-        state.errorMessage = '';
-    }
-};
-
-const onExchangeItemRejected = (state) => {
-    state.itemToReceive = null;
-    state.itemsToGive = [];
-    state.errorMessage = '';
-    state.success = false;
-}
+import { createSlice } from '@reduxjs/toolkit';
+import { exchangeItemReducers } from './reducers';
+import { exchange, onExchangeItemFullfiled, onExchangeItemRejected } from './requests/exchange';
 
 const exchangeItemSlice = createSlice({
     name: 'exchangeItem',

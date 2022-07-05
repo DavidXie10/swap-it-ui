@@ -6,28 +6,28 @@ export const getLocationById = (id) => {
     let location = '';
     switch(id){
         case 1:
-            location = "San José";
+            location = 'San José';
             break;
         case 2:
-            location = "Alajuela";
+            location = 'Alajuela';
             break;
         case 3:
-            location = "Cartago";
+            location = 'Cartago';
             break;
         case 4:
-            location = "Heredia";
+            location = 'Heredia';
             break;
         case 5:
-            location = "Guanacaste";
+            location = 'Guanacaste';
             break;
         case 6:
-            location = "Puntarenas";
+            location = 'Puntarenas';
             break;
         case 7:
-            location = "Limón";
+            location = 'Limón';
             break;
         default:
-            location = "No es de Costa Rica";
+            location = 'No es de Costa Rica';
             break;
     }
 

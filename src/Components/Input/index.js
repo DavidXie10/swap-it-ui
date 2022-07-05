@@ -13,10 +13,10 @@ export default function Input({
         <div className='relative w-full'>
             <input 
                 id={id || ''} 
-                type={type === "password" && showPassword ? "text" : type || "text"} 
+                type={type === 'password' && showPassword ? 'text' : type || 'text'} 
                 defaultValue={value}
                 placeholder={placeholder} 
-                className={`${width || "w-full"} ${height || "h-10"} px-4 ${marginBottom || 'mb-5'} rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}
+                className={`${width || 'w-full'} ${height || 'h-10'} px-4 ${marginBottom || 'mb-5'} rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}
                 onChange={onChange} 
                 onKeyUp={onKeyUp}
             />

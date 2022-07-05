@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { postLogin } from "../user/requests/postLogin";
-import { updateUser } from "../user/requests/updateUser"; 
-import { createItem } from "../item/requests/createItem";
-import { editItem } from "../item/requests/editItem"; 
-import { getMyItems } from "../myItems/requests/getMyItems";
-import { exchange } from "../exchangeItem/requests/exchange";
+import { createSlice } from '@reduxjs/toolkit';
+import { postLogin } from '../user/requests/postLogin';
+import { updateUser } from '../user/requests/updateUser'; 
+import { createItem } from '../item/requests/createItem';
+import { editItem } from '../item/requests/editItem'; 
+import { getMyItems } from '../myItems/requests/getMyItems';
+import { exchange } from '../exchangeItem/requests/exchange';
 
 const appSlice = createSlice({
     name: 'app',

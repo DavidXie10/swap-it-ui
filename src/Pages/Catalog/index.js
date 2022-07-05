@@ -3,7 +3,7 @@ import { setLoading, unsetLoading } from '../../Slices/app/appSlice';
 import { RiEqualizerLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import ReactPaginate from "react-paginate";
+import ReactPaginate from 'react-paginate';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 import AlertMessage from '../../Components/AlertMessage';
 import ArticleCard from '../../Components/ArticleCard';
@@ -14,7 +14,7 @@ import Input from '../../Components/Input';
 import Label from '../../Components/Label';
 import Spinner from '../../Components/Spinner';
 import { clearState, updateCurrentPage, updateSelectedCategory } from '../../Slices/item/itemSlice';
-import { getLocationById } from "../../utils/constants";
+import { getLocationById } from '../../utils/constants';
 
 export default function Catalog() {
     const [items, setItems] = useState(null);
@@ -89,18 +89,19 @@ export default function Catalog() {
                             value={searchedWord}
                             placeholder='Buscar...' 
                             onKeyUp={(evnt) => {
-                                if(evnt.key === "Enter")
+                                if(evnt.key === 'Enter'){
+                                    dispatch(updateCurrentPage({nextPage: 0}));
                                     setSearchedWord(evnt.target.value);
+                                }
                             }}/>
                         </div>
-                        
                             {
-                                items && items.length? 
+                                items && items.length ? 
                                 (
                                 <>
                                     <div className='w-full flex flex-wrap gap-y-8 gap-x-6 py-4 justify-between'>
                                         {
-                                        items.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={getLocationById(item.location)} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
+                                            items.map(item => <ArticleCard imageSource={item.photoUrls[0]} id={item.itemId} name={item.name} direction={getLocationById(item.location)} key={`article_${item.itemId}`} cardWidth='lg:w-[30%] md:w-[47%] sm:w-full'/> )
                                         }
                                     </div>
                                     <div>
@@ -110,10 +111,10 @@ export default function Catalog() {
                                             pageCount={pageCount}
                                             initialPage={currentPage}
                                             onPageChange={handlePageChange}
-                                            containerClassName={"flex w-3/5 h-10 px-4 justify-between m-auto bg-[#F1F1F1] items-center rounded-sm"}
-                                            pageLinkClassName={"p-2 font-bold cursor-pointer rounded-full "}
-                                            disabledClassName={"text-gray-400"}
-                                            activeClassName={"text-[#51E5FF] bg-white border rounded-md p-[3px]"}
+                                            containerClassName={'flex w-3/5 h-10 px-4 justify-between m-auto bg-[#F1F1F1] items-center rounded-sm'}
+                                            pageLinkClassName={'p-2 font-bold cursor-pointer rounded-full '}
+                                            disabledClassName={'text-gray-400'}
+                                            activeClassName={'text-[#51E5FF] bg-white border rounded-md p-[3px]'}
                                         />
                                     </div>
                                 </>

@@ -1,14 +1,14 @@
-import Logo from '../../Components/Logo'
-import Input from '../../Components/Input'
-import Button from '../../Components/Button';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { postLogin } from '../../Slices/user/requests/postLogin';
 import { clearState } from '../../Slices/user/userSlice';
+import Logo from '../../Components/Logo';
+import Input from '../../Components/Input';
+import Button from '../../Components/Button';
 
 export default function Login() {
-    const containerClases = "flex w-full justify-center flex-wrap";
+    const containerClases = 'flex w-full justify-center flex-wrap';
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [localErrorMessage, setLocalErrorMessage] = useState('');
@@ -17,7 +17,7 @@ export default function Login() {
     const errorMessage = useSelector((state) => state.user.errorMessage);
 
     const isValidEmail = (email) => {
-        return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     };
       
     const dispatch = useDispatch();
@@ -66,10 +66,10 @@ export default function Login() {
             </div>
 
             <div className={`flex w-full justify-center`}>
-                {errorMessage && <span className="text-red-500 sm:mt-4">{errorMessage}</span>}
+                {errorMessage && <span className='text-red-500 sm:mt-4'>{errorMessage}</span>}
             </div>
             <div className={`flex w-full justify-center`}>
-                {localErrorMessage && <span className="text-red-500">{localErrorMessage}</span>}
+                {localErrorMessage && <span className='text-red-500'>{localErrorMessage}</span>}
             </div>
 
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[15vh]`}>
