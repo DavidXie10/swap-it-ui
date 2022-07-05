@@ -3,7 +3,7 @@ import { getLocationById } from '../../../utils/constants';
 
 export const getMyItems = createAsyncThunk('items/getMyItems', async (user, {getState}) => {
     const state = getState();
-    const myItemsFetch = await fetch(`http://localhost:8000/users/${user.id}/items`, {
+    const myItemsFetch = await fetch(`${process.env.REACT_APP_API_URL}/users/${user.id}/items`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${state.user.user.token}`,

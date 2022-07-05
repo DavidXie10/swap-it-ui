@@ -8,7 +8,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
         formData.append('file', fileList[counter]);
     }
     
-    const uploadFetch = await fetch('http://localhost:8000/uploads', {
+    const uploadFetch = await fetch(`${process.env.REACT_APP_API_URL}/uploads`, {
         headers: {
             'Authorization': `Bearer ${state.user.user.token}`,
         },
@@ -20,7 +20,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
 
     item.photoUrls = uploadedData.uploadedFiles.map((file) => file.url);
 
-    const itemFetch = await fetch('http://localhost:8000/items', {
+    const itemFetch = await fetch(`${process.env.REACT_APP_API_URL}/items`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

@@ -8,7 +8,7 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
         const urls = {
             urls: deletedImages
         }
-        const deleteFilesFetch = await fetch(`http://localhost:8000/uploads/`, {
+        const deleteFilesFetch = await fetch(`${process.env.REACT_APP_API_URL}/uploads/`, {
             headers: {
                 'Authorization': `Bearer ${state.user.user.token}`,
                 'Content-type': 'application/json',
@@ -33,7 +33,7 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
     }
 
     if(Array.from(formData.keys()).length > 0){
-        const uploadFetch = await fetch('http://localhost:8000/uploads', {
+        const uploadFetch = await fetch(`${process.env.REACT_APP_API_URL}/uploads`, {
             headers: {
                 'Authorization': `Bearer ${state.user.user.token}`,
             },
@@ -63,7 +63,7 @@ export const editItem = createAsyncThunk('item/:id', async ({item, fileList, del
 
     item.photoUrls = item.photoUrls.filter(item => item !== '');
 
-    const itemPatchFetch = await fetch(`http://localhost:8000/items/${id}`, {
+    const itemPatchFetch = await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`, {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${state.user.user.token}`,

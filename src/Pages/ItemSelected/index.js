@@ -27,7 +27,7 @@ export default function ItemSelected () {
     useEffect(() => {
         dispatch(clearState());
         const fetchItem = async (id) => {
-            const itemFetch = await fetch(`http://localhost:8000/items/${id}`);
+            const itemFetch = await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`);
             const itemJSON = await itemFetch.json();
             if (itemFetch.status !== 200){
                 setLocalSuccess(false);

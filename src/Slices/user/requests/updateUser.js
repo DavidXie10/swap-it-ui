@@ -5,7 +5,7 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
     if(photo) {
         const formData = new FormData();
         formData.append('file', photo);
-        const uploadFetch = await fetch('http://localhost:8000/uploads', {
+        const uploadFetch = await fetch(`${process.env.REACT_APP_API_URL}/uploads`, {
             headers: {
                 'Authorization': `Bearer ${state.user.user.token}`,
             },    
@@ -18,7 +18,7 @@ export const updateUser = createAsyncThunk('users/updateUser', async({user, phot
         user.photoUrl = uploadData.uploadedFiles[0].url;
     }
     
-    const userFetch = await fetch(`http://localhost:8000/users/${state.user.user.id}`, {
+    const userFetch = await fetch(`${process.env.REACT_APP_API_URL}/users/${state.user.user.id}`, {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${state.user.user.token}`,

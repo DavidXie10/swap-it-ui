@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const deleteItem = createAsyncThunk('items/:id', async (param,{getState}) => {
     const state = getState();
-    const deleteItemFetch = await fetch(`http://localhost:8000/items/${param.param}`, {
+    const deleteItemFetch = await fetch(`${process.env.REACT_APP_API_URL}/items/${param.param}`, {
         method: 'DELETE',
         headers: {
             "Authorization": `Bearer ${state.user.user.token}`,

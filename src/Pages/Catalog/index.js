@@ -32,7 +32,7 @@ export default function Catalog() {
         dispatch(clearState());
         const fetchItems = async () => {
             dispatch(setLoading());
-            const itemsFetch = await fetch(`http://localhost:8000/items/${selectedCategory}/items?page=${currentPage}${searchedWord?'&keyword='+searchedWord:''}`);
+            const itemsFetch = await fetch(`${process.env.REACT_APP_API_URL}/items/${selectedCategory}/items?page=${currentPage}${searchedWord?'&keyword='+searchedWord:''}`);
             const itemsJSON = await itemsFetch.json();
 
             if(itemsFetch.status !== 200){
