@@ -7,8 +7,8 @@ export const exchange = createAsyncThunk('exchange', async (params, {getState}) 
         'proposedItemsNames':state.exchangeItem.itemsToGive.map(item => item.name).join(', '),
         'receiveItemName':state.exchangeItem.itemToReceive.name
     };
-
-    const exchangePostFetch = await fetch(`${process.env.REACT_APP_API_ROUTE}/exchanges`, {
+    
+    const exchangePostFetch = await fetch(`${process.env.REACT_APP_API_URL}/exchanges/`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${state.user.user.token}`,
