@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { RiEyeLine, RiEyeCloseLine, RiSearch2Line } from 'react-icons/ri';
 
 export default function Input({
-    id, placeholder, type, value, passwordState, width, height, onChange, marginBottom,onKeyUp
+    id, placeholder, type, value, passwordState, width, height, onChange, marginBottom, onKeyUp, search
 }) {
     const [showPassword, setShowPassword] = useState(passwordState || false);
     const toggleSetPassword = () => {
@@ -29,7 +29,7 @@ export default function Input({
                     )}
                 </div>
             )}
-            {type === 'search' && (
+            {search === true && (
                 <div className={`absolute w-12 h-12 top-[10px] -right-4`}>
                     <RiSearch2Line className='text-xl'/>
                 </div>

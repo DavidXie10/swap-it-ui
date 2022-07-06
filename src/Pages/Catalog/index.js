@@ -91,7 +91,8 @@ export default function Catalog() {
                         <div className='flex items-center w-full'>
                             <RiEqualizerLine className='text-3xl top-[10px] mr-2 lg:hidden md:hidden cursor-pointer' onClick={() => setShowMobileCategories(true) }/>
                             <Input 
-                            type='search' 
+                            type='text' 
+                            search={true}
                             marginBottom='mb-0' 
                             value={searchedWord}
                             placeholder='Buscar...' 
