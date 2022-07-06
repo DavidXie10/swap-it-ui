@@ -31,9 +31,10 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
     });
 
     const itemData = await itemFetch.json();
-    
     if (itemFetch.status === 201) {
-        Mixpanel.track(Mixpanel.TYPES.ADD_NEW_ITEM);
+        Mixpanel.track(Mixpanel.TYPES.ADD_NEW_ITEM, {
+            categoryId: itemData.item.category
+        });
         return itemData;
     } else {
         return {
