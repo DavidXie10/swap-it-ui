@@ -13,12 +13,15 @@ export default function UserMenu(){
             {
                 isLoggedIn ? (<>
                     <div className='py-2 pl-4 hover:bg-gray-100'>
-                        <Link to='/profile' className='text-[#2E2F2F] cursor-pointer'>                
+                        <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_PROFILE)} to='/profile' className='text-[#2E2F2F] cursor-pointer'>                
                             <p className=''>Mi Perfil</p>
                         </Link>
                     </div>
                     <div className='py-2 pl-4 hover:bg-gray-100'>
-                        <p className='text-[#2E2F2F] cursor-pointer' onClick={() => {dispatch(logout());Mixpanel.track(Mixpanel.TYPES.CLOSE_SESSION);}}>
+                        <p className='text-[#2E2F2F] cursor-pointer' onClick={() => {
+                            dispatch(logout());
+                            Mixpanel.track(Mixpanel.TYPES.CLOSE_SESSION);
+                            }}>
                             Cerrar Sesión
                         </p>
                     </div>

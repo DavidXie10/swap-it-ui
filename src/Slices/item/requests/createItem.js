@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Mixpanel from '../../../services/mixpanel';
 
 export const createItem = createAsyncThunk('item/new', async ({item, fileList}, { getState }) => {
     const state = getState();
@@ -32,6 +33,7 @@ export const createItem = createAsyncThunk('item/new', async ({item, fileList}, 
     const itemData = await itemFetch.json();
     
     if (itemFetch.status === 201) {
+        Mixpanel.track(Mixpanel.TYPES.ADD_NEW_ITEM);
         return itemData;
     } else {
         return {

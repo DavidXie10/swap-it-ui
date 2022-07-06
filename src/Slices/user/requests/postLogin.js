@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Mixpanel from '../../../services/mixpanel';
 
 export const postLogin = createAsyncThunk('users/postLogin', async(credentials) => {
     const loginFetch = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
@@ -15,6 +16,7 @@ export const postLogin = createAsyncThunk('users/postLogin', async(credentials) 
     const userData = await loginFetch.json();
 
     if (loginFetch.status === 200){
+        Mixpanel.track(Mixpanel.TYPES.SUCCESSFULLY_LOGIN);
         return userData;
     }else{
         return {
@@ -31,6 +33,13 @@ export const onPostLoginFulfilled = (state, action) => {
         state.user = null;
         state.errorMessage = action.payload.message;
     }else{
+        Mixpanel.identify(action.payload.id);
+        Mixpanel.people.set({
+            $name: action.payload.fullName,
+            $email: action.payload.email,
+            location: action.payload.location,
+            phoneNumber: action.payload.phoneNumber
+        });
         state.isLoggedIn = true;
         state.isUpdated = false;
         state.user = action.payload;

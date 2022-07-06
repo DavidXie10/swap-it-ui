@@ -39,7 +39,7 @@ export default function Header({height}) {
                         <div className='flex flex-col items-center justify-between min-h-[250px] w-full'>
                             <div className='flex gap-2 items-center justify-center w-full border-y border-t-2 border-white py-5'>
                                 <h1 className={`${menuOptionClasses}`}>
-                                    <Link to='/'>CATÁLOGO</Link>
+                                    <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_CATALOG)} to='/'>CATÁLOGO</Link>
                                 </h1>                    
                             </div>
                             <div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
@@ -49,11 +49,14 @@ export default function Header({height}) {
                             </div>
                             {isLoggedIn ? (<><div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
                                 <h1 className={`${menuOptionClasses}`}>
-                                    <Link to='/profile'>MI PERFIL</Link>
+                                    <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_PROFILE)} to='/profile'>MI PERFIL</Link>
                                 </h1>
                             </div>
                             <div className='flex gap-2 items-center justify-center border-y border-b-2 w-full border-white py-5'>
-                                <h1 className={`${menuOptionClasses}`} onClick={() => dispatch(logout())}>
+                                <h1 className={`${menuOptionClasses}`} onClick={() => {
+                                    dispatch(logout()); 
+                                    Mixpanel.track(Mixpanel.TYPES.CLOSE_SESSION);
+                                    }}>
                                     CERRAR SESIÓN
                                 </h1>
                             </div> </>) :
@@ -69,7 +72,7 @@ export default function Header({height}) {
                 <div className='hidden space-x-8 lg:flex md:flex w-full'>
                     <div className='flex gap-2 items-center justify-center w-1/3 '>
                         <h1 className={`${menuOptionClasses}`}>
-                            <Link to='/'>CATÁLOGO</Link>
+                            <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_CATALOG)} to='/'>CATÁLOGO</Link>
                         </h1> 
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>

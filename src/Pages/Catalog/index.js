@@ -15,6 +15,7 @@ import Label from '../../Components/Label';
 import Spinner from '../../Components/Spinner';
 import { clearState, updateCurrentPage, updateSelectedCategory } from '../../Slices/item/itemSlice';
 import { getLocationById } from '../../utils/constants';
+import Mixpanel from '../../services/mixpanel';
 
 export default function Catalog() {
     const [items, setItems] = useState(null);
@@ -61,6 +62,9 @@ export default function Catalog() {
                 <div onClick={() => setShowMobileCategories(false) } className='fixed top-0 left-0 h-full w-full cursor-pointer' ></div>
                 <div className='fixed top-0 pt-12 h-full w-2/3 bg-[#2E2F2F]'>
                     <Categories defaultCategory={selectedCategory} onClick= {(idCategory) => {
+                        Mixpanel.track(Mixpanel.TYPES.CATEGORIES_FILTERED, {
+                            categoryId: idCategory
+                        })
                         dispatch(updateSelectedCategory({nextCategory: idCategory}));
                         dispatch(updateCurrentPage({nextPage: 0}));
                         setSearchedWord('');
@@ -74,6 +78,9 @@ export default function Catalog() {
                 <div className='flex mt-5 text'>
                     <div className='mr-10 lg:block md:block sm:hidden'>
                         <Categories defaultCategory={selectedCategory} onClick= {(idCategory) => {
+                            Mixpanel.track(Mixpanel.TYPES.CATEGORIES_FILTERED, {
+                                categoryId: idCategory
+                            })
                             dispatch(updateSelectedCategory({nextCategory: idCategory}));
                             dispatch(updateCurrentPage({nextPage: 0}));
                             setSearchedWord('');
@@ -90,6 +97,9 @@ export default function Catalog() {
                             placeholder='Buscar...' 
                             onKeyUp={(evnt) => {
                                 if(evnt.key === 'Enter'){
+                                    Mixpanel.track(Mixpanel.TYPES.SEARCHED_WORDS, {
+                                        searchedWords: evnt.target.value
+                                    })
                                     dispatch(updateCurrentPage({nextPage: 0}));
                                     setSearchedWord(evnt.target.value);
                                 }

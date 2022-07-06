@@ -11,6 +11,7 @@ import Button from '../../Components/Button';
 import Label from '../../Components/Label';
 import Footer from '../../Components/Footer';
 import Header from '../../Components/Header';
+import Mixpanel from '../../services/mixpanel';
 
 export default function Confirmation () {
     const itemsToGive = useSelector((state) => state.exchangeItem.itemsToGive);
@@ -63,10 +64,13 @@ export default function Confirmation () {
                 </div>
                 <div className='flex justify-end gap-4 mt-8 mb-16'>
                     <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Cancelar' onClick={() => {
+                        Mixpanel.track(Mixpanel.TYPES.CANCEL_EXCHANGE);
                         dispatch(clearState());
                         navigate('/');
                     }} backgroundcolor='bg-[#8C8D8D]'/>
-                    <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick={() => dispatch(exchange())}/>
+                    <Button textcolor='text-white' width='lg:w-[180px] md:w-[180px] sm:w-[100%]' height='lg:h-[45px] md:h-[50px] sm:h-[55px]' label='Confirmar' onClick={() => {
+                        Mixpanel.track(Mixpanel.TYPES.CONFIRMATION_EXCHANGE);
+                        dispatch(exchange());}}/>
                 </div>
             </div>)}
             <Footer />
