@@ -63,7 +63,7 @@ export default function ItemSelected () {
     ) 
 
     return (
-        loading ? (<Spinner />) : (
+        loading || item.name === '' ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
             {!localSuccess ? (<AlertMessage message={localErrorMessage} success={false} />) : 

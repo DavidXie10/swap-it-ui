@@ -50,7 +50,7 @@ export default function Confirmation () {
                     </div>
                     <div className={`sm:col-span-5 md:col-span-1 lg:col-span-1 flex justify-center items-center sm:rotate-90 md:rotate-0 lg:rotate-0`}>
                         <img 
-                            src={require('../../Assets/twoWayArrows.png')}
+                            src={'https://ci0137.s3.amazonaws.com/swap-it/uploads/twoWayArrows.png'}
                             alt='Page logo' 
                             className='scale-50'
                         />
