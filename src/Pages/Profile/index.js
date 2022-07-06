@@ -75,7 +75,6 @@ export default function Profile() {
             setEmailErrorMessage('');
         }
         if(user.phoneNumber === '') {
-            console.log('cel: ' + user.phoneNumber);
             isValid = false;
             setPhoneNumberErrorMessage('Por favor ingrese su número de teléfono');
             dispatch(clearState());
