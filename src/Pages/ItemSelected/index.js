@@ -90,7 +90,7 @@ export default function ItemSelected () {
                                             <></>
                                         )
                                 }
-                                <div className='carousel-inner relative overflow-clip container h-[331px]'>
+                                <div className='carousel-inner relative overflow-clip container h-[395px]'>
                                     { 
                                         listItems()
                                     }
