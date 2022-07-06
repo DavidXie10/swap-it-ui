@@ -1,10 +1,10 @@
 import mixpanel from 'mixpanel-browser';
 
-mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN);
+mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN,{debug: true, ignore_dnt: true});
 
 const Mixpanel = {
     identify: (id) => { //track a usuarios
-        mixpanel.identify(id)
+        mixpanel.identify(id);
     },
     alias: (id) => { //track a usuarios no logeados
         mixpanel.alias(id);

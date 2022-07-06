@@ -79,7 +79,11 @@ export default function Header({height}) {
                     </div>
                     <div className='flex gap-2 items-center justify-end w-1/3'>
                         {isLoggedIn ? <p className='text-white'>{userState.user.fullName}</p> : <></>}
-                        <MdPermIdentity onClick={() => { setShowUserMenu(true); Mixpanel.track(Mixpanel.TYPES.OPEN_USER_MENU); }} className={`h-8 w-8 ${menuOptionClasses}`}/>
+                        <MdPermIdentity
+                            onClick={() => { 
+                                Mixpanel.track(Mixpanel.TYPES.OPEN_USER_MENU); 
+                                setShowUserMenu(true); 
+                            }} className={`h-8 w-8 ${menuOptionClasses}`}/>
                         {showUserMenu && (
                             <div>
                                 <div onClick={() => { setShowUserMenu(false); }} className='fixed top-0 left-0 h-full w-full cursor-pointer'></div>
