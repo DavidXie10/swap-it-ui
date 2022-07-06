@@ -4,6 +4,6 @@ export default function BackButton({
     width, height, onClick
 }) {
     return (
-        <IoChevronBack className={`${width || "w-5"} ${height || "h-5"} cursor-pointer`} onClick={onClick || ''}/>
+        <IoChevronBack className={`${width || 'w-10'} ${height || 'h-10'} cursor-pointer hover:text-[#51e5ff]`} onClick={onClick || ''}/>
     )
 }

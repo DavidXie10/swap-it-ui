@@ -1,14 +1,15 @@
-import Logo from '../../Components/Logo'
-import Input from '../../Components/Input'
-import Button from '../../Components/Button';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { postLogin } from '../../Slices/user/requests/postLogin';
 import Mixpanel from '../../services/mixpanel';
+import { clearState } from '../../Slices/user/userSlice';
+import Logo from '../../Components/Logo';
+import Input from '../../Components/Input';
+import Button from '../../Components/Button';
 
 export default function Login() {
-    const containerClases = "flex w-full justify-center flex-wrap";
+    const containerClases = 'flex w-full justify-center flex-wrap';
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [localErrorMessage, setLocalErrorMessage] = useState('');
@@ -17,14 +18,37 @@ export default function Login() {
     const errorMessage = useSelector((state) => state.user.errorMessage);
 
     const isValidEmail = (email) => {
-        return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     };
       
     const dispatch = useDispatch();
 
-    // TODO: Change route
+    const login = () => {
+        Mixpanel.track(Mixpanel.TYPES.LOGIN_ATTEMPT)
+        if(email && password){
+            if(!isValidEmail(email)) {
+                dispatch(clearState());
+                setLocalErrorMessage('Ingrese una dirección de correo válida');
+            } else if(password.length < 8){
+                dispatch(clearState());
+                setLocalErrorMessage('La contraseña debe contener mínimo 8 caracteres');
+            } else{
+                setLocalErrorMessage('');
+                dispatch(postLogin({email, password}));
+            }
+        }else{
+            setLocalErrorMessage('Debe completar todos los campos');
+            dispatch(clearState());
+        }
+
+    }
+
+    useEffect(()=>{
+        dispatch(clearState());
+    },[dispatch])
+
     return isLoggedIn ? (
-        <Navigate to='/item/new'/>
+        <Navigate to='/'/>
     ) : (
   <div className={`pt-[20vh] ${containerClases} bg-[#2e2f2f] h-screen w-screen`}>
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[10vh] lg:mb-2 md:mb-4 sm:mb-7`}>
@@ -35,33 +59,23 @@ export default function Login() {
                     <Input id='user' placeholder='Ingrese su correo' type='email' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} customMessage={'Ingrese una dirección de correo válida'} onChange={(event) => setEmail(event.target.value)}/>
                 </div>
                 <div className={`${containerClases} w-[360px]`}>
-                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} eyeTopPosition='top-3' onChange={(event) => setPassword(event.target.value)} />
+                    <Input id='password' placeholder='Ingrese su contraseña' type='password' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} onChange={(event) => setPassword(event.target.value)} onKeyUp={(evnt) => {
+                                if(evnt.key === "Enter"){
+                                    login();
+                                }}
+                            } />
                 </div>
             </div>
 
             <div className={`flex w-full justify-center`}>
-                {errorMessage && <span className="text-red-500 sm:mt-4">{errorMessage}</span>}
+                {errorMessage && <span className='text-red-500 sm:mt-4'>{errorMessage}</span>}
             </div>
             <div className={`flex w-full justify-center`}>
-                {localErrorMessage && <span className="text-red-500">{localErrorMessage}</span>}
+                {localErrorMessage && <span className='text-red-500'>{localErrorMessage}</span>}
             </div>
 
             <div className={`${containerClases} lg:h-[20vh] md:h-[20vh] sm:h-[15vh]`}>
-                <Button width='w-[360px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} label='Ingresar' onClick={() => {
-                    Mixpanel.track(Mixpanel.TYPES.LOGIN_ATTEMPT)
-                    if(email && password){
-                        if(password.length < 8) {
-                            setLocalErrorMessage('La contraseña debe contener mínimo 8 caracteres');
-                        } else if(!isValidEmail(email)){
-                            setLocalErrorMessage('Ingrese una dirección de correo válida');
-                        } else{
-                            setLocalErrorMessage('');
-                            dispatch(postLogin({email, password}));
-                        }
-                    }else{
-                        setLocalErrorMessage('Debe completar todos los campos');
-                    }
-                }}/>
+                <Button width='w-[360px]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px]'} textcolor='text-white' label='Ingresar' onClick={login}/>
             </div>
         </div>    
     )

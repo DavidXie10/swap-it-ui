@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { itemReducers } from "./reducers";
-import { createItem } from "./requests/createItem";
-import { editItem } from "./requests/editItem"
+import { createSlice } from '@reduxjs/toolkit';
+import { itemReducers } from './reducers';
+import { createItem } from './requests/createItem';
+import { editItem } from './requests/editItem';
 
 const onProcessedItemFullfiled = (state, action) => {
     if (action.payload.error) {
@@ -26,6 +26,8 @@ const itemSlice = createSlice({
         item: null,
         success: false,
         errorMessage: '',
+        currentPage: 0,
+        selectedCategory: 0
     },
     reducers: itemReducers,
     extraReducers(builder){
@@ -37,6 +39,6 @@ const itemSlice = createSlice({
     }
 })
 
-export const { toggleSuccess, clearState } = itemSlice.actions;
+export const { toggleSuccess, clearState, updateCurrentPage, updateSelectedCategory } = itemSlice.actions;
 
 export default itemSlice.reducer;

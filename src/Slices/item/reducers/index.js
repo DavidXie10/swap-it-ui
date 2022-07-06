@@ -11,4 +11,10 @@ export const itemReducers = {
     clearItem: (state) => {
         state.item = null;
     },
+    updateCurrentPage: (state, action) => {
+        state.currentPage = action.payload.nextPage
+    },
+    updateSelectedCategory: (state, action) => {
+        state.selectedCategory = action.payload.nextCategory
+    },
 }

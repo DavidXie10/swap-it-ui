@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import AlertMessage from '../../Components/AlertMessage'
-import Button from '../../Components/Button'
-import CloseButton from '../../Components/CloseButton'
-import DragAndDrop from '../../Components/DragAndDrop'
-import Footer from '../../Components/Footer'
-import Header from '../../Components/Header'
-import Input from '../../Components/Input'
-import Label from '../../Components/Label'
-import Spinner from '../../Components/Spinner'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import AlertMessage from '../../Components/AlertMessage';
+import Button from '../../Components/Button';
+import CloseButton from '../../Components/CloseButton';
+import DragAndDrop from '../../Components/DragAndDrop';
+import Footer from '../../Components/Footer';
+import Header from '../../Components/Header';
+import Input from '../../Components/Input';
+import Label from '../../Components/Label';
+import Spinner from '../../Components/Spinner';
+import BackButton from '../../Components/BackButton';
 import { createItem } from '../../Slices/item/requests/createItem';
 import { editItem } from '../../Slices/item/requests/editItem';
-import { setLoading, unsetLoading } from '../../Slices/app/appSlice'
-import {clearState} from '../../Slices/item/itemSlice'
+import { setLoading, unsetLoading } from '../../Slices/app/appSlice';
+import { clearState } from '../../Slices/item/itemSlice';
 
 export default function ItemForm() {
     const { id } = useParams();
@@ -34,11 +35,13 @@ export default function ItemForm() {
     const errorMessage = useSelector ( (state) => state.item.errorMessage);
     const user = useSelector( (state) => state.user.user);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(clearState());
         const fetchItem = async (itemId) => {
-            const itemFetch = await fetch(`http://localhost:8000/items/${itemId}`);
+            const itemFetch = await fetch(`${process.env.REACT_APP_API_URL}/items/${itemId}`);
             const itemJSON = await itemFetch.json();
             if(itemFetch.status !== 200){
                 setLocalErrorMessage(itemJSON.message);
@@ -115,8 +118,8 @@ export default function ItemForm() {
                 htmlImages.push(
                     <div className='mr-3 mt-2 w-fit relative inline-block' key={file}> 
                         <img src={fileType ? URL.createObjectURL(images[file]) : images[file]} alt={`Foto del nuevo artículo`} width={'200px'} height={'80px'}/>    
-                        <div className="absolute top-0 right-0" onClick={() => {removeFile(file)}} >
-                            <CloseButton width="w-8" height="h-8" textColor={'text-[#51e5ff]'}/> 
+                        <div className='absolute top-0 right-0' onClick={() => {removeFile(file)}} >
+                            <CloseButton width='w-8' height='h-8' textColor={'text-[#51e5ff]'}/> 
                         </div>
                     </div>
                 );
@@ -155,12 +158,13 @@ export default function ItemForm() {
         loading ? (<Spinner />) : (
         <div className='flex min-h-screen flex-col justify-between'>
             <Header />
-            {errorMessage ? <AlertMessage message={errorMessage} success={false} /> : <></>}
+            {errorMessage ? <AlertMessage message={errorMessage} success={false} buttonType='back'/> : <></>}
             {success ? (
-                <AlertMessage success={true} message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonMessage={'Regresar al catálogo'}/>) :  localErrorMessage ? <AlertMessage success={false} message={localErrorMessage} /> :   
+                <AlertMessage success={true} message={`${id === 'new' ? 'Artículo creado exitosamente' : 'Artículo editado exitosamente'}`} buttonType='back' buttonMessage={'Regresar al catálogo'} showButton={true}/>) :  localErrorMessage ? <AlertMessage success={false} message={localErrorMessage}  buttonType='back'/> :   
             (<form className='p-8 w-full sm:px-6 md:px-8 lg:px-16 mb-2'>
-                <div className='flex w-full'>
-                    <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`} width='w-full' height='h-full' size='lg:text-4xl md:text-4xl sm:text-2xl' />
+                <div className='flex flex-row items-center w-full mb-16 pt-6 justify-between'>
+                    <Label text={`${id === 'new' ? 'Agregar artículo' : 'Editar artículo'}`}  width='basis-3/4' height='h-full' textposition='text-left' size='lg:text-4xl md:text-4xl sm:text-2xl' font='font-bold'/>
+                    <BackButton width='justify-self-end w-10' onClick={() => navigate('/myItems') } ></BackButton>
                 </div>
                 <div className='mt-8 mb-5 w-full'>
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
@@ -169,7 +173,7 @@ export default function ItemForm() {
                                 <Input id={'name'} placeholder='Ingrese el nombre del artículo' width='w-full' marginBottom={'mb-0'} onChange={(evt) => handleChange('name', evt.target.value)} value={item.name}/>             
                             </div>
                             <div className='pt-2'>
-                                {nameErrorMessage && <p className="text-red-500 font-bold">{nameErrorMessage}</p>}
+                                {nameErrorMessage && <p className='text-red-500 font-bold'>{nameErrorMessage}</p>}
                             </div>
                         </div>
                         <div className='px-4'></div>
@@ -178,27 +182,27 @@ export default function ItemForm() {
                                 <input id='acquisitionDate' type='date' min='1997-01-01' max={getCurrentDate()} className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid mb-0 border-gray-600' onChange={(evt) => handleChange('acquisitionDate', evt.target.value)} value={item.acquisitionDate}/>
                             </div>
                             <div className='pt-2'>
-                                {acquisitionDateErrorMessage && <p className="text-red-500 font-bold">{acquisitionDateErrorMessage}</p>}
+                                {acquisitionDateErrorMessage && <p className='text-red-500 font-bold'>{acquisitionDateErrorMessage}</p>}
                             </div>
                         </div>
                     </div>
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex w-full sm:flex-wrap mb-4'>
                             <div className='flex w-full'>
-                                <select id={'location'} value={item.location} className="w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none" onChange={(evt) => handleChange("location", parseInt(evt.target.value)) } >
-                                    <option disabled className="w-full" label="Seleccione la provincia donde se encuentra" value={-1} ></option>
-                                    <option className="w-full" label="San José" value={1}></option>
-                                    <option className="w-full" label="Alajuela" value={2}></option>
-                                    <option className="w-full" label="Cartago" value={3}></option>
-                                    <option className="w-full" label="Heredia" value={4}></option>
-                                    <option className="w-full" label="Guanacaste" value={5}></option>
-                                    <option className="w-full" label="Puntarenas" value={6}></option>
-                                    <option className="w-full" label="Limón" value={7}></option>
+                                <select id={'location'} value={item.location} className='w-full h-10 px-4 rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600 bg-white appearance-none' onChange={(evt) => handleChange('location', parseInt(evt.target.value)) } >
+                                    <option disabled className='w-full' label='Seleccione la provincia donde se encuentra' value={-1} ></option>
+                                    <option className='w-full' label='San José' value={1}></option>
+                                    <option className='w-full' label='Alajuela' value={2}></option>
+                                    <option className='w-full' label='Cartago' value={3}></option>
+                                    <option className='w-full' label='Heredia' value={4}></option>
+                                    <option className='w-full' label='Guanacaste' value={5}></option>
+                                    <option className='w-full' label='Puntarenas' value={6}></option>
+                                    <option className='w-full' label='Limón' value={7}></option>
                                 </select>     
                             </div>    
 
                             <div className='pt-2'>
-                                {locationErrorMessage && <p className="text-red-500 font-bold">{locationErrorMessage}</p>}
+                                {locationErrorMessage && <p className='text-red-500 font-bold'>{locationErrorMessage}</p>}
                             </div>    
                         </div>
                         <div className='px-4'></div>
@@ -211,7 +215,7 @@ export default function ItemForm() {
                                 </select>
                             </div>
                             <div className='pt-2'>
-                                {itemStateErrorMessage && <p className="text-red-500 font-bold">{itemStateErrorMessage}</p>}
+                                {itemStateErrorMessage && <p className='text-red-500 font-bold'>{itemStateErrorMessage}</p>}
                             </div>
                         </div>
                     </div>
@@ -231,7 +235,7 @@ export default function ItemForm() {
                                 <option className='w-full' label='Otros' value={10}></option>
                             </select>
                             <div className='pt-2'>
-                                {categoryErrorMessage && <p className="text-red-500 font-bold">{categoryErrorMessage}</p>}
+                                {categoryErrorMessage && <p className='text-red-500 font-bold'>{categoryErrorMessage}</p>}
                             </div>
                         </div>
                     </div>
@@ -241,7 +245,7 @@ export default function ItemForm() {
                         </div>
                     </div>
                     <div className='pt-2 mb-4'>
-                        {descriptionErrorMessage && <p className="text-red-500 font-bold">{descriptionErrorMessage}</p>}
+                        {descriptionErrorMessage && <p className='text-red-500 font-bold'>{descriptionErrorMessage}</p>}
                     </div>
                     <div className='lg:flex md:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex w-full sm:flex-wrap'>
@@ -249,14 +253,14 @@ export default function ItemForm() {
                         </div>
                     </div>
                     <div className='pt-2 mb-4'>
-                        {wishlistErrorMessage && <p className="text-red-500 font-bold">{wishlistErrorMessage}</p>}
+                        {wishlistErrorMessage && <p className='text-red-500 font-bold'>{wishlistErrorMessage}</p>}
                     </div>
                     <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                         <div className='lg:flex md:flex sm:flex lg:flex-nowrap md:flex-nowrap w-full sm:flex-wrap'>
                             <DragAndDrop handleChange={handleUploadedFile} />
                         </div>
                     </div>
-                    {fileErrorMessage && <span className="text-red-500 sm:mt-4 font-bold">{fileErrorMessage}</span>}
+                    {fileErrorMessage && <span className='text-red-500 sm:mt-4 font-bold'>{fileErrorMessage}</span>}
                     { 
                         <p className='text-[#2e2f2f] font-bold pt-4'> 
                             { Object.keys(fileList).length > 1 || getUrlPhotosLength() > 0 ? `Archivos cargados:` : 'Aún no se han subido archivos'}
