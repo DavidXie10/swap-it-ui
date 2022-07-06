@@ -52,12 +52,12 @@ export default function ItemSelected () {
     const listItems = () => item.photoUrls.map((image) =>
         {if (first){
             first = false;
-            return  <div className='carousel-item active relative float-left lg:w-[47%] md:w-[50%] sm:w-[61%]' key={image}>
-                        <img src={image} alt={'Imagen artículo de catálogo'}/>
+            return  <div className='carousel-item active relative float-left w-full' key={image}>
+                        <img src={image} alt={'Imagen artículo de catálogo'} className='m-auto'/>
                     </div>;
         } else {
-            return  <div className='carousel-item relative float-left lg:w-[47%] md:w-[50%] sm:w-[61%]' key={image}>
-                        <img src={image} alt={'Imagen artículo de catálogo'}/>
+            return  <div className='carousel-item relative float-left w-full' key={image}>
+                        <img src={image} alt={'Imagen artículo de catálogo'} className='m-auto'/>
                     </div>
         } }
     ) 
@@ -120,7 +120,7 @@ export default function ItemSelected () {
                         <Label text={`Fecha de adquisición: ${item.acquisitionDate || 'Acquisition not found'}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
                         <Label text={`Descripción: ${item.description || 'Desciption not found'}`} width={'lg:col-span-3 md:col-span-3 sm:col-span-7'} height={'row-span-1'} font={'normal'} textposition={'text-left'} size={'text-md'}></Label>
                         {
-                            (user && (user.id !== item.ownerUserId)) ? (<Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0'} label='Intercambiar' onClick={() => {
+                            (user && (user.id !== item.ownerUserId)) ? (<Button textcolor='text-white' width='lg:col-span-3 md:col-span-3 sm:col-span-7 lg:w-[180px] md:w-[180px] sm:w-[100%]' height={'lg:h-[45px] md:h-[50px] sm:h-[55px] lg:mt-2 md:mt-0 sm:mt-0 self-end'} label='Intercambiar' onClick={() => {
                                 dispatch(addItemToReceive(item));
                                 navigate(`/item/${id}/chooseExchangeProduct`)                            
                             }
