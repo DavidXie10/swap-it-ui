@@ -25,7 +25,6 @@ export default function ItemSelected () {
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(clearState());
         const fetchItem = async (id) => {
             const itemFetch = await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`);
             const itemJSON = await itemFetch.json();
@@ -44,6 +43,7 @@ export default function ItemSelected () {
             }
         } 
         dispatch(setLoading());
+        dispatch(clearState());
         fetchItem(id);
         dispatch(unsetLoading());
     }, [dispatch, id]);
@@ -52,12 +52,12 @@ export default function ItemSelected () {
     const listItems = () => item.photoUrls.map((image) =>
         {if (first){
             first = false;
-            return  <div className='carousel-item active relative float-left w-full' key={image}>
-                        <img src={image} alt={'Imagen artículo de catálogo'} className='m-auto'/>
+            return  <div className='carousel-item active relative float-left w-full h-[inherit]' key={image}>
+                        <img src={image} alt={'Imagen artículo de catálogo'} className='m-auto h-[inherit]'/>
                     </div>;
         } else {
-            return  <div className='carousel-item relative float-left w-full' key={image}>
-                        <img src={image} alt={'Imagen artículo de catálogo'} className='m-auto'/>
+            return  <div className='carousel-item relative float-left w-full h-[inherit]' key={image}>
+                        <img src={image} alt={'Imagen artículo de catálogo'} className='m-auto h-[inherit]'/>
                     </div>
         } }
     ) 
@@ -90,7 +90,7 @@ export default function ItemSelected () {
                                             <></>
                                         )
                                 }
-                                <div className='carousel-inner relative overflow-clip container'>
+                                <div className='carousel-inner relative overflow-clip container h-[331px]'>
                                     { 
                                         listItems()
                                     }
