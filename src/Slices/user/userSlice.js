@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { deleteLogout, onDeleteLogoutFulfilled, onDeleteLogoutRejected } from './requests/deleteLogout';
 import { onPostLoginFulfilled, onPostLoginRejected, postLogin } from './requests/postLogin';
 import { onUpdateUserFulfilled, onUpdateUserRejected, updateUser } from './requests/updateUser';
 
@@ -15,11 +16,11 @@ const userSlice = createSlice({
             state.isUpdated = false;
             state.errorMessage = '';
         },
-        logout: (state) => {
+        invalidSession: (state) => {
             state.user = null;
             state.isLoggedIn = false;
             state.errorMessage = '';
-            state.isUpdated = false;
+            state.isUpdated = false;    
         }
     },
     extraReducers (builder){
@@ -28,9 +29,11 @@ const userSlice = createSlice({
             .addCase(postLogin.rejected, onPostLoginRejected)
             .addCase(updateUser.fulfilled, onUpdateUserFulfilled)
             .addCase(updateUser.rejected, onUpdateUserRejected)
+            .addCase(deleteLogout.fulfilled, onDeleteLogoutFulfilled)
+            .addCase(deleteLogout.rejected, onDeleteLogoutRejected)
     }
 })
 
-export const { logout, clearState } = userSlice.actions;
+export const { clearState, invalidSession } = userSlice.actions;
 
 export default userSlice.reducer;

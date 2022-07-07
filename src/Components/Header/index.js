@@ -7,7 +7,7 @@ import Logo from '../Logo';
 import UserMenu from '../UserMenu';
 import CloseButton from '../CloseButton';
 import {menuOptionClasses} from '../../utils/constants';
-import { logout } from '../../Slices/user/userSlice';	
+import { deleteLogout } from '../../Slices/user/requests/deleteLogout';
 import Mixpanel from '../../services/mixpanel';
 
 export default function Header({height}) {
@@ -54,7 +54,7 @@ export default function Header({height}) {
                             </div>
                             <div className='flex gap-2 items-center justify-center border-y border-b-2 w-full border-white py-5'>
                                 <h1 className={`${menuOptionClasses}`} onClick={() => {
-                                    dispatch(logout()); 
+                                    dispatch(deleteLogout()); 
                                     Mixpanel.track(Mixpanel.TYPES.CLOSE_SESSION);
                                     }}>
                                     CERRAR SESIÓN

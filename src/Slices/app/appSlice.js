@@ -24,63 +24,26 @@ const appSlice = createSlice({
     },
     extraReducers(builder){
         builder
-            .addCase(postLogin.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(postLogin.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(postLogin.rejected, (state) => {
-                state.loading = false;
-            })
-            .addCase(createItem.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(createItem.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(createItem.rejected, (state) => {
-                state.loading = false;
-            })
-            .addCase(editItem.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(editItem.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(editItem.rejected, (state) => {
-                state.loading = false;
-            })
-            .addCase(updateUser.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(updateUser.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(updateUser.rejected, (state) => {
-                state.loading = false;
-            })
-            .addCase(getMyItems.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(getMyItems.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(getMyItems.rejected, (state) => {
-                state.loading = false;
-            })
-            .addCase(exchange.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(exchange.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(exchange.rejected, (state) => {
-                state.loading = false;
-            })
+            .addCase(postLogin.pending, (state) => { state.loading = true; })
+            .addCase(postLogin.fulfilled, (state) => { state.loading = false; })
+            .addCase(postLogin.rejected, (state) => { state.loading = false; })
+            .addCase(createItem.pending, (state) => { state.loading = true; })
+            .addCase(createItem.fulfilled, (state) => { state.loading = false; })
+            .addCase(createItem.rejected, (state) => { state.loading = false; })
+            .addCase(editItem.pending, (state) => { state.loading = true; })
+            .addCase(editItem.fulfilled, (state) => { state.loading = false; })
+            .addCase(editItem.rejected, (state) => { state.loading = false; })
+            .addCase(updateUser.pending, (state) => { state.loading = true; })
+            .addCase(updateUser.fulfilled, (state) => { state.loading = false; })
+            .addCase(updateUser.rejected, (state) => { state.loading = false; })
+            .addCase(getMyItems.pending, (state) => { state.loading = true; })
+            .addCase(getMyItems.fulfilled, (state) => { state.loading = false; })
+            .addCase(getMyItems.rejected, (state) => { state.loading = false; })
+            .addCase(exchange.pending, (state) => { state.loading = true; })
+            .addCase(exchange.fulfilled, (state) => { state.loading = false; })
+            .addCase(exchange.rejected, (state) => { state.loading = false; })
     }
 })
 
 export const {toggleLoading, setLoading, unsetLoading} = appSlice.actions;
-
 export default appSlice.reducer;

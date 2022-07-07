@@ -1,7 +1,7 @@
 import Mixpanel from '../../services/mixpanel';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../Slices/user/userSlice';	
+import { deleteLogout } from '../../Slices/user/requests/deleteLogout';
 
 export default function UserMenu(){
     const dispatch = useDispatch();	
@@ -19,7 +19,7 @@ export default function UserMenu(){
                     </div>
                     <div className='py-2 pl-4 hover:bg-gray-100'>
                         <p className='text-[#2E2F2F] cursor-pointer' onClick={() => {
-                            dispatch(logout());
+                            dispatch(deleteLogout());
                             Mixpanel.track(Mixpanel.TYPES.CLOSE_SESSION);
                             }}>
                             Cerrar Sesión
