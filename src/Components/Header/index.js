@@ -29,10 +29,13 @@ export default function Header({height}) {
                 <section className='flex lg:hidden md:hidden'>
                     <AiOutlineMenu onClick={() => setIsNavOpen((prev) => !prev)} className='h-8 w-8 cursor-pointer space-y-2 text-white hover:text-[#51e5ff] '/>
 
-                    <div className={isNavOpen ? 'bg-[#2E2F2F] absolute w-full h-[100vh] top-0 left-0 z-10 flex flex-col justify-evenly items-center' : 'hidden'}>
+                    <div className={isNavOpen ? 'fixed bg-[#2E2F2F] w-full h-[100vh] top-0 left-0 z-10 flex flex-col justify-evenly items-center' : 'hidden'}>
                         <div
                             className='absolute top-0 right-0 px-8 py-8'
-                            onClick={() => setIsNavOpen(false)}
+                            onClick={() => {
+                                window.scrollTo(0, 0);
+                                setIsNavOpen(false);
+                            }}
                         >
                             <CloseButton width='w-8' height='h-8'/> 
                         </div>
