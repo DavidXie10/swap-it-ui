@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { RiEyeLine, RiEyeCloseLine, RiSearch2Line } from 'react-icons/ri';
 
 export default function Input({
-    id, placeholder, type, value, passwordState, width, height, onChange, marginBottom, onKeyUp, search
+    id, placeholder, type, value, passwordState, width, height, onChange, marginBottom, onKeyUp, search, defaultValue
 }) {
     const [showPassword, setShowPassword] = useState(passwordState || false);
     const toggleSetPassword = () => {
@@ -14,6 +14,7 @@ export default function Input({
             <input 
                 id={id || ''} 
                 type={type === 'password' && showPassword ? 'text' : type || 'text'} 
+                defaultValue={defaultValue}
                 value={value}
                 placeholder={placeholder} 
                 className={`${width || 'w-full'} ${height || 'h-10'} px-4 ${marginBottom || 'mb-5'} rounded-md focus:outline-none text-lg font-semibold border border-solid border-gray-600`}

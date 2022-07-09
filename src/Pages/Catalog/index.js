@@ -90,11 +90,10 @@ export default function Catalog() {
                     <div className='w-full'>
                         <div className='flex items-center w-full'>
                             <RiEqualizerLine className='text-3xl top-[10px] mr-2 lg:hidden md:hidden cursor-pointer' onClick={() => setShowMobileCategories(true) }/>
-                            <Input 
-                            type='text' 
+                            <Input  
                             search={true}
                             marginBottom='mb-0' 
-                            value={searchedWord}
+                            defaultValue={searchedWord}
                             placeholder='Buscar...' 
                             onKeyUp={(evnt) => {
                                 if(evnt.key === 'Enter'){
