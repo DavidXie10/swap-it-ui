@@ -14,10 +14,10 @@ export default function Footer({height}) {
                 <div className='w-1/3 lg:flex md:flex sm:hidden'></div>
 
                 <div className='lg:w-1/3 flex md:w-2/3 flex-col justify-center sm:w-1/2'>   
-                    <p className='text-white flex justify-end lg:text-2xl md:text-2xl sm:text-lg'>San Pedro, San José</p>
-                    <p className='text-white lg:text-2xl md:text-2xl sm:text-lg flex justify-end'>2451-8181</p>
-                    <p className='text-white lg:text-2xl md:text-2xl sm:text-lg flex justify-end'>8793-0495</p>
-                    <a href='mailto:swapitecci@gmail.com' className='text-white lg:text-2xl md:text-2xl sm:text-lg flex justify-end'>swapitecci@gmail.com</a>
+                    <p className='text-white flex justify-end lg:text-xl md:text-xl sm:text-lg'>San Pedro, San José</p>
+                    <p className='text-white lg:text-xl md:text-xl sm:text-lg flex justify-end'>2451-8181</p>
+                    <p className='text-white lg:text-xl md:text-xl sm:text-lg flex justify-end'>8793-0495</p>
+                    <a href='mailto:swapitecci@gmail.com' className='text-white lg:text-xl md:text-xl sm:text-lg flex justify-end'>swapitecci@gmail.com</a>
                 </div>
             </div>
         </div>
