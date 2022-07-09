@@ -78,7 +78,7 @@ export default function Profile() {
             isValid = false;
             setPhoneNumberErrorMessage('Por favor ingrese su número de teléfono');
             dispatch(clearState());
-        } else if (!isValidPhoneNumber(user.phoneNumber)) {
+        } else if (!isValidPhoneNumber(user.phoneNumber) || user.phoneNumber.length > 8) {
             isValid = false;
             setPhoneNumberErrorMessage('Ingrese un número de teléfono válido');
             dispatch(clearState());
