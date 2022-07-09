@@ -39,17 +39,23 @@ export default function Header({height}) {
                         <div className='flex flex-col items-center justify-between min-h-[250px] w-full'>
                             <div className='flex gap-2 items-center justify-center w-full border-y border-t-2 border-white py-5'>
                                 <h1 className={`${menuOptionClasses}`}>
-                                    <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_CATALOG)} to='/'>CATÁLOGO</Link>
+                                    <Link onClick={() => {
+                                        setIsNavOpen(false)
+                                        Mixpanel.track(Mixpanel.TYPES.GO_TO_CATALOG)
+                                    }} to='/'>CATÁLOGO</Link>
                                 </h1>                    
                             </div>
                             <div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
                                 <h1 className={`${menuOptionClasses}`}>
-                                    <Link to={`${isLoggedIn ? '/myItems' : '/login'}`}>MIS ARTÍCULOS</Link>
+                                    <Link onClick={ () => setIsNavOpen(false)} to={`${isLoggedIn ? '/myItems' : '/login'}`}>MIS ARTÍCULOS</Link>
                                 </h1>
                             </div>
                             {isLoggedIn ? (<><div className='flex gap-2 items-center justify-center border-y w-full border-white py-5'>
                                 <h1 className={`${menuOptionClasses}`}>
-                                    <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_PROFILE)} to='/profile'>MI PERFIL</Link>
+                                    <Link onClick={() => {
+                                        setIsNavOpen(false);
+                                        Mixpanel.track(Mixpanel.TYPES.GO_TO_PROFILE)
+                                    }} to='/profile'>MI PERFIL</Link>
                                 </h1>
                             </div>
                             <div className='flex gap-2 items-center justify-center border-y border-b-2 w-full border-white py-5'>
