@@ -11,7 +11,7 @@ export default function MyItem ({
                 <div className={`lg:row-span-6 md:row-span-6 sm:row-span-5 col-span-2 ${backgroundcolor || ''} flex justify-center`}>
                     { image ? <img className={`lg:w-[30%] md:w-[70%] sm:w-[80%] lg:max-h-full md:max-h-full sm:max-h-[300px] `} src={image} alt={'Foto del artículo a intercambiar'}/> : <p className='row-span-6 text-center'>Foto no encontrada</p>}
                 </div>
-                <Label text={title || 'Title not found'} width={'col-span-3'} height={'lg:row-span-2 md:row-span-2 sm:row-span-1'} font={'font-bold'} textposition={'text-left'} backgroundcolor={backgroundcolor || ''}></Label>
+                <Label text={title || 'Title not found'} width={'col-span-3'} height={'lg:row-span-2 md:row-span-2 sm:row-span-1'} font={'font-bold'} textposition={'text-left'} backgroundcolor={backgroundcolor || ''} size={'lg:text-4xl md:text-4xl sm:text-2xl'}></Label>
                 <Label text={`Estado: ${state || 'State not found'}`} width={'col-span-3'} height={'row-span-[0.5]'} font={'normal'}textposition={'text-left'} backgroundcolor={backgroundcolor || ''} size={'text-lg'}></Label>
                 <Label text={`Ubicación: ${address || 'Address not found'}`} width={'col-span-3'} height={'row-span-[0.5]'} font={'normal'} textposition={'text-left'} backgroundcolor={backgroundcolor || ''} size={'text-lg'}></Label>
                 <Label text={`Fecha de adquisición: ${acquisition || 'Acquisition not found'}`} height={'row-span-1'} width={'col-span-3'} font={'normal'} textposition={'text-left'} backgroundcolor={backgroundcolor || ''} size={'text-lg'}></Label>
