@@ -78,7 +78,7 @@ export default function Header({height}) {
                     </div>
                 </section>
 
-                <div className='hidden space-x-8 lg:flex md:flex w-full'>
+                <div className='hidden space-x-8 lg:flex md:flex w-full' >
                     <div className='flex gap-2 items-center justify-center w-1/3 '>
                         <h1 className={`${menuOptionClasses}`}>
                             <Link onClick={() => Mixpanel.track(Mixpanel.TYPES.GO_TO_CATALOG)} to='/'>CATÁLOGO</Link>

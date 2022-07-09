@@ -9,7 +9,7 @@ export default function UserMenu(){
     const navigate = useNavigate();
 
     return (
-        <div className='bg-white fixed right-20 top-16 h-auto w-[200px] rounded shadow py-2 divide-y divide-gray-100'>
+        <div className='bg-white right-20 top-16 h-auto w-[200px] rounded shadow py-2 divide-y divide-gray-100 absolute'>
             {
                 isLoggedIn ? (<>
                     <div className='py-2 pl-4 hover:bg-gray-100'>
